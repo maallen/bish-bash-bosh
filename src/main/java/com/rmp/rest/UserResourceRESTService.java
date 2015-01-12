@@ -39,6 +39,9 @@ public class UserResourceRESTService {
         return (User) user;
     }
 	
+	/**
+	 * @return a list of users users
+	 */
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<DBObject> listAllUserss() {
