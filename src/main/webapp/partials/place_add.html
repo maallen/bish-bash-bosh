@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<div>
+    <form name="regForm" class="form-horizontal" ng-submit="login(newMember.email, newMember.password)">
+        <fieldset>
+            <legend>Place Add:</legend>
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Job Title:</label>
+                <div class="col-sm-10">
+                    <input type="email" name="email" id="email" ng-model="newMember.email" placeholder="Job Title" required />
+                    <span class="error help-block" ng-show="regForm.email.$error.required">required</span>
+                    <span class="error help-block" ng-show="errors.email">{{errors.email}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber" class="col-sm-2 control-label">Description:</label>
+                <div class="col-sm-10">
+                    <textarea ng-model="newMember.password" placeholder="Describe the job..." required /></textarea>
+                </div>
+            </div>
+            
+            <ul ng-hide="!successMessages" class="success">
+                <li ng-repeat="message in successMessages">{{message}}</li>
+            </ul>
+
+            <ul ng-hide="!errorMessages" class="error">
+                <li ng-repeat="message in errorMessages">{{message}}</li>
+            </ul>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" ng-disabled="regForm.$invalid" id="register" value="Place Add" class="btn btn-success" />
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

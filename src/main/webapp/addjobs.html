@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<script src="WEB-INF/lib/angular.min.js"></script>
+		<script src="WEB-INF/lib/underscore-min.js"></script>
+		<script type="text/javascript">
+			function TodoCtrl($scope){
+
+				$scope.jobs = [{text: 'Learn AngularJS', done:false}, {text:'Build an app', done:false}, {text:'World Domination', done:false}];
+
+				$scope.getTotalJobs = function () {
+					return $scope.jobs.length;
+				};
+
+				$scope.addJob = function(){
+					$scope.jobs.push({text:$scope.formJobText, done:false});
+					$scope.formJobText = "";
+				};
+
+				$scope.clearCompleted = function(){
+					$scope.jobs = _.filter($scope.jobs, function(job){
+						return !job.done;
+					})
+				}
+			}
+		</script>
+		<style>
+			.done-true{
+				text-decoration: line-through;
+				color: grey;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div ng-controller="TodoCtrl">
+			<h2>Total Jobs:{{getTotalJobs()}}</h2>
+			<ul class="unstyled">
+				<li ng-repeat="job in jobs">
+					<input type="checkbox" ng-model="job.done"><span class="done-{{job.done}}">{{job.text}}</span>
+				</li>
+			</ul>
+			<form>
+				<input type="text" ng-model="formJobText" ng-model-instant> 
+				<button ng-click="addJob()">Add</button>
+			</form>	
+
+			<button ng-click="clearCompleted()">Clear Completed</button>
+
+		</div>
+	</body>
+
+</html>
