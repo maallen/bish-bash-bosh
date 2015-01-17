@@ -21,11 +21,15 @@ import com.rpm.caash.MongoDBGetter;
 @Path("/members")
 public class UserResourceRESTService {
 	
+	
+	/**
+	 * @return a user from MongoDB database
+	 */
 	@GET
     @Path("/getUsers")
     @Produces(MediaType.APPLICATION_JSON)
     public User lookupMemberById() {
-	  
+	
 		DBCollection collection = MongoDBGetter.getMongoDb().getCollection("Users");
 		DBObject user = collection.findOne();
 		
