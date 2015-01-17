@@ -1,4 +1,4 @@
-package com.rmp.model;
+package com.rpm.model;
 
 public class User {
 	

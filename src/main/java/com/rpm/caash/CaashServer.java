@@ -15,7 +15,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.rmp.model.Job;
+import com.rpm.model.Job;
 
 @Path("/")
 public class CaashServer {

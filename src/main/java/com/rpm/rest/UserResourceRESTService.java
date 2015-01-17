@@ -1,4 +1,4 @@
-package com.rmp.rest;
+package com.rpm.rest;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -15,8 +15,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.rmp.model.User;
 import com.rpm.caash.MongoDBGetter;
+import com.rpm.model.User;
 
 @Path("/members")
 public class UserResourceRESTService {
