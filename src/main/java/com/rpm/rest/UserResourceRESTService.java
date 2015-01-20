@@ -53,6 +53,9 @@ public class UserResourceRESTService {
     }
 
 	
+	/** Create a User
+	 * @param user
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createMember(User user){
