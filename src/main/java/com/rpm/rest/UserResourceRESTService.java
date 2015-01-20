@@ -44,7 +44,7 @@ public class UserResourceRESTService {
 	 */
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<DBObject> listAllUserss() {
+    public List<DBObject> listAllUsers() {
 		
 		DBCollection collection = MongoDBGetter.getMongoDb().getCollection("Users");
 		DBCursor users = collection.find();

@@ -1,6 +1,7 @@
 package com.rpm.caash;
 
 import java.net.UnknownHostException;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -35,21 +37,21 @@ public class CaashServer {
 	@GET
 	@Path("/getJobs")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getJobs(){
+	public List<DBObject> getJobs(){
 		DB db = getMongoDb();
 		DBCollection collection = db.getCollection("Jobs");
-		DBObject doc = collection.findOne();
-		return doc.toString();
+		DBCursor jobs = collection.find();
+		return jobs.toArray();
 	}
 
 	@POST
 	@Path("/createJob")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createJobs(Job job){
-		DBObject dbJob = new BasicDBObject("id", job.getId())
-				.append("description", job.getDescription())
-				.append("placedBy", job.getPlacedBy())
-				.append("location", job.getLocation());	
+		DBObject dbJob = new BasicDBObject("description", job.getDescription())
+				.append("location", job.getLocation())
+				.append("jobName", job.getJobName())
+				.append("jobPrice", job.getJobPrice());	
 		DB db = getMongoDb();
 		DBCollection collection = db.getCollection("Jobs");
 		collection.insert(dbJob);

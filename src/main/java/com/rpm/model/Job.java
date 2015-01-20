@@ -2,17 +2,11 @@ package com.rpm.model;
 
 public class Job {
 	
-	private int id;
 	private String location;
 	private String description;
-	private String placedBy;
+	private String jobName;
+	private int jobPrice;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getLocation() {
 		return location;
 	}
@@ -25,11 +19,17 @@ public class Job {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getPlacedBy() {
-		return placedBy;
+	public String getJobName() {
+		return jobName;
 	}
-	public void setPlacedBy(String placedBy) {
-		this.placedBy = placedBy;
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+	public int getJobPrice() {
+		return jobPrice;
+	}
+	public void setJobPrice(int jobPrice) {
+		this.jobPrice = jobPrice;
 	}
 	
 	
