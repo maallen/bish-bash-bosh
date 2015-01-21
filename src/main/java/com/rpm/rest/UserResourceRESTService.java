@@ -15,11 +15,13 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.rpm.caash.MongoDBGetter;
+import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.model.User;
 
 @Path("/members")
 public class UserResourceRESTService {
+	
+	private MongoDBApiOperator mongoDBOperator = MongoDBApiOperator.getInstance();
 	
 	
 	/**
@@ -30,7 +32,7 @@ public class UserResourceRESTService {
     @Produces(MediaType.APPLICATION_JSON)
     public User lookupMemberById() {
 	
-		DBCollection collection = MongoDBGetter.getMongoDb().getCollection("Users");
+		DBCollection collection = mongoDBOperator.getCollection("Users");
 		DBObject user = collection.findOne();
 		
         if (user == null) {
@@ -46,7 +48,7 @@ public class UserResourceRESTService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<DBObject> listAllUsers() {
 		
-		DBCollection collection = MongoDBGetter.getMongoDb().getCollection("Users");
+		DBCollection collection = mongoDBOperator.getCollection("Users");
 		DBCursor users = collection.find();
 		
         return users.toArray();
@@ -62,7 +64,7 @@ public class UserResourceRESTService {
 		DBObject dbJob = new BasicDBObject("email", user.getEmail())
 				.append("password", user.getPassword());
 
-		DBCollection collection = MongoDBGetter.getMongoDb().getCollection("Users");
+		DBCollection collection = mongoDBOperator.getCollection("Users");
 		
 		collection.insert(dbJob);
 
@@ -74,7 +76,7 @@ public class UserResourceRESTService {
     public Response logIn(User user) {
 		String returnValue ="Failure ==> User does not exist in the DB";
 		
-		DBCollection collection = MongoDBGetter.getMongoDb().getCollection("Users");
+		DBCollection collection = mongoDBOperator.getCollection("Users");
 		
 		DBCursor cursor = collection.find();
 		

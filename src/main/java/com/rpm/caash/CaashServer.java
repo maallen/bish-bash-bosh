@@ -17,16 +17,13 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.model.Job;
 
 @Path("/")
 public class CaashServer {
 	
-	private static final String CAASH = "caash";
-	
-	private static final String MONGOLAB_DB_URI = "mongodb://root:shroot@ds033419.mongolab.com:33419/caash";
-	
-	private MongoClient mongoClient;
+	private MongoDBApiOperator mongoDBOperator = MongoDBApiOperator.getInstance();
 	
 	@GET
 	@Path("/testHello")
@@ -38,7 +35,7 @@ public class CaashServer {
 	@Path("/getJobs")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DBObject> getJobs(){
-		DB db = getMongoDb();
+		DB db = mongoDBOperator.getMongoDb();
 		DBCollection collection = db.getCollection("Jobs");
 		DBCursor jobs = collection.find();
 		return jobs.toArray();
@@ -52,26 +49,10 @@ public class CaashServer {
 				.append("location", job.getLocation())
 				.append("jobName", job.getJobName())
 				.append("jobPrice", job.getJobPrice());	
-		DB db = getMongoDb();
+		DB db = mongoDBOperator.getMongoDb();
 		DBCollection collection = db.getCollection("Jobs");
 		collection.insert(dbJob);
 	}
-	
-	private DB getMongoDb(){
-		
-		if (mongoClient != null){
-			return mongoClient.getDB(CAASH);
-		}
-		
-		MongoClientURI mongoClientURI = new MongoClientURI(MONGOLAB_DB_URI);
-		try {
-			mongoClient = new MongoClient(mongoClientURI);
-		} catch (UnknownHostException e) {
-			System.out.print("Error retrieving MongoDB Client from MongoLab");
-			e.printStackTrace();
-		}
-		
-		return mongoClient.getDB(CAASH);
-	}
+
 
 }

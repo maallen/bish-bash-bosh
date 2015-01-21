@@ -1,26 +1,41 @@
-package com.rpm.caash;
+package com.rpm.caash.mongodb;
 
 import java.net.UnknownHostException;
 
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
 /**
- * Utility Class to get the MongoDB Database
+ * Operator Class to access and use Mongo database
  */
-public class MongoDBGetter {
+public class MongoDBApiOperator {
 	
 	private static final String CAASH = "caash";
 	
 	private static final String MONGOLAB_DB_URI = "mongodb://root:shroot@ds033419.mongolab.com:33419/caash";
 	
 	private static MongoClient mongoClient;
+	
+	private static MongoDBApiOperator mongoDBApiOperator;
+	
+	private MongoDBApiOperator(){
+		
+	}
+	
+	public static MongoDBApiOperator getInstance(){
+		if(mongoDBApiOperator != null){
+			return mongoDBApiOperator;
+		}
+		
+		return new MongoDBApiOperator();
+	}
 
 	/**
 	 * @return The MongoDB Database
 	 */
-	public static DB getMongoDb(){
+	public DB getMongoDb(){
 			
 		if (mongoClient != null){
 			return mongoClient.getDB(CAASH);
@@ -35,6 +50,15 @@ public class MongoDBGetter {
 		}
 		
 		return mongoClient.getDB(CAASH);
+	}
+	
+	/**
+	 *  
+	 * @param collectionName
+	 * @return DBCollection object for the required MongoDB Collection
+	 */
+	public DBCollection getCollection(String collectionName){
+		return getMongoDb().getCollection(collectionName);
 	}
 	
 }
