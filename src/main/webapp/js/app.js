@@ -1,4 +1,4 @@
-angular.module('kitchensink', [ 'ngRoute', 'membersService','loginService','AuthenticationService','UserService' ])
+angular.module('kitchensink', [ 'ngRoute', 'MembersService','LoginService','AuthenticationService','UserService','JobsService' ])
     .config( [ '$httpProvider','$routeProvider', function($httpProvider, $routeProvider) {
 
         $httpProvider.interceptors.push('ajaxNonceInterceptor');
@@ -8,16 +8,16 @@ angular.module('kitchensink', [ 'ngRoute', 'membersService','loginService','Auth
         when('/home', {
             templateUrl : 'partials/register.html',
             controller : MembersCtrl
-
         }).when('/login', {
             templateUrl : 'partials/login.html',
             controller : LoginCtrl
-        // Add a default route
         })
         .when('/add', {
             templateUrl : 'partials/place_add.html',
             controller : LoginCtrl
-        // Add a default route
+        }).when('/jobsFeed', {
+            templateUrl : 'partials/jobs_feed.html',
+            controller : JobsController
         }).otherwise({
             redirectTo : '/login'
         });

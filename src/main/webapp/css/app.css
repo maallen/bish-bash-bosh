@@ -1,0 +1,11 @@
+#liJobsDiv {
+    background-color: #E2E2E2;
+    border-radius: 10px;
+    outline-offset: 15px;
+    width: 95%;
+}
+#jobsFeedDivDiv{
+	background-color: #FCFCFC;
+    border-radius: 10px;
+    width: 45%;
+}

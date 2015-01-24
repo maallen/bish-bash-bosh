@@ -65,6 +65,30 @@ function MembersCtrl($scope, $http, Members) {
     $scope.orderBy = 'email';
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function JobsController($scope, $http, Jobs) {
+
+    // Define a refresh function, that updates the data from the REST service
+    $scope.refresh = function() {
+        $scope.jobs = Jobs.query();
+    };
+
+    // Define a clearMessages function that resets the values of the error and
+    // success messages.
+    $scope.clearMessages = function () {
+        $scope.successMessages = '';
+        $scope.errorMessages = '';
+        $scope.errors = {};
+    };
+
+    // Call the refresh() function, to populate the list of members
+    $scope.refresh();
+
+    // Set the default orderBy to the name property
+    $scope.orderBy = 'jobPrice';
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function LoginCtrl($scope,$location, $window, $http, UserService, AuthenticationService) {

@@ -1,10 +1,15 @@
 // Define the REST resource service, allowing us to interact with it as a high level service
-angular.module('membersService', ['ngResource']).
+angular.module('MembersService', ['ngResource']).
     factory('Members', function($resource){
   return $resource('rest/members/:memberId', {});
 });
 
-angular.module('loginService', ['ngResource']).
+angular.module('JobsService', ['ngResource']).
+	factory('Jobs', function($resource){
+return $resource('rest/getJobs', {});
+});
+
+angular.module('LoginService', ['ngResource']).
 factory('loginService', function($resource){
 return $resource('rest/members/login', {});
 });
