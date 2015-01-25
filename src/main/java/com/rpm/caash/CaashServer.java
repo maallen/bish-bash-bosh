@@ -18,35 +18,35 @@ import com.rpm.model.Job;
 
 @Path("/")
 public class CaashServer {
-	
-	private MongoDBApiOperator mongoDBOperator = MongoDBApiOperator.getInstance();
-	
+
+	private final MongoDBApiOperator mongoDBOperator = MongoDBApiOperator.getInstance();
+
 	@GET
 	@Path("/testHello")
 	public String helloWorld(){
 		return "Get in!!! It worked!!!";
 	}
-	
+
 	@GET
 	@Path("/getJobs")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DBObject> getJobs(){
-		DB db = mongoDBOperator.getMongoDb();
-		DBCollection collection = db.getCollection("Jobs");
-		DBCursor jobs = collection.find();
+		final DB db = mongoDBOperator.getMongoDb();
+		final DBCollection collection = db.getCollection("Jobs");
+		final DBCursor jobs = collection.find();
 		return jobs.toArray();
 	}
 
 	@POST
 	@Path("/createJob")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createJobs(Job job){
-		DBObject dbJob = new BasicDBObject("description", job.getDescription())
-				.append("location", job.getLocation())
-				.append("jobName", job.getJobName())
-				.append("jobPrice", job.getJobPrice());	
-		DB db = mongoDBOperator.getMongoDb();
-		DBCollection collection = db.getCollection("Jobs");
+	public void createJobs(final Job job){
+		final DBObject dbJob = new BasicDBObject("description", job.getDescription())
+		.append("location", job.getLocation())
+		.append("title", job.getTitle())
+		.append("price", job.getPrice());
+		final DB db = mongoDBOperator.getMongoDb();
+		final DBCollection collection = db.getCollection("Jobs");
 		collection.insert(dbJob);
 	}
 

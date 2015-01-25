@@ -4,8 +4,8 @@ public class Job {
 	
 	private String location;
 	private String description;
-	private String jobName;
-	private int jobPrice;
+	private String title;
+	private int price;
 	
 	public String getLocation() {
 		return location;
@@ -19,17 +19,17 @@ public class Job {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getJobName() {
-		return jobName;
+	public String getTitle() {
+		return title;
 	}
-	public void setJobName(String jobName) {
-		this.jobName = jobName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public int getJobPrice() {
-		return jobPrice;
+	public int getPrice() {
+		return price;
 	}
-	public void setJobPrice(int jobPrice) {
-		this.jobPrice = jobPrice;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 	

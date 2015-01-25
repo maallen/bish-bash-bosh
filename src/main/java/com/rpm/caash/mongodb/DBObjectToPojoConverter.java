@@ -21,8 +21,8 @@ public class DBObjectToPojoConverter {
 		Job job = new Job();
 		job.setLocation((String) dbObject.get("location"));
 		job.setDescription((String) dbObject.get("description"));
-		job.setJobPrice((Integer) dbObject.get("jobPrice"));
-		job.setJobName((String) dbObject.get("jobName"));
+		job.setPrice((Integer) dbObject.get("jobPrice"));
+		job.setTitle((String) dbObject.get("jobName"));
 		return job;
 	}
 	

@@ -10,17 +10,26 @@ return $resource('rest/getJobs', {});
 });
 
 angular.module('LoginService', ['ngResource']).
-factory('loginService', function($resource){
+    factory('loginService', function($resource){
 return $resource('rest/members/login', {});
 });
 
 angular.module('AuthenticationService', ['ngResource']).
-factory('AuthenticationService', function(){
+    factory('AuthenticationService', function(){
 var auth = {
         isLogged: false
     };
  
     return auth;
+});
+
+angular.module('CreateJobService', ['ngResource']).
+    factory('CreateJobService', function($http){
+    return  {
+        createJob: function(job){
+            return $http.post('rest/createJob', job);
+        }
+    }
 });
 
 angular.module('UserService', ['ngResource']).
