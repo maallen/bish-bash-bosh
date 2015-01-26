@@ -22,12 +22,6 @@ public class CaashServer {
 	private final MongoDBApiOperator mongoDBOperator = MongoDBApiOperator.getInstance();
 
 	@GET
-	@Path("/testHello")
-	public String helloWorld(){
-		return "Get in!!! It worked!!!";
-	}
-
-	@GET
 	@Path("/getJobs")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DBObject> getJobs(){
@@ -45,8 +39,7 @@ public class CaashServer {
 		.append("location", job.getLocation())
 		.append("title", job.getTitle())
 		.append("price", job.getPrice());
-		final DB db = mongoDBOperator.getMongoDb();
-		final DBCollection collection = db.getCollection("Jobs");
+		final DBCollection collection = mongoDBOperator.getCollection("Jobs");
 		collection.insert(dbJob);
 	}
 
