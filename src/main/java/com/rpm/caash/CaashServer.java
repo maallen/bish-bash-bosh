@@ -1,6 +1,7 @@
 package com.rpm.caash;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,13 +20,14 @@ import com.rpm.model.Job;
 @Path("/")
 public class CaashServer {
 
-	private final MongoDBApiOperator mongoDBOperator = MongoDBApiOperator.getInstance();
+	@Inject
+	private MongoDBApiOperator mongoDBApiOperator;
 
 	@GET
 	@Path("/getJobs")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DBObject> getJobs(){
-		final DB db = mongoDBOperator.getMongoDb();
+		final DB db = mongoDBApiOperator.getMongoDb();
 		final DBCollection collection = db.getCollection("Jobs");
 		final DBCursor jobs = collection.find();
 		return jobs.toArray();
@@ -39,9 +41,8 @@ public class CaashServer {
 		.append("location", job.getLocation())
 		.append("title", job.getTitle())
 		.append("price", job.getPrice());
-		final DBCollection collection = mongoDBOperator.getCollection("Jobs");
+		final DBCollection collection = mongoDBApiOperator.getCollection("Jobs");
 		collection.insert(dbJob);
 	}
-
 
 }

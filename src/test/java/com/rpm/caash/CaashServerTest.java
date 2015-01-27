@@ -2,55 +2,39 @@ package com.rpm.caash;
 
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.model.Job;
 
-@PowerMockIgnore("javax.management.*")
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(MongoDBApiOperator.class)
 public class CaashServerTest {
 
-	private CaashServer caashServer;
-	private MongoDBApiOperator mongoOperator;
-
 	@Mock
-	private DB mongoDb;
+	private MongoDBApiOperator mongoDBApiOperator;
 	@Mock
 	private DBCollection collection;
+	@InjectMocks
+	private CaashServer caashServer;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		mongoOperator = spy(MongoDBApiOperator.getInstance());
-		PowerMockito.mockStatic(MongoDBApiOperator.class);
-		when(MongoDBApiOperator.getInstance()).thenReturn(mongoOperator);
-		doReturn(collection).when(mongoOperator).getCollection(isA(String.class));
-		caashServer = new CaashServer();
+		doReturn(collection).when(mongoDBApiOperator).getCollection(isA(String.class));
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		mongoDb = null;
-		mongoOperator = null;
+		mongoDBApiOperator = null;
 		collection = null;
 		caashServer = null;
 	}
