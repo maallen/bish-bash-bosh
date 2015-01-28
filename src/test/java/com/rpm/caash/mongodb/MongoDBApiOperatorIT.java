@@ -22,7 +22,7 @@ import com.rpm.model.Job;
 
 
 @RunWith(Arquillian.class)
-public class MongoDBApiOperatorTest {
+public class MongoDBApiOperatorIT {
 
 	@Deployment
 	public static WebArchive createDeployment(){
