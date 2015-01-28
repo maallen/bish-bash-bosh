@@ -186,23 +186,5 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-    <id>arquillian-openshift-express</id>
-    <dependencies>
-        <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <version>1.0.0.Final</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-openshift-express</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-	</profile>
   </profiles>
 </project>
