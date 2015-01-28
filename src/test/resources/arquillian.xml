@@ -6,7 +6,7 @@
     <container qualifier="jbossas-7-managed" default="true">
         <configuration>
          <!-- <property name="jbossHome">/home/mark/Development/jboss-as-7.1.1.Final</property> -->
-         <property name="jbossHome">/var/lib/openshift/54b4275ee0b8cdf8ed000089/jbossas</property>
+         <property name="jbossHome">/var/lib/openshift/54c957664382ecfa0800006c/jbossas</property>
         </configuration>
     </container>
 </arquillian>
