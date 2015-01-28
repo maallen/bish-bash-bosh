@@ -19,6 +19,7 @@
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
   </properties>
+  
   <dependencyManagement>
       <dependencies>
          <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
@@ -102,6 +103,13 @@
 		<version>2.2.1.GA</version>
 		<scope>provided</scope>
 	</dependency>
+	
+	<dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.12</version>
+	</dependency>
+	
  
 	<dependency>
 		<groupId>org.jboss.resteasy</groupId>
@@ -152,6 +160,7 @@
     </dependency>
  
 	</dependencies>
+	
   <profiles>
     <profile>
      <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
