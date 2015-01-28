@@ -3,41 +3,19 @@
 <div align="left">
     <legend>Jobs feed</legend>
     <!-- If there are no jobs available, instead of showing the table, we show a simple message. -->
-    <em ng-show="jobs.length == 0">No Jobs Found.</em>
-    <div class="success" id="jobsList">
-        <!-- table ng-hide="jobs.length == 0" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Job Name</th>
-                    <th>Description</th>
-                    <th>Location</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            The table is built using the AngularJS repeat function, iterating over the members variable, and ordering by the property specified in the orderBy variable
-            <tr ng-repeat="job in jobs | orderBy:orderBy">
-                <td>{{job.jobName}}</td>
-                <td>{{job.description}}</td>
-                <td>{{job.location}}</td>
-                <td>{{job.jobPrice}}</td>
-                </td>
-        </table> -->
-
-        <div id="jobsFeedDivDiv" >
+    <!-- <em ng-show="jobs.length == 0">No Jobs Found.</em> -->
+    <div ng-controller="JobsController" class="success" id="jobsList">
         <ol>
         <li id="liJobsDiv" ng-hide="jobs.length == 0" ng-repeat="job in jobs | orderBy:orderBy">
 
-  			<p class="success"><strong>Job Name:</strong> <p class="text-left">{{job.jobName}}</p></p>
+  			<p class="success"><strong>Job Title:</strong> <p class="text-left">{{job.title}}</p></p>
 
   			<p><strong>Description:</strong> <p class="text-left">{{job.description}}</p></p>
   	
   			<p><strong>Location:</strong> <p class="text-left">{{job.location}}</p></p>
   		
-  			<p><strong>Price:</strong> <p class="text-left">{{job.jobPrice}}</p></p>
+  			<p><strong>Price:</strong> <p class="text-left">{{job.price}}</p></p>
 		</li>
 		</ol>
-		<div>
     </div>
-</div>
-</div>
 </div>

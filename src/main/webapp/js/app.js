@@ -1,4 +1,4 @@
-angular.module('kitchensink', [ 'ngRoute', 'MembersService','LoginService','AuthenticationService','UserService','JobsService', 'CreateJobService' ])
+angular.module('kitchensink', [ 'ngRoute', 'MembersService','LoginService','AuthenticationService','UserService','JobsService','CreateJobService' ])
     .config( [ '$httpProvider','$routeProvider', function($httpProvider, $routeProvider) {
 
         $httpProvider.interceptors.push('ajaxNonceInterceptor');
