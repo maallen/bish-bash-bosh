@@ -24,10 +24,6 @@ public class MongoDBApiOperator {
 
 	private MongoClient mongoClient;
 
-	public MongoDBApiOperator(){
-
-	}
-
 	/**
 	 * @return The MongoDB Database
 	 */

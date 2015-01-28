@@ -5,16 +5,8 @@
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">       
     <container qualifier="jbossas-7-managed" default="true">
         <configuration>
-            <property name="jbossHome">/home/mark/Development/jboss-as-7.1.1.Final</property>
+         <property name="jbossHome">/home/mark/Development/jboss-as-7.1.1.Final</property> 
+        <!--  <property name="jbossHome">/var/lib/openshift/54c957664382ecfa0800006c/jbossas/versions/7</property> -->
         </configuration>
     </container>
-    <container qualifier="openshift-express">
-    <configuration>
-        <property name="namespace">caash</property>
-        <property name="application">caash</property>
-        <property name="sshUserName">54b4275ee0b8cdf8ed000089</property>
-        <property name="passphrase">markpadraicrob</property>
-        <property name="login">da_guvner85@hotmail.com</property>
-    </configuration>
-</container>
 </arquillian>

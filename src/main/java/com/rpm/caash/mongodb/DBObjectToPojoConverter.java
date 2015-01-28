@@ -10,29 +10,33 @@ import com.rpm.model.User;
  * 
  * Utility class that converts DBObject objects to POJO Objects
  */
-public class DBObjectToPojoConverter {
-	
+public final class DBObjectToPojoConverter {
+
+	private DBObjectToPojoConverter(){
+
+	}
+
 	/**
-	 * Converts DBObject to Job POJO 
+	 * Converts DBObject to Job POJO
 	 * @param dbObject
 	 * @return Job
 	 */
-	public static Job convertToJobPOJO(DBObject dbObject){
-		Job job = new Job();
+	public static Job convertToJobPOJO(final DBObject dbObject){
+		final Job job = new Job();
 		job.setLocation((String) dbObject.get("location"));
 		job.setDescription((String) dbObject.get("description"));
 		job.setPrice((Integer) dbObject.get("jobPrice"));
 		job.setTitle((String) dbObject.get("jobName"));
 		return job;
 	}
-	
+
 	/**
-	 * Converts DBObject to User POJO 
+	 * Converts DBObject to User POJO
 	 * @param dbObject
 	 * @return User
 	 */
-	public static User convertToUserPOJO(DBObject dbObject){
-		User user = new User();
+	public static User convertToUserPOJO(final DBObject dbObject){
+		final User user = new User();
 		user.setEmail((String) dbObject.get("email"));
 		user.setPassword((String) dbObject.get("password"));
 		return user;
