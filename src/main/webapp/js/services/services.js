@@ -1,8 +1,4 @@
-// Define the REST resource service, allowing us to interact with it as a high level service
-angular.module('MembersService', ['ngResource']).
-    factory('Members', function($resource){
-  return $resource('rest/members/:memberId', {});
-});
+myAppModule.factory('Jobs', ['$resource',getJobsFunction]);
 
 function getJobsFunction($resource,$http){
 	
@@ -11,15 +7,17 @@ function getJobsFunction($resource,$http){
       });	
 }
 
-angular.module('JobsService', ['ngResource']).factory('Jobs', ['$resource',getJobsFunction]);
-
-angular.module('LoginService', ['ngResource']).
-    factory('loginService', function($resource){
+myAppModule.factory('LoginService', 
+    function($resource){
     return $resource('rest/members/login', {});
 });
 
-angular.module('AuthenticationService', ['ngResource']).
-    factory('AuthenticationService', function(){
+// Define the REST resource service, allowing us to interact with it as a high level service
+myAppModule.factory('Members', function($resource){
+  return $resource('rest/members/:memberId', {});
+});
+
+myAppModule.factory('AuthenticationService', function(){
         var auth = {
         isLogged: false
     };
@@ -27,8 +25,7 @@ angular.module('AuthenticationService', ['ngResource']).
     return auth;
 });
 
-angular.module('CreateJobService', ['ngResource']).
-    factory('CreateJobService', function($http){
+myAppModule.factory('CreateJobService', function($http){
         return  {
             createJob: function(job){
             return $http.post('rest/createJob', job);
@@ -36,15 +33,14 @@ angular.module('CreateJobService', ['ngResource']).
     }
 });
 
-angular.module('UserService', ['ngResource']).
-    factory('UserService', function($http){
+myAppModule.factory('UserService', function($http){
         return {
             logIn: function(email, password) {    		
                 return $http.post('rest/members/login', {email : email,password:password});
             },
  
         logOut: function() {
- 
+                return $http.post('/logout');
         }
     };
 });
