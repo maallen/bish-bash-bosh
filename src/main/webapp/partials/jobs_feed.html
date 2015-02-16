@@ -2,11 +2,14 @@
 
 <div id ="jobsFeedDiv" align="left" ng-controller="JobsController" class="success" id="jobsList">
     <legend>Jobs feed</legend>
+    <div id ="filterJobsDiv">
+    <input ng-model="searchText" type="text" class="form-control" placeholder="Filter Jobs">
+    </div>
     <!-- If there are no jobs available, instead of showing the table, we show a simple message. -->
     <!-- <em ng-show="jobs.length == 0">No Jobs Found.</em> -->
     <div id ="jobsFeedList">
         <ol>
-        <li id="liJobsDiv" ng-hide="jobs.length == 0" ng-repeat="job in jobs | orderBy:orderBy">
+        <li id="liJobsDiv" ng-hide="jobs.length == 0" ng-repeat="job in jobs | orderBy:orderBy | filter:searchText">
 
   			<p class="success"><strong>Job Title:</strong> <p class="text-left">{{job.title}}</p></p>
 

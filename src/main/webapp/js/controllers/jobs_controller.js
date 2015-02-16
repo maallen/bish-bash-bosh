@@ -6,7 +6,9 @@ function JobsController($scope,$routeParams,$timeout,$http,$resource, Jobs) {
 	
 	$scope.orderBy = 'price';
 	
-	$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+	$scope.map = { 
+		center: { latitude: 53.2734, longitude: -7.7 },
+		zoom: 8 };
 	
 	(function getJobs() {
 		Jobs.query({
