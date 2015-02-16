@@ -6,11 +6,13 @@ function JobsController($scope,$routeParams,$timeout,$http,$resource, Jobs) {
 	
 	$scope.orderBy = 'price';
 	
+	$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+	
 	(function getJobs() {
 		Jobs.query({
 	        modelId : $routeParams.modelId
 	    }, function(model) {
-	        $scope.jobs = model;    
+	        $scope.jobs = model;
 	        $timeout(getJobs, 5000);
 	    });
 	})();

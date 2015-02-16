@@ -1,4 +1,4 @@
-var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource'])
+var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps'])
     .config( [ '$httpProvider','$routeProvider', function($httpProvider, $routeProvider) {
 
         $httpProvider.interceptors.push('ajaxNonceInterceptor');

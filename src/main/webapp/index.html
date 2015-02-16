@@ -7,37 +7,32 @@
     <meta name="format-detection" content="telephone=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="css/bootstrap-theme.css" type="text/css" />
     <link rel="stylesheet" href="css/screen.css" type="text/css" />
     <link rel="stylesheet" href="css/app.css" type="text/css" />
 
-    <!-- Load jQuery -->
     <script src="js/libs/jquery-2.0.3.js"></script>
-    <!-- Load Bootstrap JS components -->
     <script src="js/libs/bootstrap.js"></script>
 
-    <!-- Load angularjs -->
     <script src="js/libs/angular.js"></script>
-    <!-- Load angularjs-route, which allows us to use multiple views displayed through application routes -->
     <script src="js/libs/angular-route.js"></script>
-    <!-- Load angularjs-resource, which allows us to interact with REST resources as high level services -->
     <script src="js/libs/angular-resource.js"></script>
     
-        <!-- Load the application wide JS, such as route definitions -->
+    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src="js/libs/lodash.min.js"></script> 
+    <script src="js/libs/angular-google-maps.min.js"></script>
+    
     <script src="js/app.js"></script>
     
-    <!-- Load the controllers for our app -->
     <script src="js/controllers/jobs_controller.js"></script>
     <script src="js/controllers/login_controller.js"></script>
     <script src="js/controllers/member_controller.js"></script>
     
-    <!-- Load the services we have defined for the application, particularly the REST services -->
     <script src="js/services/services.js"></script>
     
 </head>
 <body>
     <section id="container">
-    	<nav class="navbar navbar-default" role="navigation">
+    	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
@@ -61,11 +56,10 @@
 		        <li><a href="#login">Login</a></li>
 		        <li><a>About Us</a></li>
 		      </ul>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
+		    </div>
+		  </div>
 		</nav>
-        <div id="content" class="col-xs-12 col-sm-12 col-md-8" ng-view>
-            <!-- This div will be templated by AngularJS -->
+        <div id="content" ng-view>
             [Template content will be inserted here]
         </div>
     </section>

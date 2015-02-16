@@ -1,11 +1,57 @@
+#content{
+	background: #fff;
+	position: relative;
+}
+
+#jobsFeedDiv{
+	background:white;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+#jobsFeedList{
+	padding-top: 25px;
+	background:#F0F0F5;
+	position: relative;
+	width: 30%;
+	z-index: 2;
+}
 #liJobsDiv {
-    background-color: #E2E2E2;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+    background-color: white;
     border-radius: 10px;
     outline-offset: 15px;
     width: 95%;
 }
-#jobsFeedDivDiv{
-	background-color: #FCFCFC;
-    border-radius: 10px;
-    width: 45%;
+.angular-google-map-container { 
+	margin: 0;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 10px;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	height: 1200px; 
+}
+#mapView{
+	width:70%;
+	height: 100%;
+	position: fixed;
+	right: 0;
+	top: 50px;
+	z-index: 1;
+	background:#F0F0F5;
+}
+#mapCanvas {
+	height: 100%;
+	overflow: hidden;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 }

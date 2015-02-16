@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<div align="left">
+<div id ="jobsFeedDiv" align="left" ng-controller="JobsController" class="success" id="jobsList">
     <legend>Jobs feed</legend>
     <!-- If there are no jobs available, instead of showing the table, we show a simple message. -->
     <!-- <em ng-show="jobs.length == 0">No Jobs Found.</em> -->
-    <div ng-controller="JobsController" class="success" id="jobsList">
+    <div id ="jobsFeedList">
         <ol>
         <li id="liJobsDiv" ng-hide="jobs.length == 0" ng-repeat="job in jobs | orderBy:orderBy">
 
@@ -18,4 +18,9 @@
 		</li>
 		</ol>
     </div>
+    <div id="mapView">
+	    <div id="mapCanvas">
+				<ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+		</div>
+	</div>
 </div>
