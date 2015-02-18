@@ -22,6 +22,14 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
             redirectTo : '/login'
         });
     } ])
+    .config(['uiGmapGoogleMapApiProvider', function(GoogleMapApiProviders) {
+    	        GoogleMapApiProviders.configure({
+    	        	// This key needs to be updated to our own developer key..
+    	        	key: 'AIzaSyCXxlIQE_baTY18opP79TFol5Ck40xQyP8',
+    	            v: '3.17',
+    	            libraries: 'weather,geometry,visualization'
+    	        });
+    	    }])
     .factory('ajaxNonceInterceptor', function() {
         // This interceptor is equivalent to the behavior induced by $.ajaxSetup({cache:false});
 
