@@ -1,6 +1,4 @@
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-function JobsController($scope,$routeParams,$timeout,$http,$resource, Jobs) {
+myAppModule.controller('ViewJobsController',function($scope,$routeParams,$timeout,$http,$resource, Jobs) {
     
 	$scope.jobs = [];
 	
@@ -18,15 +16,11 @@ function JobsController($scope,$routeParams,$timeout,$http,$resource, Jobs) {
 	        $timeout(getJobs, 5000);
 	    });
 	})();
-}
+});
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-function PlaceJobController($scope, $http, CreateJobService){
+myAppModule.controller('CreateJobsController',function($scope, $http, CreateJobService){
     
     $scope.createJob = function(){
         CreateJobService.createJob($scope.job);
     };
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+});

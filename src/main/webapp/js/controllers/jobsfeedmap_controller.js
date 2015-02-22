@@ -1,4 +1,4 @@
-function JobsFeedMapController($scope, $http){
+myAppModule.controller('JobsFeedMapController',function($scope, $http){
 	$scope.map = {
 		center: {
 			latitude: 53.428665,
@@ -36,4 +36,4 @@ function JobsFeedMapController($scope, $http){
 	// 	},
 	// 	options: { draggable: false}
 	// };
-}
+});

@@ -1,6 +1,4 @@
-//var myControllers = angular.module('myControllers', []);
-
-myAppModule.controller('LoginCtrl',function($scope,$location, $window, $http, UserService, AuthenticationService) {
+myAppModule.controller('LoginController',function($scope,$location, $window, $http, UserService, AuthenticationService) {
 
     $scope.clearMessages = function () {
         $scope.successMessages = '';

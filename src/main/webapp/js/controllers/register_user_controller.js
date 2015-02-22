@@ -1,7 +1,7 @@
-function MembersCtrl($scope, $http, Members) {
+myAppModule.controller('RegisterUserController',function($scope, $http, RegisterUserService) {
 
     $scope.refresh = function() {
-        $scope.members = Members.query();
+        $scope.users = RegisterUserService.query();
     };
 
     $scope.clearMessages = function () {
@@ -16,7 +16,7 @@ function MembersCtrl($scope, $http, Members) {
             $scope.regForm.$setPristine();
         }
 
-        $scope.newMember = {email: "", password: ""};
+        $scope.newUser = {email: "", password: ""};
 
         $scope.clearMessages();
     };
@@ -24,13 +24,13 @@ function MembersCtrl($scope, $http, Members) {
     $scope.register = function() {
         $scope.clearMessages();
 
-        Members.save($scope.newMember, function(data) {
+        RegisterUserService.save($scope.newUser, function(data) {
 
             $scope.refresh();
 
             $scope.reset();
 
-            $scope.successMessages = [ 'Member Registered' ];
+            $scope.successMessages = [ 'User Registered' ];
         }, function(result) {
             if ((result.status == 409) || (result.status == 400)) {
                 $scope.errors = result.data;
@@ -41,13 +41,7 @@ function MembersCtrl($scope, $http, Members) {
 
     };
 
-    // Call the refresh() function, to populate the list of members
     $scope.refresh();
-
-    // Initialize newMember here to prevent Angular from sending a request
-    // without a proper Content-Type.
     $scope.reset();
-
-    // Set the default orderBy to the name property
     $scope.orderBy = 'email';
-}
+});

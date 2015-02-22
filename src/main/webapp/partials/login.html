@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<div ng-controller="LoginCtrl" class="login">
+<div ng-controller="LoginController" class="login">
     <form name="regForm" class="form-horizontal" ng-submit="login(newMember.email, newMember.password)">
         <fieldset>
             <legend>Log In:</legend>
@@ -20,16 +20,13 @@
                     <span class="error help-block" ng-show="regForm.password.$error.required">required</span>
                     <span class="error help-block" ng-show="errors.password">{{errors.password}}</span>
                 </div>
-            </div>
-            
+            </div>          
             <ul ng-hide="!successMessages" class="success">
                 <li ng-repeat="message in successMessages">{{message}}</li>
             </ul>
-
             <ul ng-hide="!errorMessages" class="error">
                 <li ng-repeat="message in errorMessages">{{message}}</li>
             </ul>
-
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="submit" ng-disabled="regForm.$invalid" id="register" value="Login" class="btn btn-success" />

@@ -7,17 +7,17 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
 
         when('/home', {
             templateUrl : 'partials/register.html',
-            controller : MembersCtrl
+            controller : myAppModule.RegisterUserController
         }).when('/login', {
             templateUrl : 'partials/login.html',
-            controller : myAppModule.LoginCtrl
+            controller : myAppModule.LoginController
         })
         .when('/add', {
-            templateUrl : 'partials/place_add.html',
-            controller : PlaceJobController
+            templateUrl : 'partials/place_job.html',
+            controller : myAppModule.CreateJobsController
         }).when('/jobsFeed', {
             templateUrl : 'partials/jobs_feed.html',
-            controller : JobsController
+            controller : myAppModule.ViewJobsController
         }).otherwise({
             redirectTo : '/login'
         });

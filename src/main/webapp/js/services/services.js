@@ -12,8 +12,7 @@ myAppModule.factory('LoginService',
     return $resource('rest/members/login', {});
 });
 
-// Define the REST resource service, allowing us to interact with it as a high level service
-myAppModule.factory('Members', function($resource){
+myAppModule.factory('RegisterUserService', function($resource){
   return $resource('rest/members/:memberId', {});
 });
 
@@ -44,13 +43,3 @@ myAppModule.factory('UserService', function($http){
         }
     };
 });
-
-/*$http.get('rest/getJobs').
-  success(function(data, status, headers, config) {
-    // this callback will be called asynchronously
-    // when the response is available
-  }).
-  error(function(data, status, headers, config) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-  });*/
