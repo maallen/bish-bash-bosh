@@ -20,7 +20,11 @@ public class MongoDBApiOperator {
 
 	private static final String CAASH = "caash";
 
-	private static final String MONGOLAB_DB_URI = "mongodb://root:shroot@ds033419.mongolab.com:33419/caash";
+	private static final String MONGOLAB_DB_USER = System.getenv("MONGOLAB_DB_USER");
+
+	private static final String MONGOLAB_DB_PASS = System.getenv("MONGOLAB_DB_PASS");
+
+	private static final String MONGOLAB_DB_URI = String.format("mongodb://%1$s:%2$s@ds033419.mongolab.com:33419/caash", MONGOLAB_DB_USER, MONGOLAB_DB_PASS);
 
 	private MongoClient mongoClient;
 
