@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>caash</groupId>
   <artifactId>caash</artifactId>
@@ -7,7 +7,7 @@
   <version>1.0</version>
   <name>caash</name>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.includeEncoding>UTF-8</project.build.includeEncoding>
            <!-- JBoss dependency versions -->
        <version.org.jboss.as.plugins.maven.plugin>7.2.Final</version.org.jboss.as.plugins.maven.plugin>
        <version.org.jboss.spec.jboss.javaee.6.0>3.0.0.Final</version.org.jboss.spec.jboss.javaee.6.0>
@@ -16,9 +16,32 @@
        <version.compiler.plugin>2.3.1</version.compiler.plugin>
        <version.war.plugin>2.1.1</version.war.plugin>
     
-    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.include>1.6</maven.compiler.include>
     <maven.compiler.target>1.6</maven.compiler.target>
   </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.searls</groupId>
+        <artifactId>jasmine-maven-plugin</artifactId>
+        <version>1.3.1.5</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   
   <dependencyManagement>
       <dependencies>
@@ -171,18 +194,59 @@
      <build>
         <finalName>caash</finalName>
         <plugins>
-          <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>2.1.1</version>
-            <configuration>
-              <outputDirectory>deployments</outputDirectory>
-              <warName>ROOT</warName>
-            </configuration>
-          </plugin>
-          <plugin>
+          	<plugin>
+            	<artifactId>maven-war-plugin</artifactId>
+            	<version>2.1.1</version>
+            		<configuration>
+              		<outputDirectory>deployments</outputDirectory>
+              		<warName>ROOT</warName>
+            	</configuration>
+          	</plugin>
+          	<plugin>
 			    <artifactId>maven-surefire-plugin</artifactId>
-			    <version>2.17</version>
-			</plugin>
+				<version>2.17</version>
+		  	</plugin>
+		  	<plugin>
+        		<groupId>com.github.searls</groupId>
+        		<artifactId>jasmine-maven-plugin</artifactId>
+        		<version>1.3.1.6-SNAPSHOT</version>
+        		<executions>
+			        <execution>
+			          <goals>
+                        <goal>test</goal>
+			          </goals>
+			        </execution>
+		      	</executions>
+		      	<configuration>
+                    <jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
+                    <jsTestSrcDir>${project.basedir}/src/test/js</jsTestSrcDir>
+                    <preloadSources>
+					  	<source>libs/angular.js</source>
+                        <source>libs/angular-route.js</source>
+                        <source>libs/angular-reinclude.js</source>
+                        <source>libs/angular-mocks.js</source>
+                        <source>libs/angular-google-maps.min.js</source>
+                        <source>libs/jquery-2.0.3.js</source>
+                        <source>libs/bootstrap.js</source>
+					</preloadSources>
+                    <sourceIncludes>
+						<include>app.js</include>
+						<include>services/services.js</include>
+						<include>controllers/login_controller.js</include>
+						<include>controllers/jobs_controller.js</include>	
+						<include>controllers/register_user_controller.js</include>	
+						<include>controllers/jobsfeedmap_controller.js</include>		
+					</sourceIncludes>
+					<specIncludes>
+						<include>libs/jasmine-2.0.3/jasmine.js</include>
+						<include>libs/jasmine-2.0.3/jasmine-html.js</include>
+						<include>libs/jasmine-2.0.3/console.js</include>
+						<include>libs/jasmine-2.0.3/boot.js</include>
+					  	<include>spec/controllers/login_controller_spec.js</include>
+					</specIncludes>
+					<specRunnerTemplate>DEFAULT</specRunnerTemplate>
+		      	</configuration>
+      		</plugin>
         </plugins>
       </build>
     </profile>
