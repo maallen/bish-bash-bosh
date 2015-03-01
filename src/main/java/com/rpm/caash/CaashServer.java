@@ -10,11 +10,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
+import com.rpm.caash.mongodb.MongoDbCollection;
 import com.rpm.model.Job;
 
 @Path("/")
@@ -27,9 +26,7 @@ public class CaashServer {
 	@Path("/getJobs")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DBObject> getJobs(){
-		final DB db = mongoDBApiOperator.getMongoDb();
-		final DBCollection collection = db.getCollection("Jobs");
-		final DBCursor jobs = collection.find();
+		final DBCursor jobs = mongoDBApiOperator.findAllInCollection(MongoDbCollection.JOBS);
 		return jobs.toArray();
 	}
 
@@ -41,8 +38,7 @@ public class CaashServer {
 		.append("location", job.getLocation())
 		.append("title", job.getTitle())
 		.append("price", job.getPrice());
-		final DBCollection collection = mongoDBApiOperator.getCollection("Jobs");
-		collection.insert(dbJob);
+		mongoDBApiOperator.addDbObjectToDbCollection(dbJob, MongoDbCollection.JOBS);
 	}
 
 }

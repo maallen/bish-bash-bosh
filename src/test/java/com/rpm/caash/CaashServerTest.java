@@ -1,8 +1,8 @@
 package com.rpm.caash;
 
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,31 +12,33 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
+import com.rpm.caash.mongodb.MongoDbCollection;
 import com.rpm.model.Job;
 
 public class CaashServerTest {
 
 	@Mock
-	private MongoDBApiOperator mongoDBApiOperator;
+	private MongoDBApiOperator mockMongoDBApiOperator;
+
 	@Mock
-	private DBCollection collection;
+	private DBCursor mockDbCursor;
+
 	@InjectMocks
 	private CaashServer caashServer;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		doReturn(collection).when(mongoDBApiOperator).getCollection(isA(String.class));
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		mongoDBApiOperator = null;
-		collection = null;
+		mockMongoDBApiOperator = null;
 		caashServer = null;
+		mockDbCursor = null;
 	}
 
 	@Test
@@ -51,7 +53,15 @@ public class CaashServerTest {
 		.append("title", job.getTitle())
 		.append("price", job.getPrice());
 		caashServer.createJobs(job);
-		verify(collection).insert(dbObject);
+		verify(mockMongoDBApiOperator, times(1)).addDbObjectToDbCollection(dbObject, MongoDbCollection.JOBS);
+	}
+
+	@Test
+	public void testGetJobs(){
+		when(mockMongoDBApiOperator.findAllInCollection(MongoDbCollection.JOBS)).thenReturn(mockDbCursor);
+		caashServer.getJobs();
+		verify(mockMongoDBApiOperator, times(1)).findAllInCollection(MongoDbCollection.JOBS);
+		verify(mockDbCursor, times(1)).toArray();
 	}
 
 }

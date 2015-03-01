@@ -15,7 +15,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.rpm.caash.CaashServer;
 import com.rpm.model.Job;
@@ -32,8 +31,8 @@ public class MongoDBApiOperatorIT {
 		final File[] libs = Maven.resolver().loadPomFromFile(pom).importRuntimeDependencies().
 				resolve().withoutTransitivity().asFile();
 
-		final WebArchive war = ShrinkWrap.create(WebArchive.class, "arquillan-test.war").
-				addClasses(MongoDBApiOperator.class, CaashServer.class, Job.class)
+		final WebArchive war = ShrinkWrap.create(WebArchive.class, "arquillan-caash-test.war").
+				addClasses(MongoDBApiOperator.class, CaashServer.class, Job.class, MongoDbCollection.class)
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
 		for(final File lib: libs){
@@ -52,30 +51,17 @@ public class MongoDBApiOperatorIT {
 	}
 
 	@Test
-	public void testMongoDBApiOperatorIsAvailableThroughCDI(){
+	public void testMongoDBApiOperatorIsNotNull(){
 		Assert.assertNotNull(mongoDBApiOperator);
 		Assert.assertTrue(mongoDBApiOperator instanceof MongoDBApiOperator);
 	}
 
 	@Test
-	public void testMongoDbIsRetrievedFromMongoLab(){
-		final DB mongoDb = mongoDBApiOperator.getMongoDb();
-		Assert.assertEquals("caash", mongoDb.getName());
-	}
-
-	@Test
 	public void testCollectionsCanBeRetrievedFromMongoLab(){
-		final DB mongoDb = mongoDBApiOperator.getMongoDb();
-		final DBCollection jobsCollection = mongoDb.getCollection("Jobs");
-		final DBCollection usersCollection = mongoDb.getCollection("Users");
+		final DBCollection jobsCollection = mongoDBApiOperator.getCollection(MongoDbCollection.JOBS);
+		final DBCollection usersCollection = mongoDBApiOperator.getCollection(MongoDbCollection.USERS);
 		Assert.assertEquals("Jobs", jobsCollection.getName());
 		Assert.assertEquals("Users", usersCollection.getName());
 	}
-
-	//	@Test
-	//	public void testCaashServerMongoDbIntegration(){
-	//		final CaashServer caashServer = new CaashServer();
-	//		caashServer.getJobs();
-	//	}
 
 }

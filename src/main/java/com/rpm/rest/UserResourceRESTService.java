@@ -7,16 +7,15 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
+import com.rpm.caash.mongodb.MongoDbCollection;
 import com.rpm.model.User;
 
 @Path("/members")
@@ -25,24 +24,6 @@ public class UserResourceRESTService {
 	@Inject
 	private MongoDBApiOperator mongoDBOperator;
 
-
-	/**
-	 * @return a user from MongoDB database
-	 */
-	@GET
-	@Path("/getUsers")
-	@Produces(MediaType.APPLICATION_JSON)
-	public User lookupMemberById() {
-
-		final DBCollection collection = mongoDBOperator.getCollection("Users");
-		final DBObject user = collection.findOne();
-
-		if (user == null) {
-			throw new WebApplicationException(Response.Status.NOT_FOUND);
-		}
-		return (User) user;
-	}
-
 	/**
 	 * @return a list of users users
 	 */
@@ -50,8 +31,7 @@ public class UserResourceRESTService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DBObject> listAllUsers() {
 
-		final DBCollection collection = mongoDBOperator.getCollection("Users");
-		final DBCursor users = collection.find();
+		final DBCursor users = mongoDBOperator.findAllInCollection(MongoDbCollection.USERS);
 
 		return users.toArray();
 	}
@@ -65,11 +45,7 @@ public class UserResourceRESTService {
 	public void createMember(final User user){
 		final DBObject dbJob = new BasicDBObject("email", user.getEmail())
 		.append("password", user.getPassword());
-
-		final DBCollection collection = mongoDBOperator.getCollection("Users");
-
-		collection.insert(dbJob);
-
+		mongoDBOperator.addDbObjectToDbCollection(dbJob, MongoDbCollection.USERS);
 	}
 
 	@POST
@@ -78,9 +54,7 @@ public class UserResourceRESTService {
 	public Response logIn(final User user) {
 		String returnValue ="Failure ==> User does not exist in the DB";
 
-		final DBCollection collection = mongoDBOperator.getCollection("Users");
-
-		final DBCursor cursor = collection.find();
+		final DBCursor cursor = mongoDBOperator.findAllInCollection(MongoDbCollection.USERS);
 
 		while(cursor.hasNext()){
 			final DBObject o = cursor.next();
