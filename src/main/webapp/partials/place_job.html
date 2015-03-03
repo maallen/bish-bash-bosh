@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <div align="center" ng-controller="CreateJobsController" >
-    <form name="createJobForm" class="form-horizontal" ng-model="job"ng-submit="createJob()">
+<!--     <form name="createJobForm" class="form-horizontal" ng-model="job"ng-submit="createJob()">
         <fieldset>
 
         <legend>Place an Advert</legend>
@@ -12,6 +12,39 @@
             Price: <input type="number" name="jobPrice" ng-model="job.price">
             <input type="submit" value="Create Job">
         
-        </form>
+        </form> -->
+        <div id="jobsFormDiv">
+        <div class="row">
+          <form class="col s12" ng-model="job"ng-submit="createJob()">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="jobTitle"  type="text" class="validate" ng-model="job.title" >
+                <label for="jobTitle">Job Title</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="jobDesc" type="text" class="validate" ng-model="job.description">
+                <label for="jobDesc">Describe your Job</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="jobLocation" type="text" class="validate" ng-model="job.location">
+                <label for="jobLocation">Job Location</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="jobPrice" type="number" class="validate" ng-model="job.price">
+                <label for="jobPrice">Job Price</label>
+              </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Create Job
+			    <i class="mdi-content-send right"></i>
+			 </button>
+          </form>
+        </div>
+        </div>
        
 </div>
