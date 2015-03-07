@@ -12,19 +12,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class JobsFeedTest {
+public class JobsFeedST {
 
 	private static WebDriver driver;
 	private static String os;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		os = System.getProperty("os.name").toLowerCase();
-		if(os.contains("linux")){
-			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/linux_x64/chromedriver");
-		}else{
-			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/windows/chromedriver");
-		}
 		driver = new ChromeDriver();
 	}
 
@@ -46,8 +40,9 @@ public class JobsFeedTest {
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(jobsFeedLink).click().perform();
 		Assert.assertEquals("http://caash-caash.rhcloud.com/#/jobsFeed", driver.getCurrentUrl());
+		@SuppressWarnings("unused")
 		final WebElement mapCanvas = (new WebDriverWait(driver, 5))
-				.until(ExpectedConditions.presenceOfElementLocated(By.id("mapCanvas")));
+		.until(ExpectedConditions.presenceOfElementLocated(By.id("mapCanvas")));
 		jobsMapIsPresent = driver.findElements(By.cssSelector("ui-gmap-google-map")).size() > 0;
 		Assert.assertEquals(true, jobsMapIsPresent);
 		jobsFeedList = driver.findElements(By.id("jobsFeedList")).size() > 0;

@@ -11,20 +11,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-public class HomepageTest {
+public class HomepageST {
 
 	private static WebDriver driver;
 
-	private static String os;
-
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		os = System.getProperty("os.name").toLowerCase();
-		if(os.contains("linux")){
-			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/linux_x64/chromedriver");
-		}else{
-			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/windows/chromedriver");
-		}
 		driver = new ChromeDriver();
 	}
 
