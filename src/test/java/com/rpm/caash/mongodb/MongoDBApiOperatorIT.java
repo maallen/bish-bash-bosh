@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 
 import com.mongodb.DBCollection;
 import com.rpm.caash.CaashServer;
+import com.rpm.caash.mongodb.exceptions.MongoDbException;
 import com.rpm.model.Job;
 
 
@@ -57,7 +58,7 @@ public class MongoDBApiOperatorIT {
 	}
 
 	@Test
-	public void testCollectionsCanBeRetrievedFromMongoLab(){
+	public void testCollectionsCanBeRetrievedFromMongoLab() throws MongoDbException{
 		final DBCollection jobsCollection = mongoDBApiOperator.getCollection(MongoDbCollection.JOBS);
 		final DBCollection usersCollection = mongoDBApiOperator.getCollection(MongoDbCollection.USERS);
 		Assert.assertEquals("Jobs", jobsCollection.getName());

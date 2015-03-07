@@ -16,6 +16,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.caash.mongodb.MongoDbCollection;
+import com.rpm.caash.mongodb.exceptions.MongoDbException;
 import com.rpm.model.Job;
 
 public class CaashServerTest {
@@ -42,7 +43,7 @@ public class CaashServerTest {
 	}
 
 	@Test
-	public void testCreateJob() {
+	public void testCreateJob() throws MongoDbException {
 		final Job job = new Job();
 		job.setTitle("Test Job");
 		job.setDescription("Test description");
@@ -57,7 +58,7 @@ public class CaashServerTest {
 	}
 
 	@Test
-	public void testGetJobs(){
+	public void testGetJobs() throws MongoDbException{
 		when(mockMongoDBApiOperator.findAllInCollection(MongoDbCollection.JOBS)).thenReturn(mockDbCursor);
 		caashServer.getJobs();
 		verify(mockMongoDBApiOperator, times(1)).findAllInCollection(MongoDbCollection.JOBS);

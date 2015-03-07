@@ -16,6 +16,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.caash.mongodb.MongoDbCollection;
+import com.rpm.caash.mongodb.exceptions.MongoDbException;
 import com.rpm.model.User;
 
 @Path("/members")
@@ -31,9 +32,16 @@ public class UserResourceRESTService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DBObject> listAllUsers() {
 
-		final DBCursor users = mongoDBOperator.findAllInCollection(MongoDbCollection.USERS);
+		DBCursor users;
+		try {
+			users = mongoDBOperator.findAllInCollection(MongoDbCollection.USERS);
+			return users.toArray();
+		} catch (final MongoDbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		return users.toArray();
+		return null;
 	}
 
 
@@ -45,7 +53,12 @@ public class UserResourceRESTService {
 	public void createMember(final User user){
 		final DBObject dbJob = new BasicDBObject("email", user.getEmail())
 		.append("password", user.getPassword());
-		mongoDBOperator.addDbObjectToDbCollection(dbJob, MongoDbCollection.USERS);
+		try {
+			mongoDBOperator.addDbObjectToDbCollection(dbJob, MongoDbCollection.USERS);
+		} catch (final MongoDbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@POST
@@ -54,7 +67,14 @@ public class UserResourceRESTService {
 	public Response logIn(final User user) {
 		String returnValue ="Failure ==> User does not exist in the DB";
 
-		final DBCursor cursor = mongoDBOperator.findAllInCollection(MongoDbCollection.USERS);
+		DBCursor cursor;
+		try {
+			cursor = mongoDBOperator.findAllInCollection(MongoDbCollection.USERS);
+		} catch (final MongoDbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
 
 		while(cursor.hasNext()){
 			final DBObject o = cursor.next();

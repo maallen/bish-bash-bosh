@@ -1,16 +1,16 @@
 package com.rpm.caash.mongodb;
 
-import java.net.UnknownHostException;
-
 import javax.ejb.Singleton;
 import javax.inject.Named;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.rpm.caash.mongodb.exceptions.MongoDbException;
 
 /**
  * Operator Class to access and use Mongo database
@@ -34,8 +34,9 @@ public class MongoDBApiOperator {
 	 * Method to add a DBObject to a specified Mongo DB Collection
 	 * @param dbObject
 	 * @param collection
+	 * @throws MongoDbException
 	 */
-	public void addDbObjectToDbCollection(final DBObject dbObject, final MongoDbCollection collection){
+	public void addDbObjectToDbCollection(final DBObject dbObject, final MongoDbCollection collection) throws MongoDbException{
 		final DBCollection dbCollection = getCollection(collection);
 		dbCollection.insert(dbObject);
 	}
@@ -44,21 +45,36 @@ public class MongoDBApiOperator {
 	 * Retrieve all documents in a MongoDB Collection
 	 * @param collection
 	 * @return DBCursor object
+	 * @throws MongoDbException
 	 */
-	public DBCursor findAllInCollection(final MongoDbCollection collection){
+	public DBCursor findAllInCollection(final MongoDbCollection collection) throws MongoDbException{
 		return getMongoDb().getCollection(collection.toString()).find();
 	}
 
 	/**
-	 * 
-	 * @param collectionName
-	 * @return DBCollection object for the required MongoDB Collection
+	 * Returns the DBCollection object for the specified collection
+	 * @param collection
+	 * @return DBCollection
+	 * @throws MongoDbException
 	 */
-	public DBCollection getCollection(final MongoDbCollection collection){
+	public DBCollection getCollection(final MongoDbCollection collection) throws MongoDbException{
 		return getMongoDb().getCollection(collection.toString());
 	}
 
-	private DB getMongoDb(){
+	/**
+	 * Returns DBCursor object containing documents that match query
+	 * 
+	 * @param query
+	 * @param collection
+	 * @return DBCursor
+	 * @throws MongoDbException
+	 */
+	public DBCursor findDocumentsInCollection(final BasicDBObject query, final MongoDbCollection collection) throws MongoDbException{
+		final DBCollection dbCollection = getMongoDb().getCollection(collection.toString());
+		return dbCollection.find(query);
+	}
+
+	private DB getMongoDb() throws MongoDbException{
 
 		if (mongoClient != null){
 			return mongoClient.getDB(CAASH);
@@ -67,9 +83,10 @@ public class MongoDBApiOperator {
 		final MongoClientURI mongoClientURI = new MongoClientURI(MONGOLAB_DB_URI);
 		try {
 			mongoClient = new MongoClient(mongoClientURI);
-		} catch (final UnknownHostException e) {
+		} catch (final Exception e) {
 			System.out.print("Error retrieving MongoDB Client from MongoLab");
 			e.printStackTrace();
+			throw new MongoDbException(e.getMessage());
 		}
 
 		return mongoClient.getDB(CAASH);
