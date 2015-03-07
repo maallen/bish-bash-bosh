@@ -20,11 +20,6 @@ public class HomepageST {
 		driver = new ChromeDriver();
 	}
 
-	@Before
-	public void setUp() throws Exception {
-
-	}
-
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		driver.close();
