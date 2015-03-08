@@ -1,33 +1,17 @@
 package com.rpm.caash.selenium;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class JobsFeedST {
 
-	private static WebDriver driver;
-	private static String os;
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		driver = new ChromeDriver();
-	}
-
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		driver.close();
-		driver = null;
-	}
+	private static WebDriver driver = SeleniumSuite.driver;
 
 	@Test
 	public void testJobsFeedCreation() {

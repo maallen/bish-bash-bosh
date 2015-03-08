@@ -1,31 +1,15 @@
 package com.rpm.caash.selenium;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 public class HomepageST {
 
-	private static WebDriver driver;
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		driver = new ChromeDriver();
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		driver.close();
-		driver = null;
-	}
-
+	private static WebDriver driver = SeleniumSuite.driver;
 
 	@Test
 	public void testDirectedToLandingPage() {
@@ -45,18 +29,18 @@ public class HomepageST {
 	@Test
 	public void testLinkToPlaceAdd(){
 		driver.get("http://caash-caash.rhcloud.com/");
-		final WebElement jobsFeedLink = driver.findElement(By.cssSelector("a[href*='add']"));
+		final WebElement placeAddLink = driver.findElement(By.cssSelector("a[href*='add']"));
 		final Actions actions = new Actions(driver);
-		actions.moveToElement(jobsFeedLink).click().perform();
+		actions.moveToElement(placeAddLink).click().perform();
 		Assert.assertEquals("http://caash-caash.rhcloud.com/#/add", driver.getCurrentUrl());
 	}
 
 	@Test
 	public void testLinkToRegister(){
 		driver.get("http://caash-caash.rhcloud.com/");
-		final WebElement jobsFeedLink = driver.findElement(By.cssSelector("a[href*='register']"));
+		final WebElement registerLink = driver.findElement(By.cssSelector("a[href*='register']"));
 		final Actions actions = new Actions(driver);
-		actions.moveToElement(jobsFeedLink).click().perform();
+		actions.moveToElement(registerLink).click().perform();
 		Assert.assertEquals("http://caash-caash.rhcloud.com/#/register", driver.getCurrentUrl());
 	}
 
