@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class JobsFeedST {
 
@@ -24,9 +22,7 @@ public class JobsFeedST {
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(jobsFeedLink).click().perform();
 		Assert.assertEquals("http://caash-caash.rhcloud.com/#/jobsFeed", driver.getCurrentUrl());
-		@SuppressWarnings("unused")
-		final WebElement mapCanvas = (new WebDriverWait(driver, 5))
-		.until(ExpectedConditions.presenceOfElementLocated(By.id("mapCanvas")));
+		SeleniumSuite.waitForPageLoad(3);
 		jobsMapIsPresent = driver.findElements(By.cssSelector("ui-gmap-google-map")).size() > 0;
 		Assert.assertEquals(true, jobsMapIsPresent);
 		jobsFeedList = driver.findElements(By.id("jobsFeedList")).size() > 0;

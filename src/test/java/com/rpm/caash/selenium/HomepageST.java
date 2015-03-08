@@ -23,6 +23,7 @@ public class HomepageST {
 		final WebElement jobsFeedLink = driver.findElement(By.cssSelector("a[href*='jobsFeed']"));
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(jobsFeedLink).click().perform();
+		SeleniumSuite.waitForPageLoad(3);
 		Assert.assertEquals("http://caash-caash.rhcloud.com/#/jobsFeed", driver.getCurrentUrl());
 	}
 
@@ -32,6 +33,7 @@ public class HomepageST {
 		final WebElement placeAddLink = driver.findElement(By.cssSelector("a[href*='add']"));
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(placeAddLink).click().perform();
+		SeleniumSuite.waitForPageLoad(3);
 		Assert.assertEquals("http://caash-caash.rhcloud.com/#/add", driver.getCurrentUrl());
 	}
 
@@ -41,6 +43,7 @@ public class HomepageST {
 		final WebElement registerLink = driver.findElement(By.cssSelector("a[href*='register']"));
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(registerLink).click().perform();
+		SeleniumSuite.waitForPageLoad(3);
 		Assert.assertEquals("http://caash-caash.rhcloud.com/#/register", driver.getCurrentUrl());
 	}
 

@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Suite.class)
-@SuiteClasses({ HomepageST.class, JobsFeedST.class })
+@SuiteClasses({ HomepageST.class, JobsFeedST.class, PlaceAddST.class })
 public class SeleniumSuite {
 
 	protected static WebDriver driver;
@@ -31,5 +31,12 @@ public class SeleniumSuite {
 	public static void tearDownAfterClass() throws Exception {
 		driver.close();
 		driver = null;
+	}
+
+	protected static void waitForPageLoad(int timeoutInSeconds){
+		timeoutInSeconds = timeoutInSeconds * 1000;
+		try {
+			Thread.sleep(timeoutInSeconds);
+		} catch (final InterruptedException e) {}
 	}
 }
