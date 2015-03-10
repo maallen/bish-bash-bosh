@@ -21,7 +21,7 @@ public class SeleniumSuite {
 		if(os.contains("linux")){
 			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/linux_x64/chromedriver");
 		}else{
-			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/windows/chromedriver");
+			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver/windows/chromedriver.exe");
 		}
 
 		driver = new ChromeDriver();
