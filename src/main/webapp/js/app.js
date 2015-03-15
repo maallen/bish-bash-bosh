@@ -1,17 +1,7 @@
-var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial'])
+var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','directive.g+signin'])
     .config( [ '$httpProvider','$routeProvider', function($httpProvider, $routeProvider) {
 
-        $httpProvider.interceptors.push('ajaxNonceInterceptor');
-
-        $routeProvider.
-
-        when('/register', {
-            templateUrl : 'partials/register.html',
-            controller : myAppModule.RegisterUserController
-        }).when('/login', {
-            templateUrl : 'partials/login.html',
-            controller : myAppModule.LoginController
-        })
+        $routeProvider
         .when('/add', {
             templateUrl : 'partials/place_job.html',
             controller : myAppModule.CreateJobsController
@@ -21,24 +11,7 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
         }).when('/landingpage', {
             templateUrl : 'partials/landing_page.html',
             controller : myAppModule.LoginControllerOauth
-        }).when('/access_token=:accessToken', {
-            template: '',
-            controller: function ($location,$rootScope) {
-              var hash = $location.path().substr(1);
-              
-              var splitted = hash.split('&');
-              var params = {};
-
-              for (var i = 0; i < splitted.length; i++) {
-                var param  = splitted[i].split('=');
-                var key    = param[0];
-                var value  = param[1];
-                params[key] = value;
-                $rootScope.accesstoken=params;
-              }
-              $location.path("/add");
-            }
-          }).otherwise({
+        }).otherwise({
             redirectTo : '/landingpage'
         });
     } ])
@@ -49,19 +22,8 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
     	            v: '3.17',
     	            libraries: 'weather,geometry,visualization'
     	        });
-    	    }])
-    .factory('ajaxNonceInterceptor', function() {
-        // This interceptor is equivalent to the behavior induced by $.ajaxSetup({cache:false});
+    	    }]);
 
-        var param_start = /\?/;
-
-        return {
-            request : function(config) {
-                if (config.method == 'GET') {
-                    // Add a query parameter named '_' to the URL, with a value equal to the current timestamp
-                    config.url += (param_start.test(config.url) ? "&" : "?") + '_=' + new Date().getTime();
-                }
-                return config;
-            }
-        };
-    });
+$(document).ready(function(){
+	$(".button-collapse").sideNav();
+});
