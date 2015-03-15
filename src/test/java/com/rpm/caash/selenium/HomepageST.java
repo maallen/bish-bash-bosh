@@ -37,14 +37,4 @@ public class HomepageST {
 		Assert.assertEquals("http://caash-caash.rhcloud.com/#/add", driver.getCurrentUrl());
 	}
 
-	@Test
-	public void testLinkToRegister(){
-		driver.get("http://caash-caash.rhcloud.com/");
-		final WebElement registerLink = driver.findElement(By.cssSelector("a[href*='register']"));
-		final Actions actions = new Actions(driver);
-		actions.moveToElement(registerLink).click().perform();
-		SeleniumSuite.waitForPageLoad(3);
-		Assert.assertEquals("http://caash-caash.rhcloud.com/#/register", driver.getCurrentUrl());
-	}
-
 }
