@@ -1,4 +1,4 @@
-myAppModule.controller('LoginController',function($scope,$location,$rootScope,$http,$auth) {
+myAppModule.controller('LoginController',function($scope,$location,$auth) {
 	
 	$scope.authenticate = function(provider) {
 	      $auth.authenticate(provider)
