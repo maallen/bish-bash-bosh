@@ -16,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -26,6 +27,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.nimbusds.jose.JOSEException;
+import com.rpm.caash.mongodb.DBObjectToPojoConverter;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.caash.mongodb.MongoDbCollection;
 import com.rpm.caash.mongodb.exceptions.MongoDbException;
@@ -38,7 +40,12 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-
+/**
+ * 
+ * @author robfitz85 (Robert Fitzgerald)
+ * 
+ * Rest Resource for creation and authorization of Users
+ */
 @Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -62,7 +69,10 @@ public class AuthResource {
 	public static final String GRANT_TYPE_KEY = "grant_type";
 	public static final String AUTH_CODE = "authorization_code";
 	
-	public static final String CONFLICT_MSG = "There is already a %s account that belongs to you";
+	public static final String CONFLICT_MSG = "There is already a %s account that belongs to you",
+			NOT_FOUND_MSG = "User not found",
+			LOGING_ERROR_MSG = "Wrong email and/or password",
+			UNLINK_ERROR_MSG = "Could not unlink %s account because it is your only sign-in method";
 
 	/**
 	 * Login using Google credentials
@@ -105,38 +115,45 @@ public class AuthResource {
 	private Response processUser(HttpServletRequest request, OAuthProvider provider, String id,
 			String displayName) throws ParseException, JOSEException, MongoDbException {
 		
-		// Step 1 Get the User from the DB
-		final BasicDBObject query = new BasicDBObject("id", id).append("provider", provider.toString());	
-		DBCursor user = mongoDBOperator.findDocumentsInCollection(query, MongoDbCollection.USERS);
+		final BasicDBObject userQuery = new BasicDBObject().append("id", id)
+				.append("provider", provider.toString());
+		DBCursor usersFoundInDB = mongoDBOperator.findDocumentsInCollection(userQuery, MongoDbCollection.USERS);
 		
+		int numberOfUsersFound = usersFoundInDB.count();
+		User user = new User();
 		
-		// TODO: Step 2. If user is already signed in then link accounts.
-		User userToSave = new User();
-		//String authHeader = request.getHeader(AuthUtils.AUTH_HEADER_KEY);
-		/*if (StringUtils.isNotBlank(authHeader)) {
-			if(user.length() == 1){
-				System.out.println("User found in DB!");
+		switch(numberOfUsersFound){
+			case 0:
+				System.out.println("No records found for this user ==> Attempting to create user now and log in");		
+				addNewUserToDB(provider, id, displayName, user);		
+				break;
+				
+			case 1:
+				System.out.println("One record found for this user ==> Attempting to log in");	
+				user = DBObjectToPojoConverter.convertToUserPOJO(userQuery);
+				break;
+				
+				default:
+				System.out.println("User records for this user are duplicated");
 				return Response
 						.status(Status.CONFLICT)
-						.entity(new ErrorMessage(String.format(CONFLICT_MSG, provider.capitalize())))
+						.entity(String.format(CONFLICT_MSG, provider.capitalize()))
 						.build();
-			}
-		}*/
-		
-		// TODO: Step 3b. Create a new user account or return an existing one.
-		userToSave.setProviderId(provider, id);
-		userToSave.setDisplayName(displayName);
-		
-		final DBObject user1 = new BasicDBObject("id", id)
-		.append("provider", provider.toString()).append("displayName",userToSave.getDisplayName());
-		try {
-			mongoDBOperator.addDbObjectToDbCollection(user1, MongoDbCollection.USERS);
-		} catch (final MongoDbException e) {
-			e.printStackTrace();
 		}
 
-		Token token = AuthUtils.createToken(request.getRemoteHost(), userToSave.getId());
+		Token token = AuthUtils.createToken(request.getRemoteHost(), user.getId());
 		return Response.ok().entity(token).build();
+	}
+
+	private void addNewUserToDB(OAuthProvider provider, String id,
+			String displayName, User user) throws MongoDbException {
+		user.setProviderId(provider, id);
+		user.setDisplayName(displayName);
+		
+		final DBObject userDBObject = new BasicDBObject("id", id)
+		.append("provider", provider.toString()).append("displayName",user.getDisplayName());
+		
+		mongoDBOperator.addDbObjectToDbCollection(userDBObject, MongoDbCollection.USERS);
 	}
 
 	

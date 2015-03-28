@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class User {
 	
-	private long id;
+	private String id;
 	private String email;
 	private String password;
 	private String displayName;
@@ -12,7 +12,11 @@ public class User {
 	private String google;
 	private String twitter;
 
-	public long getId() {
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
 		return id;
 	}
 
