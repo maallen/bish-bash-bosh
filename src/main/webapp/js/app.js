@@ -7,8 +7,8 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
         	authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
         	scope: ['profile', 'email'],
 //        	Use redirectUri below for Local Testing
-        	redirectUri: "http://localhost:8080/caash/",
-//        	redirectUri: "http://caash-caash.rhcloud.com/",
+//        	redirectUri: "http://localhost:8080/caash/",
+        	redirectUri: "http://caash-caash.rhcloud.com/",
         	scopePrefix: 'openid',
         	scopeDelimiter: ' ',
         	requiredUrlParams: ['scope'],
