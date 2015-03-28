@@ -1,5 +1,22 @@
-var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','directive.g+signin'])
-    .config( [ '$httpProvider','$routeProvider', function($httpProvider, $routeProvider) {
+var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer'])
+    .config( [ '$httpProvider','$routeProvider','$authProvider', function($httpProvider, $routeProvider,$authProvider) {
+    	
+    	$authProvider.google({
+    		url: 'rest/auth/google',
+    		clientId : "946568828798-ob0dnlcdhe30kbgajfdp26it3mt4pb86.apps.googleusercontent.com",
+        	authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+        	scope: ['profile', 'email'],
+        	redirectUri: "http://localhost:8080/caash/",
+//        	redirectUri: "http://caash-caash.rhcloud.com/",
+        	scopePrefix: 'openid',
+        	scopeDelimiter: ' ',
+        	requiredUrlParams: ['scope'],
+        	optionalUrlParams: ['display'],
+        	display: 'popup',
+        	type: '2.0',
+        	popupOptions: { width: 580, height: 500 }
+    		  
+    	});
 
         $routeProvider
         .when('/add', {
@@ -10,7 +27,7 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
             controller : myAppModule.ViewJobsController
         }).when('/landingpage', {
             templateUrl : 'partials/landing_page.html',
-            controller : myAppModule.LoginControllerOauth
+            controller : myAppModule.LoginController
         }).otherwise({
             redirectTo : '/landingpage'
         });

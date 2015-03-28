@@ -1,17 +1,14 @@
-myAppModule.controller('LoginControllerOauth',function($scope,$location,$rootScope) {
-    
-    $scope.$on('event:google-plus-signin-success', function (event, authResult) {
-        console.log(authResult);
-        console.log("Access Token is "+ authResult.access_token);
-        $rootScope.$apply(function() {
+myAppModule.controller('LoginController',function($scope,$location,$rootScope,$http,$auth) {
+	
+	$scope.authenticate = function(provider) {
+	      $auth.authenticate(provider)
+	        .then(function() {
+	        	console.log("You have successfully logged in");
+	        	$location.path('/add');
+	        })
+	        .catch(function(response) {
+	          console.log(response);
+	        });
+	    };
 
-            $location.path('/add');
-            console.log($location.path());
-          });
-        
-      });
-    
-    $scope.$on('event:google-plus-signin-failure', function (event, authResult) {
-        console.log('Not signed into Google Plus.');
-      });     
-  });
+});
