@@ -14,8 +14,7 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
         	optionalUrlParams: ['display'],
         	display: 'popup',
         	type: '2.0',
-        	popupOptions: { width: 580, height: 500 }
-    		  
+        	popupOptions: { width: 580, height: 500 }		  
     	});
 
         $routeProvider
