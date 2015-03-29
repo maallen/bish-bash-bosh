@@ -13,7 +13,7 @@ public class JobsFeedST {
 
 	@Test
 	public void testJobsFeedCreation() {
-		driver.get(SeleniumSuite.address);
+		driver.get(SeleniumSuite.URL_UNDER_TEST);
 		boolean jobsMapIsPresent = driver.findElements(By.cssSelector("ui-gmap-google-map")).size() > 0;
 		Assert.assertEquals(false, jobsMapIsPresent);
 		boolean jobsFeedList = driver.findElements(By.id("jobsFeedList")).size() > 0;
@@ -21,7 +21,7 @@ public class JobsFeedST {
 		final WebElement jobsFeedLink = driver.findElement(By.cssSelector("a[href*='jobsFeed']"));
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(jobsFeedLink).click().perform();
-		Assert.assertEquals(SeleniumSuite.address + "#/jobsFeed", driver.getCurrentUrl());
+		Assert.assertEquals(SeleniumSuite.URL_UNDER_TEST + "#/jobsFeed", driver.getCurrentUrl());
 		SeleniumSuite.waitForPageLoad(3);
 		jobsMapIsPresent = driver.findElements(By.cssSelector("ui-gmap-google-map")).size() > 0;
 		Assert.assertEquals(true, jobsMapIsPresent);
