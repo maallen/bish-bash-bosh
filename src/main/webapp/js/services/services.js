@@ -60,5 +60,5 @@ myAppModule.factory('UserService', function($http){
         logOut: function() {
                 return $http.post('/logout');
         }
-    };
+        }
 });

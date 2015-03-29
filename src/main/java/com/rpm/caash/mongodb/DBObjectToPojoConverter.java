@@ -2,6 +2,7 @@ package com.rpm.caash.mongodb;
 
 import com.mongodb.DBObject;
 import com.rpm.model.Job;
+import com.rpm.model.OAuthProvider;
 import com.rpm.model.User;
 
 /**
@@ -37,8 +38,11 @@ public final class DBObjectToPojoConverter {
 	 */
 	public static User convertToUserPOJO(final DBObject dbObject){
 		final User user = new User();
-		user.setEmail((String) dbObject.get("email"));
-		user.setPassword((String) dbObject.get("password"));
+		user.setId((String) dbObject.get("id"));
+		user.setDisplayName((String) dbObject.get("displayName"));
+		String providerAsString = (String) dbObject.get("provider");
+		OAuthProvider provider = OAuthProvider.valueOf(providerAsString);
+		user.setProviderId(provider, providerAsString);
 		return user;
 	}
 

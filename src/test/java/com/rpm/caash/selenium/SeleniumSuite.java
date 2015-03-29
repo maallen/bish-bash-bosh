@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class SeleniumSuite {
 
 	protected static WebDriver driver;
+	protected static String address = "http://caash-caash.rhcloud.com/";
 	private static String os;
 
 	@BeforeClass

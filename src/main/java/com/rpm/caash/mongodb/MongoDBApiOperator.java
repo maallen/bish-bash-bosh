@@ -40,6 +40,25 @@ public class MongoDBApiOperator {
 		final DBCollection dbCollection = getCollection(collection);
 		dbCollection.insert(dbObject);
 	}
+	
+	/**
+	 * Method to update an existing document in a collection
+	 * @param searchKey
+	 * @param searchValue
+	 * @param updatedAttribute
+	 * @param updatedAttributeValue
+	 * @param collection
+	 * @throws MongoDbException
+	 */
+	public void updateDocumentInCollection(final String searchKey, final String searchValue,final String updatedAttribute, final String updatedAttributeValue,final MongoDbCollection collection) throws MongoDbException{
+		final DBCollection dbCollection = getCollection(collection);
+		BasicDBObject newDocument = new BasicDBObject();
+		newDocument.append("$set", new BasicDBObject().append(updatedAttribute, updatedAttributeValue));
+	 
+		BasicDBObject searchQuery = new BasicDBObject().append(searchKey, searchValue);
+	 
+		dbCollection.update(searchQuery, newDocument);
+	}
 
 	/**
 	 * Retrieve all documents in a MongoDB Collection

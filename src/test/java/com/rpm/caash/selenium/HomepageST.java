@@ -13,38 +13,28 @@ public class HomepageST {
 
 	@Test
 	public void testDirectedToLandingPage() {
-		driver.get("http://caash-caash.rhcloud.com/");
-		Assert.assertEquals("http://caash-caash.rhcloud.com/#/landingpage", driver.getCurrentUrl());
+		driver.get(SeleniumSuite.address);
+		Assert.assertEquals(SeleniumSuite.address + "#/landingpage", driver.getCurrentUrl());
 	}
 
 	@Test
 	public void testLinkToJobsFeed(){
-		driver.get("http://caash-caash.rhcloud.com/");
+		driver.get(SeleniumSuite.address);
 		final WebElement jobsFeedLink = driver.findElement(By.cssSelector("a[href*='jobsFeed']"));
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(jobsFeedLink).click().perform();
 		SeleniumSuite.waitForPageLoad(3);
-		Assert.assertEquals("http://caash-caash.rhcloud.com/#/jobsFeed", driver.getCurrentUrl());
+		Assert.assertEquals(SeleniumSuite.address + "#/jobsFeed", driver.getCurrentUrl());
 	}
 
 	@Test
 	public void testLinkToPlaceAdd(){
-		driver.get("http://caash-caash.rhcloud.com/");
+		driver.get(SeleniumSuite.address);
 		final WebElement placeAddLink = driver.findElement(By.cssSelector("a[href*='add']"));
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(placeAddLink).click().perform();
 		SeleniumSuite.waitForPageLoad(3);
-		Assert.assertEquals("http://caash-caash.rhcloud.com/#/add", driver.getCurrentUrl());
-	}
-
-	@Test
-	public void testLinkToRegister(){
-		driver.get("http://caash-caash.rhcloud.com/");
-		final WebElement registerLink = driver.findElement(By.cssSelector("a[href*='register']"));
-		final Actions actions = new Actions(driver);
-		actions.moveToElement(registerLink).click().perform();
-		SeleniumSuite.waitForPageLoad(3);
-		Assert.assertEquals("http://caash-caash.rhcloud.com/#/register", driver.getCurrentUrl());
+		Assert.assertEquals(SeleniumSuite.address + "#/add", driver.getCurrentUrl());
 	}
 
 }

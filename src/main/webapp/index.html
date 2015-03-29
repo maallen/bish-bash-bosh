@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myAppModule">
 <head>
-    <title>The Caash App</title>
+    <title>Bish Bash Bosh</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Disable phone number detection on iOS.  -->
     <meta name="format-detection" content="telephone=no" />
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/screen.css" type="text/css" />
     <link rel="stylesheet" href="css/app.css" type="text/css" />
     <link rel="stylesheet" href="css/landing-page.css" type="text/css" />
+     <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
 
     <script src="js/libs/jquery-2.0.3.js"></script>
     <script src="js/libs/bootstrap.js"></script>
@@ -28,33 +29,39 @@
     <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script src="bower_components/lodash/dist/lodash.min.js"></script> 
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    <script src="bower_components/satellizer/satellizer.min.js"></script>
     
     <script src="js/app.js"></script>
     
     <script src="js/controllers/jobs_controller.js"></script>
-    <script src="js/controllers/login_controller.js"></script>
-    <script src="js/controllers/register_user_controller.js"></script>
     <script src="js/controllers/jobsfeedmap_controller.js"></script>
     <script src="js/controllers/oauth_login_controller.js"></script>
+    <script src="js/controllers/profile_page_controller.js"></script>
     
     <script src="js/services/services.js"></script>
-    
 </head>
 <body>
-    <section id="container">
     <div class="navbar-fixed">
-    <nav>
+    	<nav>
     	<div class="nav-wrapper">
-		      <a href="#landingpage" class="brand-logo">Caash <i class = "mdi-editor-attach-money"></i></a>
-		      <ul id="nav-mobile" class="right hide-on-med-and-down">
-		        <li><a href="#add">Place Job</a> <i class = "mdi-editor-format-paint"></i></li>
-		        <li><a href="#jobsFeed">Jobs Feed</a> <i class = "mdi-maps-pin-drop"></i></li>
-		        <li><a href="#register">Register</a></li>
-		        <li><a href="#login">Old Login</a></li>
+		      <a href="#landingpage" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+		      <a href="#landingpage" class="brand-logo center tooltipped" data-delay="50" data-tooltip="Bish Bash Bosh"><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i></a>
+		      <ul class="right hide-on-med-and-down">
+		      	<li><a href="#add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
+		        <li><a href="#jobsFeed" class="tooltipped" data-delay="150" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
+		        <li><a href="#profile" class="tooltipped" data-delay="150" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
+				<li><a href="#landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>	       
+		      </ul>
+	          <ul class="side-nav" id="mobile-demo">
+		        <li><a href="#add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
+		        <li><a href="#jobsFeed" class="tooltipped" data-delay="150" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
+		        <li><a href="#profile" class="tooltipped" data-delay="150" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
+				<li><a href="#landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>	       
 		      </ul>
 		</div>
 		</nav>
-		</div>
+	</div>
+    <section id="container">
         <div id="content" ng-view>
             [Template content will be inserted here]
         </div>

@@ -1,17 +1,24 @@
-var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial'])
-    .config( [ '$httpProvider','$routeProvider', function($httpProvider, $routeProvider) {
+var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer'])
+    .config( [ '$httpProvider','$routeProvider','$authProvider', function($httpProvider, $routeProvider,$authProvider) {
+    	
+    	$authProvider.google({
+    		url: 'rest/auth/google',
+    		clientId : "946568828798-ob0dnlcdhe30kbgajfdp26it3mt4pb86.apps.googleusercontent.com",
+        	authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+        	scope: ['profile', 'email'],
+//        	Use redirectUri below for Local Testing
+//        	redirectUri: "http://localhost:8080/caash/",
+        	redirectUri: "http://caash-caash.rhcloud.com/",
+        	scopePrefix: 'openid',
+        	scopeDelimiter: ' ',
+        	requiredUrlParams: ['scope'],
+        	optionalUrlParams: ['display'],
+        	display: 'popup',
+        	type: '2.0',
+        	popupOptions: { width: 580, height: 500 }		  
+    	});
 
-        $httpProvider.interceptors.push('ajaxNonceInterceptor');
-
-        $routeProvider.
-
-        when('/register', {
-            templateUrl : 'partials/register.html',
-            controller : myAppModule.RegisterUserController
-        }).when('/login', {
-            templateUrl : 'partials/login.html',
-            controller : myAppModule.LoginController
-        })
+        $routeProvider
         .when('/add', {
             templateUrl : 'partials/place_job.html',
             controller : myAppModule.CreateJobsController
@@ -20,25 +27,11 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
             controller : myAppModule.ViewJobsController
         }).when('/landingpage', {
             templateUrl : 'partials/landing_page.html',
-            controller : myAppModule.LoginControllerOauth
-        }).when('/access_token=:accessToken', {
-            template: '',
-            controller: function ($location,$rootScope) {
-              var hash = $location.path().substr(1);
-              
-              var splitted = hash.split('&');
-              var params = {};
-
-              for (var i = 0; i < splitted.length; i++) {
-                var param  = splitted[i].split('=');
-                var key    = param[0];
-                var value  = param[1];
-                params[key] = value;
-                $rootScope.accesstoken=params;
-              }
-              $location.path("/add");
-            }
-          }).otherwise({
+            controller : myAppModule.LoginController
+        }).when('/profile', {
+        	templateUrl : 'partials/profile.html',
+        	controller : myAppModule.ProfilePageController
+        }).otherwise({
             redirectTo : '/landingpage'
         });
     } ])
@@ -49,19 +42,8 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
     	            v: '3.17',
     	            libraries: 'weather,geometry,visualization'
     	        });
-    	    }])
-    .factory('ajaxNonceInterceptor', function() {
-        // This interceptor is equivalent to the behavior induced by $.ajaxSetup({cache:false});
+    	    }]);
 
-        var param_start = /\?/;
-
-        return {
-            request : function(config) {
-                if (config.method == 'GET') {
-                    // Add a query parameter named '_' to the URL, with a value equal to the current timestamp
-                    config.url += (param_start.test(config.url) ? "&" : "?") + '_=' + new Date().getTime();
-                }
-                return config;
-            }
-        };
-    });
+$(document).ready(function(){
+	$(".button-collapse").sideNav();
+});
