@@ -28,6 +28,9 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
         }).when('/landingpage', {
             templateUrl : 'partials/landing_page.html',
             controller : myAppModule.LoginController
+        }).when('/profile', {
+        	templateUrl : 'partials/profile.html',
+        	controller : myAppModule.ProfilePageController
         }).otherwise({
             redirectTo : '/landingpage'
         });

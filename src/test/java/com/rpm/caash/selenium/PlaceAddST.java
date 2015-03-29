@@ -13,12 +13,12 @@ public class PlaceAddST {
 
 	@Test
 	public void testAddJobForm() {
-		driver.get("http://caash-caash.rhcloud.com/");
+		driver.get(SeleniumSuite.address);
 		final WebElement placeAddLink = driver.findElement(By.cssSelector("a[href*='add']"));
 		final Actions actions = new Actions(driver);
 		actions.moveToElement(placeAddLink).click().perform();
 		SeleniumSuite.waitForPageLoad(3);
-		Assert.assertEquals("http://caash-caash.rhcloud.com/#/add", driver.getCurrentUrl());
+		Assert.assertEquals(SeleniumSuite.address + "#/add", driver.getCurrentUrl());
 		driver.findElement(By.id("jobTitle")).sendKeys("testJob");
 		driver.findElement(By.id("jobDesc")).sendKeys("testDescription");
 		driver.findElement(By.id("jobLocation")).sendKeys("Athlone");
