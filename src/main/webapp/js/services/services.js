@@ -1,11 +1,38 @@
-myAppModule.factory('Jobs', ['$resource',getJobsFunction]);
+myAppModule.factory('JobService', function($http){
+		
+	return {
+		getJobsList: getJobsList,
+		createJob: createJob
+	}
 
-function getJobsFunction($resource,$http){
+	//***********getJobsList************************
+    function getJobsList() {
+    //  get all of the jobs in the remote collection.
+        var request = $http({
+        	method:'GET',
+            url: 'rest/getJobs',
+            params: {
+                action: "get"
+            }
+        });
+        //we can add the error scenario in here also when ready.
+        // eg. return( request.then(handleSuccess, handleError ));
+        return( request.then( handleSuccess ) );
+
+    }
+    
+    //***********createJob*************************
+    function createJob(job){
+    	console.log('createJob');
+            return $http.post('rest/createJob', job);
+    }
 	
-    return $resource('rest/getJobs', {}, {
-        query: {method:'GET', isArray:true}
-      });	
-}
+    // Transform the successful response, unwrapping the application data
+    // from the API response pay-load.
+    function handleSuccess( response ) {
+        return ( response.data );
+    }		    
+});
 
 myAppModule.factory('LoginService', 
     function($resource){
@@ -22,14 +49,6 @@ myAppModule.factory('AuthenticationService', function(){
     };
  
     return auth;
-});
-
-myAppModule.factory('CreateJobService', function($http){
-        return  {
-            createJob: function(job){
-            return $http.post('rest/createJob', job);
-        }
-    }
 });
 
 myAppModule.factory('UserService', function($http){

@@ -1,26 +1,28 @@
-myAppModule.controller('ViewJobsController',function($scope,$routeParams,$timeout,$http,$resource, Jobs) {
+myAppModule.controller('ViewJobsController',function($scope, $interval, $http, JobService) {
     
-	$scope.jobs = [];
-	
-	$scope.orderBy = 'price';
-	
+	$scope.jobs = [];	
+	$scope.orderBy = 'price';	
 	$scope.map = { 
 		center: { latitude: 53.2734, longitude: -7.7 },
 		zoom: 8 };
+     		
+	load_jobs(); //load jobs
 	
-	(function getJobs() {
-		Jobs.query({
-	        modelId : $routeParams.modelId
-	    }, function(model) {
-	        $scope.jobs = model;
-	        $timeout(getJobs, 5000);
-	    });
-	})();
+	$interval(function(){ //load every 30 sec there after
+		load_jobs();
+		},30000); //30 secs
+	 
+	
+	function load_jobs(){
+		JobService.getJobsList().then(function(dataResponse) {		
+		$scope.jobs = dataResponse;
+		});
+	}
 });
-
-myAppModule.controller('CreateJobsController',function($scope, $http, CreateJobService){
+	
+myAppModule.controller('CreateJobsController',function($scope, $http, JobService){
     
     $scope.createJob = function(){
-        CreateJobService.createJob($scope.job);
+    	JobService.createJob($scope.job);
     };
 });
