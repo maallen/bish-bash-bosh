@@ -6,3 +6,5 @@ target
 .classpath
 .settings/
 .tern-project
+src/test/resources/selenium.properties
+.gitignore~
