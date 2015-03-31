@@ -37,10 +37,14 @@
     <script src="js/controllers/jobsfeedmap_controller.js"></script>
     <script src="js/controllers/oauth_login_controller.js"></script>
     <script src="js/controllers/profile_page_controller.js"></script>
+    <script src="js/controllers/navbar_controller.js"></script>
     
     <script src="js/services/services.js"></script>
 </head>
 <body>
+    <div ng-controller="NavbarController">
+    <!-- code to hide navbar is below, when sellenium is working with this, remove the shorter div below
+    <div ng-if="isAuthenticated()" class="navbar-fixed"> -->
     <div class="navbar-fixed">
     	<nav>
     	<div class="nav-wrapper">
@@ -48,9 +52,12 @@
 		      <a href="#landingpage" class="brand-logo center tooltipped" data-delay="50" data-tooltip="Bish Bash Bosh"><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i></a>
 		      <ul class="right hide-on-med-and-down">
 		      	<li><a href="#add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
-		        <li><a href="#jobsFeed" class="tooltipped" data-delay="150" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
-		        <li><a href="#profile" class="tooltipped" data-delay="150" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
-				<li><a href="#landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>	       
+		        <li><a href="#jobsFeed" class="tooltipped" data-delay="50" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
+		        <li><a href="#profile" class="tooltipped" data-delay="50" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
+				<li><a href="#landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>
+				<li>
+			      	<a ng-if="isAuthenticated()" class="tooltipped" data-delay="50" data-tooltip="Sign Out" ng-click="signOut()"><i class = "mdi-action-exit-to-app"></i></a>
+				</li>	       
 		      </ul>
 	          <ul class="side-nav" id="mobile-demo">
 		        <li><a href="#add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
@@ -58,8 +65,10 @@
 		        <li><a href="#profile" class="tooltipped" data-delay="150" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
 				<li><a href="#landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>	       
 		      </ul>
+		      
 		</div>
 		</nav>
+	</div>
 	</div>
     <section id="container">
         <div id="content" ng-view>

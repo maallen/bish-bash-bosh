@@ -1,4 +1,4 @@
-package com.rpm.model;
+package com.rpm.utils;
 import org.apache.commons.lang3.StringUtils;
 
 /**

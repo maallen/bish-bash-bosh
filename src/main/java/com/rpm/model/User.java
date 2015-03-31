@@ -1,6 +1,7 @@
 package com.rpm.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rpm.utils.OAuthProvider;
 
 public class User {
 	
@@ -83,7 +84,7 @@ public class User {
 		}
 
 		for (OAuthProvider p : OAuthProvider.values()) {
-			if (this.getClass().getDeclaredField(p.name).get(this) != null) {
+			if (this.getClass().getDeclaredField(p.getName()).get(this) != null) {
 				count++;
 			}
 		}
