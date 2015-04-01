@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Preconditions;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -78,8 +79,16 @@ public class AuthResource {
 	 * Login using Google credentials
 	 * @param payload
 	 * @param request
-	 * @return response
-	 * */
+	 * @return
+	 * @throws JOSEException
+	 * @throws ParseException
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws ClientHandlerException
+	 * @throws UniformInterfaceException
+	 * @throws IOException
+	 * @throws MongoDbException
+	 */
 	@POST
 	@Path("/google")
 	public Response loginWithGoogle(@Valid Payload payload, @Context HttpServletRequest request)
@@ -109,6 +118,49 @@ public class AuthResource {
 		
 		// Step 3. Process the authenticated the user.
 		return processUser(request, OAuthProvider.GOOGLE, userInfo.get("sub").toString(),
+				userInfo.get("name").toString());
+	}
+	
+	/**
+	 * Login using Facebook credentials
+	 * @param payload
+	 * @param request
+	 * @return response
+	 * @throws MongoDbException 
+	 * */
+	@POST
+	@Path("/facebook")
+	public Response loginFacebook(@Valid Payload payload, @Context HttpServletRequest request)
+			throws JsonParseException, JsonMappingException, ClientHandlerException,
+			UniformInterfaceException, IOException, ParseException, JOSEException, MongoDbException {
+		String accessTokenUrl = "https://graph.facebook.com/oauth/access_token";
+		String graphApiUrl = "https://graph.facebook.com/me";
+		ClientResponse response;
+
+		// Step 1. Exchange authorization code for access token.
+		MultivaluedMap<String, String> accessData = new MultivaluedMapImpl();
+		accessData.add(CLIENT_ID_KEY, payload.getClientId());
+		accessData.add(REDIRECT_URI_KEY, payload.getRedirectUri());
+		accessData.add(CLIENT_SECRET, clientSecrets.getFacebook());
+		accessData.add(CODE_KEY, payload.getCode());
+		response = client.resource(accessTokenUrl).queryParams(accessData)
+				.get(ClientResponse.class);
+
+		String paramStr = Preconditions.checkNotNull(response.getEntity(String.class));
+		// first param is token, second is expire
+		String[] params = paramStr.split("&");
+		String[] tokenPair = params[0].split("=");
+		String[] expirePair = params[1].split("=");
+		MultivaluedMap<String, String> accessParams = new MultivaluedMapImpl();
+		accessParams.add(tokenPair[0], tokenPair[1]);
+		accessParams.add(expirePair[0], expirePair[1]);
+
+		// Step 2. Retrieve profile information about the current user.
+		response = client.resource(graphApiUrl).queryParams(accessParams).get(ClientResponse.class);
+		Map<String, Object> userInfo = getResponseEntity(response);
+
+		// Step 3. Process the authenticated the user.
+		return processUser(request, OAuthProvider.FACEBOOK, userInfo.get("id").toString(),
 				userInfo.get("name").toString());
 	}
 	
@@ -170,7 +222,8 @@ public class AuthResource {
 		String twitter;
 		
 		public String getFacebook() {
-			return facebook;
+			//Need to figure out how to get this dynamically
+			return facebook = "07173eab9b302e2c6a003168b3c4da71";
 		}
 		
 		public String getGoogle() {

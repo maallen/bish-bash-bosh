@@ -1,126 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div ng-controller="LoginController">
-    <a name="about"></a>
-    <div class="intro-header">
-        <div class="container">
+	<a name="about"></a>
+	<div class="intro-header">
+		<div class="container">
+			<div>
+				<div layout="row" layout-wrap>
+					<div flex="30" flex-md="15" flex-sm="15"></div>
+					<div flex="40"  flex-md="70" flex-sm="70">
+						<md-content class="md-padding">
+						<form method="post" ng-submit="login()" name="loginForm">
+							<div class="form-group has-feedback">
+								<input class="form-control input-lg" type="text" name="email"
+									ng-model="email" placeholder="Email" required autofocus><span
+									class="ion-at form-control-feedback"></span>
+							</div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="intro-message">
-                        <h1 class="white-text">Bish Bash Bosh</h1>
-                        <!-- <google-plus-signin clientid="946568828798-ob0dnlcdhe30kbgajfdp26it3mt4pb86.apps.googleusercontent.com"></google-plus-signin> -->
-                        <button class="btn btn-block btn-google-plus" ng-click="authenticate('google')">
-				          <span class="ion-social-googleplus"></span>Sign in with Google
-				        </button>
-                    </div>
-                </div>
-            </div>
+							<div class="form-group has-feedback">
+								<input class="form-control input-lg" type="password"
+									name="password" ng-model="password" placeholder="Password"
+									required><span class="ion-key form-control-feedback"></span>
+							</div>
 
-        </div>
+							<button type="submit" ng-disabled="loginForm.$invalid"
+								class="btn btn-lg  btn-block btn-success">Log in</button>
 
-    </div>
+							<br />
 
-	<a  name="services"></a>
-    <div class="content-section-a">
+							<p class="text-center">
+								<a href="#">Forgot your password?</a>
+							</p>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
-                    <p class="lead">A special thanks to <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a> for providing the photographs that you see in this template. Visit their website to become a member.</p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" ng-src="images/ipad.png" alt="">
-                </div>
-            </div>
+							<p class="text-center text-muted">
+								<small>Don't have an account yet? <a href="#/">Sign
+										up</a></small>
+							</p>
 
-        </div>
+							<div class="signup-or-separator">
+								<h6 class="text">or</h6>
+								<hr>
+							</div>
+						</form>
+						</md-content>
+						<br>
+						<button class="btn btn-block btn-google-plus"
+							ng-click="authenticate('google')">
+							<span class="ion-social-googleplus"></span>Sign in with Google
+						</button>
+						<br>
+						<button class="btn btn-block btn-facebook"
+							ng-click="authenticate('facebook')">
+							<i class="ion-social-facebook"></i> Sign in with Facebook
+						</button>
+					</div>
+					<div flex="30" flex-md="15" flex-sm="15"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a name="services"></a>
+	<div class="content-section-a">
 
-    </div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5 col-sm-6">
+					<hr class="section-heading-spacer">
+					<div class="clearfix"></div>
+					<h2 class="section-heading">
+						Death to the Stock Photo:<br>Special Thanks 
+					</h2>
+					<p class="lead">
+						A special thanks to <a target="_blank"
+							href="http://join.deathtothestockphoto.com/">Death to the
+							Stock Photo</a> for providing the photographs that you see in this
+						template. Visit their website to become a member.
+					</p>
+				</div>
+				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+					<img class="img-responsive" ng-src="images/ipad.png" alt="">
+				</div>
+			</div>
 
-    <div class="content-section-b">
+		</div>
 
-        <div class="container">
+	</div>
 
-            <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
-                    <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" ng-src="images/dog.png" alt="">
-                </div>
-            </div>
+	<div class="content-section-b">
 
-        </div>
+		<div class="container">
 
-    </div>
+			<div class="row">
+				<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+					<hr class="section-heading-spacer">
+					<div class="clearfix"></div>
+					<h2 class="section-heading">
+						3D Device Mockups<br>by PSDCovers 
+					</h2>
+					<p class="lead">
+						Turn your 2D designs into high quality, 3D product shots in
+						seconds using free Photoshop actions by <a target="_blank"
+							href="http://www.psdcovers.com/">PSDCovers</a>! Visit their
+						website to download some of their awesome, free photoshop actions!
+					</p>
+				</div>
+				<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+					<img class="img-responsive" ng-src="images/dog.png" alt="">
+				</div>
+			</div>
 
-    <div class="content-section-a">
+		</div>
 
-        <div class="container">
+	</div>
 
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Google Web Fonts and<br>Font Awesome Icons</h2>
-                    <p class="lead">This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.</p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" ng-src="images/phones.png" alt="">
-                </div>
-            </div>
+	<div class="content-section-a">
 
-        </div>
+		<div class="container">
 
-    </div>
+			<div class="row">
+				<div class="col-lg-5 col-sm-6">
+					<hr class="section-heading-spacer">
+					<div class="clearfix"></div>
+					<h2 class="section-heading">
+						Google Web Fonts and<br>Font Awesome Icons 
+					</h2>
+					<p class="lead">
+						This template features the 'Lato' font, part of the <a
+							target="_blank" href="http://www.google.com/fonts">Google Web
+							Font library</a>, as well as <a target="_blank"
+							href="http://fontawesome.io">icons from Font Awesome</a>.
+					</p>
+				</div>
+				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+					<img class="img-responsive" ng-src="images/phones.png" alt="">
+				</div>
+			</div>
 
-	<a  name="contact"></a>
-    <div class="banner">
+		</div>
 
-        <div class="container">
+	</div>
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2>Bish Bash Bosh</h2>
-                </div>
-            </div>
+	<a name="contact"></a>
+	<div class="banner">
 
-        </div>
+		<div class="container">
 
-    </div>
+			<div class="row">
+				<div class="col-lg-6">
+					<h2>Bish Bash Bosh</h2>
+				</div>
+			</div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#home">Some Link</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#about">Some Link</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#services">Some Link</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#contact">Some Link</a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted small">Copyright &copy; Bish Bash Bosh 2015. All Rights Reserved</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    
+		</div>
+
+	</div>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<ul class="list-inline">
+						<li><a href="#home">Some Link</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="#about">Some Link</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="#services">Some Link</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="#contact">Some Link</a></li>
+					</ul>
+					<p class="copyright text-muted small">Copyright &copy; Bish
+						Bash Bosh 2015. All Rights Reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
 </div>
