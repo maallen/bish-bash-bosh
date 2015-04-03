@@ -33,7 +33,7 @@ public class MongoDBApiOperatorIT {
 				resolve().withoutTransitivity().asFile();
 
 		final WebArchive war = ShrinkWrap.create(WebArchive.class, "arquillan-caash-test.war").
-				addClasses(MongoDBApiOperator.class, CaashServer.class, Job.class, MongoDbCollection.class)
+				addClasses(MongoDBApiOperator.class, CaashServer.class, Job.class, MongoDbCollection.class,MongoDbException.class)
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
 		for(final File lib: libs){
