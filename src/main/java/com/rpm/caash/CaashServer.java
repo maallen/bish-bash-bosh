@@ -14,10 +14,10 @@ import javax.ws.rs.core.Response.Status;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.rpm.caash.model.Job;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.caash.mongodb.MongoDbCollection;
 import com.rpm.caash.mongodb.exceptions.MongoDbException;
-import com.rpm.model.Job;
 
 @Path("/")
 public class CaashServer {

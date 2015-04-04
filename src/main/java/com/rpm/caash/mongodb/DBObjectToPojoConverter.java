@@ -1,9 +1,9 @@
 package com.rpm.caash.mongodb;
 
 import com.mongodb.DBObject;
-import com.rpm.model.Job;
-import com.rpm.model.User;
-import com.rpm.utils.OAuthProvider;
+import com.rpm.caash.model.Job;
+import com.rpm.caash.model.User;
+import com.rpm.caash.utils.OAuthProvider;
 
 /**
  * 

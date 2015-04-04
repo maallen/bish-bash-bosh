@@ -1,4 +1,4 @@
-package com.rpm.utils;
+package com.rpm.caash.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -17,8 +17,8 @@ import org.junit.runner.RunWith;
 
 import com.mongodb.DBCollection;
 import com.rpm.caash.CaashServer;
+import com.rpm.caash.model.Job;
 import com.rpm.caash.mongodb.exceptions.MongoDbException;
-import com.rpm.model.Job;
 
 
 @RunWith(Arquillian.class)

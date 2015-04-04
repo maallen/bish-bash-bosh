@@ -1,4 +1,4 @@
-package com.rpm.rest;
+package com.rpm.caash.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -1,7 +1,7 @@
-package com.rpm.model;
+package com.rpm.caash.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rpm.utils.OAuthProvider;
+import com.rpm.caash.utils.OAuthProvider;
 
 public class User {
 	

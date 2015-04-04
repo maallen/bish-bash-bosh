@@ -1,4 +1,4 @@
-package com.rpm.utils;
+package com.rpm.caash.utils;
 import org.apache.commons.lang3.StringUtils;
 
 /**

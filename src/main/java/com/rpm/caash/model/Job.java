@@ -1,4 +1,4 @@
-package com.rpm.model;
+package com.rpm.caash.model;
 
 public class Job {
 	

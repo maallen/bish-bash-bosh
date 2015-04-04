@@ -1,4 +1,4 @@
-package com.rpm.rest;
+package com.rpm.caash.rest;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,10 +14,10 @@ import javax.ws.rs.core.Response.Status;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.rpm.caash.model.User;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.caash.mongodb.MongoDbCollection;
 import com.rpm.caash.mongodb.exceptions.MongoDbException;
-import com.rpm.model.User;
 
 @Path("/members")
 public class UserResourceRESTService {

@@ -1,4 +1,4 @@
-package com.rpm.rest;
+package com.rpm.caash.rest;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -28,14 +28,14 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.nimbusds.jose.JOSEException;
+import com.rpm.caash.model.User;
 import com.rpm.caash.mongodb.DBObjectToPojoConverter;
 import com.rpm.caash.mongodb.MongoDBApiOperator;
 import com.rpm.caash.mongodb.MongoDbCollection;
 import com.rpm.caash.mongodb.exceptions.MongoDbException;
-import com.rpm.model.User;
-import com.rpm.utils.AuthUtils;
-import com.rpm.utils.OAuthProvider;
-import com.rpm.utils.Token;
+import com.rpm.caash.utils.AuthUtils;
+import com.rpm.caash.utils.OAuthProvider;
+import com.rpm.caash.utils.Token;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
