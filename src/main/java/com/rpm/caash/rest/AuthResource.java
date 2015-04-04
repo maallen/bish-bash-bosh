@@ -51,17 +51,17 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthResource {
-	
+
 	@Inject
 	private MongoDBApiOperator mongoDBOperator;
-	
+
 	@Valid
-    @NotNull
-    @JsonProperty
-    private ClientSecretsConfiguration clientSecrets = new ClientSecretsConfiguration();
-	
-	private Client client = new Client();
-	
+	@NotNull
+	@JsonProperty
+	private final ClientSecretsConfiguration clientSecrets = new ClientSecretsConfiguration();
+
+	private final Client client = new Client();
+
 	public static final ObjectMapper MAPPER = new ObjectMapper();
 	public static final String CLIENT_ID_KEY = "client_id";
 	public static final String REDIRECT_URI_KEY = "redirect_uri";
@@ -69,7 +69,7 @@ public class AuthResource {
 	public static final String CODE_KEY = "code";
 	public static final String GRANT_TYPE_KEY = "grant_type";
 	public static final String AUTH_CODE = "authorization_code";
-	
+
 	public static final String CONFLICT_MSG = "There is already a %s account that belongs to you",
 			NOT_FOUND_MSG = "User not found",
 			LOGING_ERROR_MSG = "Wrong email and/or password",
@@ -91,16 +91,16 @@ public class AuthResource {
 	 */
 	@POST
 	@Path("/google")
-	public Response loginWithGoogle(@Valid Payload payload, @Context HttpServletRequest request)
+	public Response loginWithGoogle(@Valid final Payload payload, @Context final HttpServletRequest request)
 			throws JOSEException, ParseException, JsonParseException, JsonMappingException,
 			ClientHandlerException, UniformInterfaceException, IOException, MongoDbException {
-		
-		String accessTokenUrl = "https://accounts.google.com/o/oauth2/token";
-		String peopleApiUrl = "https://www.googleapis.com/plus/v1/people/me/openIdConnect";
+
+		final String accessTokenUrl = "https://accounts.google.com/o/oauth2/token";
+		final String peopleApiUrl = "https://www.googleapis.com/plus/v1/people/me/openIdConnect";
 		ClientResponse response;
-		
+
 		// Step 1. Exchange authorization code for access token.
-		MultivaluedMap<String, String> accessData = new MultivaluedMapImpl();
+		final MultivaluedMap<String, String> accessData = new MultivaluedMapImpl();
 		accessData.add(CLIENT_ID_KEY, payload.getClientId());
 		accessData.add(REDIRECT_URI_KEY, payload.getRedirectUri());
 		accessData.add(CLIENT_SECRET, clientSecrets.getGoogle());
@@ -108,37 +108,37 @@ public class AuthResource {
 		accessData.add(GRANT_TYPE_KEY, AUTH_CODE);
 		response = client.resource(accessTokenUrl).entity(accessData).post(ClientResponse.class);
 		accessData.clear();
-		
+
 		// Step 2. Retrieve profile information about the current user.
-		String accessToken = (String) getResponseEntity(response).get("access_token");
+		final String accessToken = (String) getResponseEntity(response).get("access_token");
 		response = client.resource(peopleApiUrl)
 				.header(AuthUtils.AUTH_HEADER_KEY, String.format("Bearer %s", accessToken))
 				.get(ClientResponse.class);
-		Map<String, Object> userInfo = getResponseEntity(response);
-		
+		final Map<String, Object> userInfo = getResponseEntity(response);
+
 		// Step 3. Process the authenticated the user.
 		return processUser(request, OAuthProvider.GOOGLE, userInfo.get("sub").toString(),
-				userInfo.get("name").toString());
+				userInfo.get("name").toString(), userInfo.get("picture").toString());
 	}
-	
+
 	/**
 	 * Login using Facebook credentials
 	 * @param payload
 	 * @param request
 	 * @return response
-	 * @throws MongoDbException 
+	 * @throws MongoDbException
 	 * */
 	@POST
 	@Path("/facebook")
-	public Response loginFacebook(@Valid Payload payload, @Context HttpServletRequest request)
+	public Response loginFacebook(@Valid final Payload payload, @Context final HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, ClientHandlerException,
 			UniformInterfaceException, IOException, ParseException, JOSEException, MongoDbException {
-		String accessTokenUrl = "https://graph.facebook.com/oauth/access_token";
-		String graphApiUrl = "https://graph.facebook.com/me";
+		final String accessTokenUrl = "https://graph.facebook.com/oauth/access_token";
+		final String graphApiUrl = "https://graph.facebook.com/me";
 		ClientResponse response;
 
 		// Step 1. Exchange authorization code for access token.
-		MultivaluedMap<String, String> accessData = new MultivaluedMapImpl();
+		final MultivaluedMap<String, String> accessData = new MultivaluedMapImpl();
 		accessData.add(CLIENT_ID_KEY, payload.getClientId());
 		accessData.add(REDIRECT_URI_KEY, payload.getRedirectUri());
 		accessData.add(CLIENT_SECRET, clientSecrets.getFacebook());
@@ -146,90 +146,91 @@ public class AuthResource {
 		response = client.resource(accessTokenUrl).queryParams(accessData)
 				.get(ClientResponse.class);
 
-		String paramStr = Preconditions.checkNotNull(response.getEntity(String.class));
+		final String paramStr = Preconditions.checkNotNull(response.getEntity(String.class));
 		// first param is token, second is expire
-		String[] params = paramStr.split("&");
-		String[] tokenPair = params[0].split("=");
-		String[] expirePair = params[1].split("=");
-		MultivaluedMap<String, String> accessParams = new MultivaluedMapImpl();
+		final String[] params = paramStr.split("&");
+		final String[] tokenPair = params[0].split("=");
+		final String[] expirePair = params[1].split("=");
+		final MultivaluedMap<String, String> accessParams = new MultivaluedMapImpl();
 		accessParams.add(tokenPair[0], tokenPair[1]);
 		accessParams.add(expirePair[0], expirePair[1]);
 
 		// Step 2. Retrieve profile information about the current user.
 		response = client.resource(graphApiUrl).queryParams(accessParams).get(ClientResponse.class);
-		Map<String, Object> userInfo = getResponseEntity(response);
+		final Map<String, Object> userInfo = getResponseEntity(response);
 
 		// Step 3. Process the authenticated the user.
 		return processUser(request, OAuthProvider.FACEBOOK, userInfo.get("id").toString(),
-				userInfo.get("name").toString());
+				userInfo.get("name").toString(), null);
 	}
-	
-	private Response processUser(HttpServletRequest request, OAuthProvider provider, String id,
-			String displayName) throws ParseException, JOSEException, MongoDbException {
-		
+
+	private Response processUser(final HttpServletRequest request, final OAuthProvider provider, final String id,
+			final String displayName, final String profilePicUrl) throws ParseException, JOSEException, MongoDbException {
+
 		final BasicDBObject userQuery = new BasicDBObject().append("id", id)
 				.append("provider", provider.toString());
-		DBCursor usersFoundInDB = mongoDBOperator.findDocumentsInCollection(userQuery, MongoDbCollection.USERS);
-		
-		int numberOfUsersFound = usersFoundInDB.count();
+		final DBCursor usersFoundInDB = mongoDBOperator.findDocumentsInCollection(userQuery, MongoDbCollection.USERS);
+
+		final int numberOfUsersFound = usersFoundInDB.count();
 		User user = new User();
-		
+
 		switch(numberOfUsersFound){
-			case 0:
-				System.out.println("No records found for this user ==> Attempting to create user now and log in");		
-				addNewUserToDB(provider, id, displayName, user);		
-				break;
-				
-			case 1:
-				System.out.println("One record found for this user ==> Attempting to log in");	
-				user = DBObjectToPojoConverter.convertToUserPOJO(userQuery);
-				break;
-				
-				default:
-				System.out.println("User records for this user are duplicated");
-				return Response
-						.status(Status.CONFLICT)
-						.entity(String.format(CONFLICT_MSG, provider.capitalize()))
-						.build();
+		case 0:
+			System.out.println("No records found for this user ==> Attempting to create user now and log in");
+			addNewUserToDB(provider, id, displayName, profilePicUrl, user);
+			break;
+
+		case 1:
+			System.out.println("One record found for this user ==> Attempting to log in");
+			user = DBObjectToPojoConverter.convertToUserPOJO(usersFoundInDB.next());
+			break;
+
+		default:
+			System.out.println("User records for this user are duplicated");
+			return Response
+					.status(Status.CONFLICT)
+					.entity(String.format(CONFLICT_MSG, provider.capitalize()))
+					.build();
 		}
 
-		Token token = AuthUtils.createToken(request.getRemoteHost(), user.getId());
+		final Token token = AuthUtils.createToken(request.getRemoteHost(), user);
 		return Response.ok().entity(token).build();
 	}
 
-	private void addNewUserToDB(OAuthProvider provider, String id,
-			String displayName, User user) throws MongoDbException {
+	private void addNewUserToDB(final OAuthProvider provider, final String id,
+			final String displayName, final String pictureUrl, final User user) throws MongoDbException {
 		user.setProviderId(provider, id);
 		user.setDisplayName(displayName);
-		
+		user.setPictureUrl(pictureUrl);
+
 		final DBObject userDBObject = new BasicDBObject("id", id)
-		.append("provider", provider.toString()).append("displayName",user.getDisplayName());
-		
+		.append("provider", provider.toString()).append("displayName",user.getDisplayName()).append("pictureUrl", pictureUrl);
+
 		mongoDBOperator.addDbObjectToDbCollection(userDBObject, MongoDbCollection.USERS);
 	}
 
-	
+
 	public static class ClientSecretsConfiguration {
-		
+
 		@JsonProperty
 		String facebook;
-		
+
 		@JsonProperty
 		//Need to figure out how to get this dynamically
 		String google = "ZY8Q-UYg3gcYz5S2dbiF86BT";
-		
+
 		@JsonProperty
 		String twitter;
-		
+
 		public String getFacebook() {
 			//Need to figure out how to get this dynamically
 			return facebook = "07173eab9b302e2c6a003168b3c4da71";
 		}
-		
+
 		public String getGoogle() {
 			return google;
 		}
-		
+
 		public String getTwitter() {
 			return twitter;
 		}
@@ -253,8 +254,8 @@ public class AuthResource {
 			return code;
 		}
 	}
-	
-	private Map<String, Object> getResponseEntity(ClientResponse response)
+
+	private Map<String, Object> getResponseEntity(final ClientResponse response)
 			throws JsonParseException, JsonMappingException, ClientHandlerException,
 			UniformInterfaceException, IOException {
 		return MAPPER.readValue(response.getEntity(String.class),

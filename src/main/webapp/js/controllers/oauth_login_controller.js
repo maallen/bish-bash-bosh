@@ -1,4 +1,6 @@
-myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToast) {
+myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToast, $localStorage) {
+	
+	$scope.$storage = $localStorage;
 	
 	if($auth.isAuthenticated()){
 		$location.path('/add');
@@ -6,9 +8,10 @@ myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToas
 	
 	$scope.authenticate = function(provider) {
 	      $auth.authenticate(provider)
-	        .then(function() {
+	        .then(function(response) {
+	        	$scope.$storage.user = response.data.user;
 	        	console.log("You have successfully logged in");
-	        	showToast("Successfully loged in with your "+provider +" account");
+	        	showToast("Successfully logged in with your "+provider +" account");
 	        	$location.path('/add');
 	        })
 	        .catch(function(response) {

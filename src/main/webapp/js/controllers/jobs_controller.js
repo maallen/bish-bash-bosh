@@ -1,7 +1,7 @@
-myAppModule.controller('ViewJobsController',function($scope, $interval, $http, JobService) {
+myAppModule.controller('ViewJobsController',function($scope, $interval, $http, $localStorage, JobService) {
     
 	$scope.jobs = [];	
-	$scope.orderBy = 'price';	
+	$scope.orderBy = 'price';
 	$scope.map = { 
 		center: { latitude: 53.2734, longitude: -7.7 },
 		zoom: 8 };

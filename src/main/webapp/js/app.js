@@ -1,5 +1,5 @@
-var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer'])
-    .config( [ '$httpProvider','$routeProvider','$authProvider', function($httpProvider, $routeProvider,$authProvider) {
+var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer', 'ngStorage'])
+    .config( ['$httpProvider','$routeProvider','$authProvider', function($httpProvider, $routeProvider,$authProvider) {
 
     	$authProvider.google({
     		url: 'rest/auth/google',

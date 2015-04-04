@@ -1,10 +1,11 @@
-myAppModule.controller('NavbarController', function($scope, $auth,$mdToast) {
+myAppModule.controller('NavbarController', function($scope, $auth,$mdToast, $localStorage) {
     $scope.isAuthenticated = function() {
       return $auth.isAuthenticated();
     };
     
     $scope.signOut = function(){
     	$auth.logout("/");
+    	$localStorage.$reset();
     	showToast("Successfully logged out of your account");
     }
     

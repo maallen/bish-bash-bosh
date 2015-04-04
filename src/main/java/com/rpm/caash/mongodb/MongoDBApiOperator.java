@@ -80,6 +80,16 @@ public class MongoDBApiOperator {
 	public DBCollection getCollection(final MongoDbCollection collection) throws MongoDbException{
 		return getMongoDb().getCollection(collection.toString());
 	}
+	/**
+	 * Returns the first matching DBObject found for the specified collection
+	 * @param query
+	 * @param collection
+	 * @return DBObject
+	 * @throws MongoDbException
+	 */
+	public DBObject findFirstMatchInCollection(final BasicDBObject query, final MongoDbCollection collection) throws MongoDbException{
+		return getMongoDb().getCollection(collection.toString()).findOne(query);
+	}
 
 	/**
 	 * Returns DBCursor object containing documents that match query

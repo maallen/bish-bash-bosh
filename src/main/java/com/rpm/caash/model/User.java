@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rpm.caash.utils.OAuthProvider;
 
 public class User {
-	
+
 	private String id;
 	private String email;
 	private String password;
@@ -12,8 +12,9 @@ public class User {
 	private String facebook;
 	private String google;
 	private String twitter;
+	private String pictureUrl;
 
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
@@ -46,19 +47,19 @@ public class User {
 		return twitter;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
-	public void setDisplayName(String name) {
+	public void setDisplayName(final String name) {
 		this.displayName = name;
 	}
 
-	public void setProviderId(OAuthProvider oauthProvider, String value) {
+	public void setProviderId(final OAuthProvider oauthProvider, final String value) {
 		switch (oauthProvider) {
 		case FACEBOOK:
 			this.facebook = value;
@@ -76,14 +77,14 @@ public class User {
 
 	@JsonIgnore
 	public int getSignInMethodCount() throws IllegalArgumentException,
-			IllegalAccessException, NoSuchFieldException, SecurityException {
+	IllegalAccessException, NoSuchFieldException, SecurityException {
 		int count = 0;
 
 		if (this.getPassword() != null) {
 			count++;
 		}
 
-		for (OAuthProvider p : OAuthProvider.values()) {
+		for (final OAuthProvider p : OAuthProvider.values()) {
 			if (this.getClass().getDeclaredField(p.getName()).get(this) != null) {
 				count++;
 			}
@@ -92,5 +93,13 @@ public class User {
 		return count;
 	}
 
-	
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+
+
 }
