@@ -60,6 +60,8 @@ public class AuthResource {
 	@JsonProperty
 	private final ClientSecretsConfiguration clientSecrets = new ClientSecretsConfiguration();
 
+	private static String FACEBOOK_PROFILE_PIC_URL = "https://graph.facebook.com/%s/picture";
+
 	private final Client client = new Client();
 
 	public static final ObjectMapper MAPPER = new ObjectMapper();
@@ -158,10 +160,11 @@ public class AuthResource {
 		// Step 2. Retrieve profile information about the current user.
 		response = client.resource(graphApiUrl).queryParams(accessParams).get(ClientResponse.class);
 		final Map<String, Object> userInfo = getResponseEntity(response);
+		final String id = userInfo.get("id").toString();
 
 		// Step 3. Process the authenticated the user.
-		return processUser(request, OAuthProvider.FACEBOOK, userInfo.get("id").toString(),
-				userInfo.get("name").toString(), null);
+		return processUser(request, OAuthProvider.FACEBOOK, id,
+				userInfo.get("name").toString(), String.format(FACEBOOK_PROFILE_PIC_URL, id));
 	}
 
 	private Response processUser(final HttpServletRequest request, final OAuthProvider provider, final String id,
