@@ -1,0 +1,72 @@
+
+<div class="row" ng-controller="SignupController" layout="column">
+	<div class="signup-header" layout="row" layout-wrap>
+		<div flex="35" flex-md="15" flex-sm="15"></div>
+		<div flex="30" flex-md="70" flex-sm="70">
+			<div class="center-form panel">
+				<md-toolbar class="md-primary md-hue-3">
+				    <h1 class="md-toolbar-tools">
+				      Sign Up Form
+				    </h1>
+				  </md-toolbar>
+					<md-content class="md-padding">
+					<form name="signupForm" method="post" ng-submit="signup()" autocomplete="off" novalidate="">
+						
+						<md-input-container>
+						<label>Name</label> 
+						<input type="text" name="displayName" required ng-model="user.displayName" minlength="4" >
+						<div ng-messages="signupForm.displayName.$error">
+					      <div ng-message="minlength">Name is too short</div>
+					    </div>
+						</md-input-container> 
+						
+						<md-input-container> 
+						<label>Email</label>
+						<input type="email" name="userEmail" required ng-model="user.email"> 
+						<div ng-messages="signupForm.userEmail.$error">
+						    <div ng-message="email">Your email address is invalid</div>
+						    <div ng-messages-include="error-messages"></div>
+						  </div>
+						</md-input-container> 
+						
+						<md-input-container>
+						<label>Password</label> <input type="password" required name="password" ng-model="user.password" minlength="8" >
+						<div ng-messages="signupForm.password.$error" ng-if="signupForm.$submitted || signupForm.password.$dirty" ng-messages-multiple="ng-messages-multiple" class="error-messages slide-right">
+					      <div ng-message="minlength">Password must be at least 8 characters in length</div>
+					      <div ng-message="passwordMatch" class="message slide-left">Your passwords do not match.</div>
+					    </div>
+						</md-input-container> 
+						
+						<md-input-container> 
+						<label>Confirm
+							Password</label> 
+							<input match-password="password" type="password" name="confirmPassword" required ng-model="user.confirmPassword" > 
+							<div ng-messages="signupForm.confirmPassword.$error" ng-if="signupForm.$submitted || signupForm.confirmPassword.$dirty" ng-messages-multiple="ng-messages-multiple" class="error-messages slide-right">
+						      <div ng-message="minlength">Password must be at least 8 characters in length</div>
+						      <div ng-message="passwordMatch" class="message slide-left">Your passwords do not match.</div>
+						    </div>
+						</md-input-container>
+						
+						<p class="text-center text-muted">
+							<small>By clicking on Sign up, you agree to <a href="#">terms
+									& conditions</a> and <a href="#">privacy policy</a></small>
+						</p>
+
+						<section layout="row" layout-sm="column"
+							layout-align="center center">
+							<md-button type="submit" class="md-accent md-raised md-hue-2" 
+							ng-disabled="signupForm.$invalid || user.password != user.confirmPassword">SIGN UP</md-button>
+						</section>
+
+						<p class="text-center text-muted">
+							Already have an account? <a href="#landingpage">Log in now</a>
+						</p>
+					</form>
+					</md-content>
+					</md-grid-list>
+				</div>
+		</div>
+		<div flex="35" flex-md="15" flex-sm="15"></div>
+	</div>
+</div>
+</div>

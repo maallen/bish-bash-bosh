@@ -21,6 +21,8 @@
     <script src="bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-password/angular-password.js"></script>
     <script src="bower_components/materialize/bin/materialize.js"></script>
 
     <script src="bower_components/angular-route/angular-route.min.js"></script>
@@ -36,14 +38,15 @@
     
     <script src="js/controllers/jobs_controller.js"></script>
     <script src="js/controllers/jobsfeedmap_controller.js"></script>
-    <script src="js/controllers/oauth_login_controller.js"></script>
+    <script src="js/controllers/login_controller.js"></script>
     <script src="js/controllers/profile_page_controller.js"></script>
     <script src="js/controllers/navbar_controller.js"></script>
+    <script src="js/controllers/signup_controller.js"></script>
     
     <script src="js/services/services.js"></script>
 </head>
 <body>
-    <div ng-controller="NavbarController">
+    <div ng-controller="NavbarController" clas="md-hue-2">
     <!-- code to hide navbar is below, when sellenium is working with this, remove the shorter div below
     <div ng-if="isAuthenticated()" class="navbar-fixed"> -->
     <div class="navbar-fixed">

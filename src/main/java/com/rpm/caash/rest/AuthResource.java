@@ -35,6 +35,7 @@ import com.rpm.caash.mongodb.MongoDbCollection;
 import com.rpm.caash.mongodb.exceptions.MongoDbException;
 import com.rpm.caash.utils.AuthUtils;
 import com.rpm.caash.utils.OAuthProvider;
+import com.rpm.caash.utils.PasswordService;
 import com.rpm.caash.utils.Token;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -71,11 +72,12 @@ public class AuthResource {
 	public static final String CODE_KEY = "code";
 	public static final String GRANT_TYPE_KEY = "grant_type";
 	public static final String AUTH_CODE = "authorization_code";
-
-	public static final String CONFLICT_MSG = "There is already a %s account that belongs to you",
+	public static final String CONFLICT_MSG = "There is already a%s account that belongs to you",
 			NOT_FOUND_MSG = "User not found",
 			LOGING_ERROR_MSG = "Wrong email and/or password",
-			UNLINK_ERROR_MSG = "Could not unlink %s account because it is your only sign-in method";
+			UNLINK_ERROR_MSG = "Could not unlink %s account because it is your only sign-in method",
+			EMAIL_ALREADY_REGISTERED = "There is already an account registered with this email address";
+	
 
 	/**
 	 * Login using Google credentials
@@ -132,7 +134,8 @@ public class AuthResource {
 	 * */
 	@POST
 	@Path("/facebook")
-	public Response loginFacebook(@Valid final Payload payload, @Context final HttpServletRequest request)
+
+	public Response loginWithFacebook(@Valid Payload payload, @Context HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, ClientHandlerException,
 			UniformInterfaceException, IOException, ParseException, JOSEException, MongoDbException {
 		final String accessTokenUrl = "https://graph.facebook.com/oauth/access_token";
@@ -166,10 +169,56 @@ public class AuthResource {
 		return processUser(request, OAuthProvider.FACEBOOK, id,
 				userInfo.get("name").toString(), String.format(FACEBOOK_PROFILE_PIC_URL, id));
 	}
-
+	
+	@POST
+	@Path("/login")
+	public Response login(@Valid User user, @Context HttpServletRequest request)
+			throws JOSEException, MongoDbException {
+		
+		final BasicDBObject userQuery = new BasicDBObject().append("email", user.getEmail());
+		DBCursor usersFoundInDB = mongoDBOperator.findDocumentsInCollection(userQuery, MongoDbCollection.USERS);
+		
+		int numberOfUsersFound = usersFoundInDB.count();
+//		User user = new User();
+		
+		switch(numberOfUsersFound){
+		case 0:
+			System.out.println("No records found for this user ==> Attempting to create user now and log in");			
+			break;
+	}
+		return Response.status(Status.UNAUTHORIZED).entity(String.format(LOGING_ERROR_MSG))
+				.build();
+	}
+	
+	@POST
+	@Path("/signup")
+	public Response signup(@Valid User user, @Context HttpServletRequest request) throws JOSEException, MongoDbException {
+		user.setPassword(PasswordService.hashPassword(user.getPassword()));
+		
+		final BasicDBObject userQuery = new BasicDBObject().append("email", user.getEmail());
+		DBCursor usersFoundInDB = mongoDBOperator.findDocumentsInCollection(userQuery, MongoDbCollection.USERS);
+		
+		int numberOfUsersFound = usersFoundInDB.count();
+		switch(numberOfUsersFound){
+			case 0: addNewNonOAuthUserToDB(user);
+			break;
+			case 1:
+				User existingUser = new User();
+				existingUser.setEmail(user.getEmail());
+				Response response = Response.status(Status.CONFLICT).entity(existingUser).build();
+				return response;
+			default:
+				return Response.status(Status.CONFLICT).entity(String.format(CONFLICT_MSG, " user account")).build();
+		}
+		// set the password to null before return user object to client
+		user.setPassword(null);
+		Token token = AuthUtils.createToken(request.getRemoteHost(), user);
+		return Response.status(Status.CREATED).entity(token).build();
+	}
+	
+	
 	private Response processUser(final HttpServletRequest request, final OAuthProvider provider, final String id,
 			final String displayName, final String profilePicUrl) throws ParseException, JOSEException, MongoDbException {
-
 		final BasicDBObject userQuery = new BasicDBObject().append("id", id)
 				.append("provider", provider.toString());
 		final DBCursor usersFoundInDB = mongoDBOperator.findDocumentsInCollection(userQuery, MongoDbCollection.USERS);
@@ -209,6 +258,14 @@ public class AuthResource {
 		final DBObject userDBObject = new BasicDBObject("id", id)
 		.append("provider", provider.toString()).append("displayName",user.getDisplayName()).append("pictureUrl", pictureUrl);
 
+		mongoDBOperator.addDbObjectToDbCollection(userDBObject, MongoDbCollection.USERS);
+	}
+	
+	private void addNewNonOAuthUserToDB(User user) throws MongoDbException {
+		
+		final DBObject userDBObject = new BasicDBObject("email", user.getEmail())
+		.append("password", user.getPassword()).append("displayName",user.getDisplayName());
+		
 		mongoDBOperator.addDbObjectToDbCollection(userDBObject, MongoDbCollection.USERS);
 	}
 

@@ -1,4 +1,4 @@
-myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToast, $localStorage) {
+myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToast, $localStorage,$mdDialog) {
 	
 	$scope.$storage = $localStorage;
 	
@@ -6,7 +6,28 @@ myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToas
 		$location.path('/add');
 	};
 	
-	$scope.authenticate = function(provider) {
+	  $scope.login = function() {
+	      /*$auth.login({ email: $scope.email, password: $scope.password })
+	        .then(function() {
+	        	console.log("You have successfully logged in");
+	        	showToast("Successfully loged in with your account");
+	        	$location.path('/add');
+	        })
+	        .catch(function(response) {
+	        	showToast("Login Failure");
+	        });*/
+		  
+		  $mdDialog.show(
+		  	    	$mdDialog.alert()
+		  	          .title('Login not implemented yet')
+		  	          .content("Please try again soon :)")
+		  	          .ariaLabel('Login Failure')
+		  	          .ok('Try something else')
+		  		    );
+	    };
+	    	    
+	
+	  $scope.authenticate = function(provider) {
 	      $auth.authenticate(provider)
 	        .then(function(response) {
 	        	$scope.$storage.user = response.data.user;
