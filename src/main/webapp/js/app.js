@@ -1,4 +1,4 @@
-var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer', 'ngStorage','ngMessages','ngPassword'])
+var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer', 'ngStorage','ngMessages','ngPassword', 'ngMdIcons'])
     .config( ['$httpProvider','$routeProvider','$authProvider', function($httpProvider, $routeProvider,$authProvider) {
 
     	$authProvider.loginUrl = 'rest/auth/login';
