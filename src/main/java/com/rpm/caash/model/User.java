@@ -97,7 +97,7 @@ public class User {
 		return pictureUrl;
 	}
 
-	public void setPictureUrl(String pictureUrl) {
+	public void setPictureUrl(final String pictureUrl) {
 		this.pictureUrl = pictureUrl;
 	}
 

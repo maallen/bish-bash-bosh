@@ -38,7 +38,7 @@ public final class DBObjectToPojoConverter {
 	 */
 	public static User convertToUserPOJO(final DBObject dbObject){
 		final User user = new User();
-		user.setId((String) dbObject.get("id"));
+		user.setEmail((String) dbObject.get("email"));
 		user.setDisplayName((String) dbObject.get("displayName"));
 		user.setPictureUrl((String) dbObject.get("pictureUrl"));
 		final String providerAsString = (String) dbObject.get("provider");
