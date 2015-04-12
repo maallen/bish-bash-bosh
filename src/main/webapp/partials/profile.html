@@ -13,12 +13,12 @@
       <md-list>
       	<md-item ng-repeat="item in sideMenu">
       		<a>
-      			<md-item-content md-ink-ripple layout="row" layout-align="start center">
+      			<md-item-content md-ink-ripple layout="row" layout-align="start center" ng-click="click(item)">
       				<div class="inset">
       					<ng-md-icon icon="{{item.icon}}" style="fill: grey"></ng-md-icon>
       				</div>
       				<div class="inset" >
-      					<md-button ng-click="click(item)">{{item.title}}</md-button>
+      					<md-button>{{item.title}}</md-button>
       				</div>
       			</md-item-content>
       		</a>
