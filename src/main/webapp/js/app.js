@@ -45,9 +45,6 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
         }).when('/profile', {
         	templateUrl : 'partials/profile.html',
         	controller : myAppModule.ProfilePageController
-        }).when('/signup', {
-        	templateUrl : 'partials/signup.html',
-        	controller : myAppModule.SignupController
         }).otherwise({
             redirectTo : '/landingpage'
         });
@@ -74,7 +71,3 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
     	            libraries: 'weather,geometry,visualization'
     	        });
     	    }]);
-
-$(document).ready(function(){
-	$(".button-collapse").sideNav();
-});
