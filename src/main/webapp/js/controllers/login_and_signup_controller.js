@@ -7,23 +7,23 @@ myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToas
 	};
 	
 	  $scope.login = function() {
-	      /*$auth.login({ email: $scope.email, password: $scope.password })
-	        .then(function() {
-	        	console.log("You have successfully logged in");
+	      $auth.login({ email: this.loginUser.email, password: this.loginUser.password })
+	        .then(function(response) {
+	        	$scope.$storage.user = response.data.user;
 	        	showToast("Successfully loged in with your account");
 	        	$location.path('/add');
 	        })
 	        .catch(function(response) {
-	        	showToast("Login Failure");
-	        });*/
-		  
-		  $mdDialog.show(
-		  	    	$mdDialog.alert()
-		  	          .title('Login not implemented yet')
-		  	          .content("Please try again soon :)")
-		  	          .ariaLabel('Login Failure')
-		  	          .ok('Try something else')
-		  		    );
+	        	if(response.status == 401){
+	        	$mdDialog.show(
+			  	    	$mdDialog.alert()
+			  	          .title('Invalid email and/or password')
+			  	          .content("Please try again")
+			  	          .ariaLabel('Login Failure')
+			  	          .ok('OK')
+			  		    );
+	        	}
+	        });
 	    };
 		
 	    $scope.signup = function() {

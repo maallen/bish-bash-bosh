@@ -174,18 +174,22 @@ public class AuthResource {
 			throws JOSEException, MongoDbException {
 
 		final BasicDBObject userQuery = new BasicDBObject().append("email", user.getEmail());
-		final DBCursor usersFoundInDB = mongoDBOperator.findDocumentsInCollection(userQuery, MongoDbCollection.USERS);
+		final DBCursor usersFoundInDB = mongoDBOperator.findDocumentsInCollection(userQuery, MongoDbCollection.USERS);	
 
 		final int numberOfUsersFound = usersFoundInDB.count();
-		//		User user = new User();
-
-		switch(numberOfUsersFound){
-		case 0:
-			System.out.println("No records found for this user ==> Attempting to create user now and log in");
-			break;
+		
+		if(numberOfUsersFound == 1){
+			while (usersFoundInDB.hasNext()) {
+				DBObject userDBObject = usersFoundInDB.next();
+				User foundUser = DBObjectToPojoConverter.convertToUserPOJO(userDBObject);
+				if(PasswordService.checkPassword(user.getPassword(), foundUser.getPassword())){
+					foundUser.setPassword(null);
+					Token token = AuthUtils.createToken(request.getRemoteHost(), foundUser);
+					return Response.ok().entity(token).build();
+				}
+			}
 		}
-		return Response.status(Status.UNAUTHORIZED).entity(String.format(LOGING_ERROR_MSG))
-				.build();
+		return Response.status(Status.UNAUTHORIZED).entity(user).build();
 	}
 
 	@POST
