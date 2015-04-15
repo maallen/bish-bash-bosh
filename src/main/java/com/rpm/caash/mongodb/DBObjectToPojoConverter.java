@@ -41,9 +41,12 @@ public final class DBObjectToPojoConverter {
 		user.setEmail((String) dbObject.get("email"));
 		user.setDisplayName((String) dbObject.get("displayName"));
 		user.setPictureUrl((String) dbObject.get("pictureUrl"));
-		final String providerAsString = (String) dbObject.get("provider");
-		final OAuthProvider provider = OAuthProvider.valueOf(providerAsString);
-		user.setProviderId(provider, providerAsString);
+		user.setPassword((String) dbObject.get("password")); 
+		if(dbObject.get("provider") != null){
+			final String providerAsString = (String) dbObject.get("provider");
+			final OAuthProvider provider = OAuthProvider.valueOf(providerAsString);
+			user.setProviderId(provider, providerAsString);
+		}
 		return user;
 	}
 

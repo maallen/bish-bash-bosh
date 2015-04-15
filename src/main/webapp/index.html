@@ -7,7 +7,6 @@
     <meta name="format-detection" content="telephone=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
-    <link rel="stylesheet" href="bower_components/materialize/bin/materialize.css">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
     <link rel="stylesheet" href="css/screen.css" type="text/css" />
     <link rel="stylesheet" href="css/app.css" type="text/css" />
@@ -23,16 +22,15 @@
     <script src="bower_components/angular-material/angular-material.min.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-password/angular-password.js"></script>
-    <script src="bower_components/materialize/bin/materialize.js"></script>
 
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
    	<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+   	<script src="bower_components/satellizer/satellizer.min.js"></script> 
     
     <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script src="bower_components/lodash/dist/lodash.min.js"></script> 
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
-    <script src="bower_components/satellizer/satellizer.min.js"></script>
     <script src="//cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/SVG-Morpheus/0.1.8/svg-morpheus.js"></script>  
     
@@ -40,17 +38,16 @@
     
     <script src="js/controllers/jobs_controller.js"></script>
     <script src="js/controllers/jobsfeedmap_controller.js"></script>
-    <script src="js/controllers/login_controller.js"></script>
+    <script src="js/controllers/login_and_signup_controller.js"></script>
     <script src="js/controllers/profile_page_controller.js"></script>
     <script src="js/controllers/navbar_controller.js"></script>
-    <script src="js/controllers/signup_controller.js"></script>
     
     <script src="js/services/services.js"></script>
 </head>
 <body>
-    <div ng-controller="NavbarController" class="md-hue-2" ng-model="user">
-    <!-- code to hide navbar is below, when sellenium is working with this, remove the shorter div below
-    <div ng-if="isAuthenticated()" class="navbar-fixed"> -->
+    <!--  For reference until Selenium is fixed - <div ng-controller="NavbarController" class="md-hue-2" ng-model="user">
+    code to hide navbar is below, when sellenium is working with this, remove the shorter div below
+    <div ng-if="isAuthenticated()" class="navbar-fixed">
     <div class="navbar-fixed">
     	<nav>
     	<div class="nav-wrapper">
@@ -75,7 +72,45 @@
 		</div>
 		</nav>
 	</div>
-	</div>
+	</div> -->
+	 <md-toolbar md-scroll-shrink aria-label="Toolbar" ng-controller="NavbarController" layout="row" layout-align="space-between center" ng-model="user">
+    
+	      <span> 
+	      	<h2 class="md-toolbar-tools"> BBB </h2>	
+	      </span>
+	      <span>
+	        <md-button ng-href="#add" aria-label="Creat Job">
+	        	<md-tooltip>
+		          Create Job
+		        </md-tooltip>
+	        	<ng-md-icon icon="add_circle_outline" style="fill: white" size="32"></ng-md-icon>
+	        </md-button>
+	        <md-button md-no-ink class="md-primary" ng-href="#jobsFeed" aria-label="Jobs Feed">
+		        <md-tooltip>
+		          Jobs Feed
+		        </md-tooltip>
+	        	<ng-md-icon icon="pin_drop" style="fill: white" size="24"></ng-md-icon>
+	        </md-button>
+	        <md-button ng-href="#profile" aria-label="View Profile">
+	        	<md-tooltip>
+		          View Profile
+		        </md-tooltip>
+	        	<ng-md-icon icon="person" style="fill: white" size="24"></ng-md-icon>
+	        </md-button>
+	        <md-button ng-href="#landingpage" aria-label="Home">
+	        	<md-tooltip>
+		          Home
+		        </md-tooltip>
+	        	<ng-md-icon icon="home" style="fill: white" size="24"></ng-md-icon>
+	        </md-button>
+	        <md-button ng-if="isAuthenticated()" ng-click="signOut()" aria-label="Sign Out">
+	        	<md-tooltip>
+		          Sign Out
+		        </md-tooltip>
+	        	<ng-md-icon icon="input" style="fill: white" size="24"></ng-md-icon>
+	        	</md-button>
+	    </span>
+  	</md-toolbar>
     <section id="container">
         <div id="content" ui-view>
             [Template content will be inserted here]

@@ -54,26 +54,6 @@ var myAppModule = angular.module('myAppModule', ['ui.router','ngResource','uiGma
     		templateUrl: 'partials/profile.html',
     		controller: myAppModule.ProfilePageController
     	});
-
-//        $routeProvider
-//        .when('/add', {
-//            templateUrl : 'partials/place_job.html',
-//            controller : myAppModule.CreateJobsController
-//        }).when('/jobsFeed', {
-//            templateUrl : 'partials/jobs_feed.html',
-//            controller : myAppModule.ViewJobsController
-//        }).when('/landingpage', {
-//            templateUrl : 'partials/landing_page.html',
-//            controller : myAppModule.LoginController
-//        }).when('/profile', {
-//        	templateUrl : 'partials/profile.html',
-//        	controller : myAppModule.ProfilePageController
-//        }).when('/signup', {
-//        	templateUrl : 'partials/signup.html',
-//        	controller : myAppModule.SignupController
-//        }).otherwise({
-//            redirectTo : '/landingpage'
-//        });
     } ])
     .config(function($mdThemingProvider) {
     	$mdThemingProvider.theme('default')
@@ -97,7 +77,3 @@ var myAppModule = angular.module('myAppModule', ['ui.router','ngResource','uiGma
     	            libraries: 'weather,geometry,visualization'
     	        });
     	    }]);
-
-$(document).ready(function(){
-	$(".button-collapse").sideNav();
-});
