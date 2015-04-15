@@ -25,7 +25,7 @@
     <script src="bower_components/angular-password/angular-password.js"></script>
     <script src="bower_components/materialize/bin/materialize.js"></script>
 
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
    	<script src="bower_components/ngstorage/ngStorage.min.js"></script>
     
@@ -54,22 +54,22 @@
     <div class="navbar-fixed">
     	<nav>
     	<div class="nav-wrapper">
-		      <a href="#landingpage" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-		      <a href="#landingpage" class="brand-logo center tooltipped" data-delay="50" data-tooltip="Bish Bash Bosh"><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i></a>
+		      <a ui-sref="landingpage" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+		      <a ui-sref="landingpage" class="brand-logo center tooltipped" data-delay="50" data-tooltip="Bish Bash Bosh"><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i></a>
 		      <ul class="right hide-on-med-and-down">
-		      	<li><a href="#add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
-		        <li><a href="#jobsFeed" class="tooltipped" data-delay="50" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
-		        <li><a href="#profile" class="tooltipped" data-delay="50" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
-				<li><a href="#landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>
+		      	<li><a ui-sref="add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
+		        <li><a ui-sref="jobsFeed" class="tooltipped" data-delay="50" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
+		        <li><a ui-sref="profile" class="tooltipped" data-delay="50" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
+				<li><a ui-sref="landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>
 				<li>
 			      	<a ng-if="isAuthenticated()" class="tooltipped" data-delay="50" data-tooltip="Sign Out" ng-click="signOut()"><i class = "mdi-action-exit-to-app"></i></a>
 				</li>	       
 		      </ul>
 	          <ul class="side-nav" id="mobile-demo">
-		        <li><a href="#add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
-		        <li><a href="#jobsFeed" class="tooltipped" data-delay="150" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
-		        <li><a href="#profile" class="tooltipped" data-delay="150" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
-				<li><a href="#landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>	       
+		        <li><a ui-sref="add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
+		        <li><a ui-sref="jobsFeed" class="tooltipped" data-delay="150" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
+		        <li><a ui-sref="profile" class="tooltipped" data-delay="150" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
+				<li><a ui-sref="landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>	       
 		      </ul>
 		      
 		</div>
@@ -77,7 +77,7 @@
 	</div>
 	</div>
     <section id="container">
-        <div id="content" ng-view>
+        <div id="content" ui-view>
             [Template content will be inserted here]
         </div>
     </section>

@@ -1,7 +1,7 @@
 package com.rpm.caash.mongodb;
 
 import javax.ejb.Singleton;
-import javax.inject.Named;
+import javax.ejb.Startup;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -17,7 +17,7 @@ import com.rpm.caash.mongodb.exceptions.MongoDbException;
  * Operator Class to access and use Mongo database
  */
 
-@Named
+@Startup
 @Singleton
 public class MongoDBApiOperator {
 

@@ -1,5 +1,5 @@
-var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer', 'ngStorage','ngMessages','ngPassword', 'ngMdIcons'])
-    .config( ['$httpProvider','$routeProvider','$authProvider', function($httpProvider, $routeProvider,$authProvider) {
+var myAppModule = angular.module('myAppModule', ['ui.router','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer', 'ngStorage','ngMessages','ngPassword', 'ngMdIcons'])
+    .config( ['$httpProvider','$stateProvider','$authProvider', '$urlRouterProvider', function($httpProvider, $stateProvider,$authProvider, $urlRouterProvider) {
 
     	$authProvider.loginUrl = 'rest/auth/login';
     	$authProvider.signupUrl = 'rest/auth/signup';
@@ -31,26 +31,49 @@ var myAppModule = angular.module('myAppModule', ['ngRoute','ngResource','uiGmapg
     		  type: '2.0',
     		  popupOptions: { width: 580, height: 500 }	
     		});
+    	
+    	$urlRouterProvider.otherwise("/landingpage");
+    	
+    	$stateProvider.state('add', {
+    		url: '/add',
+    		templateUrl: 'partials/place_job.html',
+    		controller: myAppModule.CreateJobsController
+    	})
+    	.state('landingpage', {
+    		url: '/landingpage',
+    		templateUrl: 'partials/landing_page.html',
+    		controller: myAppModule.LoginController
+    	})
+    	.state('jobsFeed', {
+    		url: '/jobsFeed',
+    		templateUrl: 'partials/jobs_feed.html',
+    		controller: myAppModule.ViewJobsController
+    	})
+    	.state('profile', {
+    		url: '/profile',
+    		templateUrl: 'partials/profile.html',
+    		controller: myAppModule.ProfilePageController
+    	});
 
-        $routeProvider
-        .when('/add', {
-            templateUrl : 'partials/place_job.html',
-            controller : myAppModule.CreateJobsController
-        }).when('/jobsFeed', {
-            templateUrl : 'partials/jobs_feed.html',
-            controller : myAppModule.ViewJobsController
-        }).when('/landingpage', {
-            templateUrl : 'partials/landing_page.html',
-            controller : myAppModule.LoginController
-        }).when('/profile', {
-        	templateUrl : 'partials/profile.html',
-        	controller : myAppModule.ProfilePageController
-        }).when('/signup', {
-        	templateUrl : 'partials/signup.html',
-        	controller : myAppModule.SignupController
-        }).otherwise({
-            redirectTo : '/landingpage'
-        });
+//        $routeProvider
+//        .when('/add', {
+//            templateUrl : 'partials/place_job.html',
+//            controller : myAppModule.CreateJobsController
+//        }).when('/jobsFeed', {
+//            templateUrl : 'partials/jobs_feed.html',
+//            controller : myAppModule.ViewJobsController
+//        }).when('/landingpage', {
+//            templateUrl : 'partials/landing_page.html',
+//            controller : myAppModule.LoginController
+//        }).when('/profile', {
+//        	templateUrl : 'partials/profile.html',
+//        	controller : myAppModule.ProfilePageController
+//        }).when('/signup', {
+//        	templateUrl : 'partials/signup.html',
+//        	controller : myAppModule.SignupController
+//        }).otherwise({
+//            redirectTo : '/landingpage'
+//        });
     } ])
     .config(function($mdThemingProvider) {
     	$mdThemingProvider.theme('default')

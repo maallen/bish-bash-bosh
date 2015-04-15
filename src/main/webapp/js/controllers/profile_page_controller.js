@@ -2,17 +2,14 @@ myAppModule.controller('ProfilePageController', function($scope, $http, $localSt
 	$scope.user = $localStorage.user;
 	$scope.sideMenu = [
 	                   {
-	                	   link: '',
-	                	   title: 'Open Jobs',
+	                	   title: 'Jobs',
 	                	   icon: 'work'
 	                   },
 	                   {
-	                	   link: '',
 	                	   title: 'Messages',
 	                	   icon: 'message'
 	                   },
 	                   {
-	                	   link: '',
 	                	   title: 'Settings',
 	                	   icon: 'settings'
 	                   }
@@ -21,6 +18,24 @@ myAppModule.controller('ProfilePageController', function($scope, $http, $localSt
 	$scope.content = "startup";
 	
 	$scope.click = function(item){
-		$scope.content = "You clicked on " + item.title;
+		if(item.title === "Jobs"){
+			$scope.jobsClicked();
+		}else if(item.title === "Messages"){
+			$scope.messagesClicked();
+		}else if(item.title === "Settings"){
+			$scope.settingsClicked();
+		}
+	};
+	
+	$scope.jobsClicked = function(){
+		$scope.content = "You clicked on Jobs";
+	};
+	
+	$scope.messagesClicked = function(){
+		$scope.content = "You clicked on Messages";
+	};
+	
+	$scope.settingsClicked = function(){
+		$scope.content = "You clicked on Settings";
 	};
 });

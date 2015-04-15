@@ -2,7 +2,7 @@ package com.rpm.caash.mongodb;
 
 import java.io.File;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -43,7 +43,7 @@ public class MongoDBApiOperatorIT {
 		return war;
 	}
 
-	@Inject
+	@EJB
 	private MongoDBApiOperator mongoDBApiOperator;
 
 	@After

@@ -1,7 +1,7 @@
 package com.rpm.caash;
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -22,7 +22,7 @@ import com.rpm.caash.mongodb.exceptions.MongoDbException;
 @Path("/")
 public class CaashServer {
 
-	@Inject
+	@EJB
 	private MongoDBApiOperator mongoDBApiOperator;
 
 	@GET

@@ -3,7 +3,7 @@ myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToas
 	$scope.$storage = $localStorage;
 	
 	if($auth.isAuthenticated()){
-		$location.path('/add');
+		$state.go('add');
 	};
 	
 	  $scope.login = function() {
