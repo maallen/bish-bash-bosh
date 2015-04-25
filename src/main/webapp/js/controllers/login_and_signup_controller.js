@@ -1,6 +1,8 @@
-myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToast, $localStorage,$mdDialog) {
+myAppModule.controller('LoginController',function($scope, $rootScope, $state, $location,$auth,$mdToast, $localStorage,$mdDialog, $mdSidenav) {
 	
 	$scope.$storage = $localStorage;
+	
+	$mdSidenav("sidenav-left").close();
 	
 	if($auth.isAuthenticated()){
 		$state.go('add');
@@ -10,7 +12,7 @@ myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToas
 	      $auth.login({ email: this.loginUser.email, password: this.loginUser.password })
 	        .then(function(response) {
 	        	$scope.$storage.user = response.data.user;
-	        	showToast("Successfully loged in with your account");
+	        	showToast("Successfully logged in with your account");
 	        	$location.path('/add');
 	        })
 	        .catch(function(response) {
@@ -51,6 +53,7 @@ myAppModule.controller('LoginController',function($scope,$location,$auth,$mdToas
 	      $auth.authenticate(provider)
 	        .then(function(response) {
 	        	$scope.$storage.user = response.data.user;
+	        	$rootScope.$broadcast('loggedIn');
 	        	console.log("You have successfully logged in");
 	        	showToast("Successfully logged in with your "+provider +" account");
 	        	$location.path('/add');

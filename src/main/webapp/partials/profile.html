@@ -1,42 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <div id="profilePageDiv" ng-controller="ProfilePageController" ng-model="user">
-	<section layout="row" flex>
-    <md-sidenav class="md-sidenav-left md-whiteframe-z1" md-component-id="left" md-is-locked-open="true">
-    <md-toolbar class="md-theme-indigo">
-    	<div flex layout="row" layout-align="center center">
-			<div flex><ng-md-icon icon="menu" style="fill: white" size="24"></ng-md-icon></div>
-			<div flex="60"><h5 class="md-headline">Menu</h5></div>
-			<div flex><img ng-src={{user.pictureUrl}} class="img-circle"/></div>
-		</div>
-	</md-toolbar>
-      <md-list>
-      	<md-item ng-repeat="item in sideMenu">
-      		<a>
-      			<md-item-content md-ink-ripple layout="row" layout-align="start center" ng-click="click(item)">
-      				<div class="inset">
-      					<ng-md-icon icon="{{item.icon}}" style="fill: grey"></ng-md-icon>
-      				</div>
-      				<div class="inset" >
-      					<md-button>{{item.title}}</md-button>
-      				</div>
-      			</md-item-content>
-      		</a>
-      </md-list>
-    </md-sidenav>
     <md-content flex layout-padding>
       <div layout="column" layout-fill layout-align="top center">
         <p>
         {{ content }}
         </p>
-        <div>
-          <md-button ng-click="toggleLeft()"
-            class="md-primary" hide-gt-md>
-            Toggle left
-          </md-button>
-        </div>
       </div>
-      <div flex></div>
     </md-content>
   </section>
 </div>

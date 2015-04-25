@@ -7,3 +7,5 @@ target
 .settings/
 .tern-project
 .gitignore~
+.idea/*
+.idea/*

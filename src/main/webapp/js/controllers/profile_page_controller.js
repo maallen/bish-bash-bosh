@@ -1,21 +1,24 @@
-myAppModule.controller('ProfilePageController', function($scope, $http, $localStorage, $mdSidenav){
+myAppModule.controller('ProfilePageController', function($scope, $http, $localStorage, SidebarService){
+
 	$scope.user = $localStorage.user;
-	$scope.sideMenu = [
-	                   {
-	                	   title: 'Jobs',
-	                	   icon: 'work'
-	                   },
-	                   {
-	                	   title: 'Messages',
-	                	   icon: 'message'
-	                   },
-	                   {
-	                	   title: 'Settings',
-	                	   icon: 'settings'
-	                   }
-	                   ];
+	$scope.sidebarItemService = SidebarService;
+	$scope.sidebarItemService.addMenuItem({
+ 	   title: 'Open Jobs',
+	   icon: 'work',
+	   order: 1
+	});
+	$scope.sidebarItemService.addMenuItem({
+	 	   title: 'Messages',
+		   icon: 'message',
+		   order: 2
+	});
+	$scope.sidebarItemService.addMenuItem({
+	 	   title: 'Settings',
+		   icon: 'settings',
+		   order: 3
+	});
 	
-	$scope.content = "startup";
+	$scope.content = "Page Content";
 	
 	$scope.click = function(item){
 		if(item.title === "Jobs"){

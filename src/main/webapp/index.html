@@ -41,8 +41,10 @@
     <script src="js/controllers/login_and_signup_controller.js"></script>
     <script src="js/controllers/profile_page_controller.js"></script>
     <script src="js/controllers/navbar_controller.js"></script>
+    <script src="js/controllers/sidebar_controller.js"></script>
     
     <script src="js/services/services.js"></script>
+    <script src="js/directives/directives.js"></script>
 </head>
 <body>
     <!--  For reference until Selenium is fixed - <div ng-controller="NavbarController" class="md-hue-2" ng-model="user">
@@ -74,12 +76,16 @@
 	</div>
 	</div> -->
 	 <md-toolbar md-scroll-shrink aria-label="Toolbar" ng-controller="NavbarController" layout="row" layout-align="space-between center" ng-model="user">
-    
+		<span>
+		<md-button ng-show="isAuthenticated()" class="md-icon-button md-primary" aria-label="Menu" ng-click="toggleSidebar()">
+            <ng-md-icon icon="menu" style="fill: white"></ng-md-icon>
+        </md-button>
+		</span>
 	      <span> 
 	      	<h2 class="md-toolbar-tools"> BBB </h2>	
 	      </span>
 	      <span>
-	        <md-button ng-href="#add" aria-label="Creat Job">
+	        <md-button ng-href="#add" aria-label="Create Job">
 	        	<md-tooltip>
 		          Create Job
 		        </md-tooltip>
@@ -111,10 +117,27 @@
 	        	</md-button>
 	    </span>
   	</md-toolbar>
-    <section id="container">
-        <div id="content" ui-view>
-            [Template content will be inserted here]
+    <section id="container" layout="row">
+    	<md-sidenav class="md-sidenav-left" md-component-id="sidenav-left">
+    	<div ng-controller="SidebarController">
+    		<md-toolbar md-scroll-shrink aria-label="Sidenav-Toolbar" layout="row" layout-align="space-between center">
+    			<span layout-padding>
+    				<md-button class="md-icon-button md-primary" ng-click="toggleSidebar()" aria-label="Close Sidebar">
+    					<ng-md-icon icon="arrow_back" style="fill: white"></ng-md-icon>
+    				</md-button>
+    			</span>
+    			<span layout-padding>
+    				<img ng-src="{{user.pictureUrl}}" class="img-circle" width="45"/>
+    			</span>
+    		</md-toolbar>
+    		<md-content>
+        		<sidebar></sidebar> 
+        	</md-content>
         </div>
+   		</md-sidenav>
+        <md-content id="content" ui-view>
+            [Template content will be inserted here]
+        </md-content>
     </section>
 </body>
 </html>

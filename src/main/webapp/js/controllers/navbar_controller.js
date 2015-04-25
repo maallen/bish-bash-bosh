@@ -1,6 +1,14 @@
-myAppModule.controller('NavbarController', function($scope, $auth,$mdToast, $localStorage) {
+myAppModule.controller('NavbarController', function($scope, $rootScope, $auth,$mdToast, $localStorage, $mdMedia, $mdSidenav) {
+	$rootScope.$mdMedia = $mdMedia;
+	
     $scope.isAuthenticated = function() {
       return $auth.isAuthenticated();
+    };
+    
+    $scope.toggleSidebar = function(){
+    	$mdSidenav('sidenav-left').toggle().then(function(){
+			console.log("Sidebar toggled");
+    		});
     };
     
     $scope.signOut = function(){

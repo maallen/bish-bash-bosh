@@ -1,9 +1,9 @@
-var myAppModule = angular.module('myAppModule', ['ui.router','ngResource','uiGmapgoogle-maps', 'ngMaterial','satellizer', 'ngStorage','ngMessages','ngPassword', 'ngMdIcons'])
+var myAppModule = angular.module('myAppModule', ['ui.router','ngResource','ngAnimate','ngAria','uiGmapgoogle-maps', 'ngMaterial','satellizer', 'ngStorage','ngMessages','ngPassword', 'ngMdIcons'])
     .config( ['$httpProvider','$stateProvider','$authProvider', '$urlRouterProvider', function($httpProvider, $stateProvider,$authProvider, $urlRouterProvider) {
 
     	$authProvider.loginUrl = 'rest/auth/login';
     	$authProvider.signupUrl = 'rest/auth/signup';
-    	
+
     	$authProvider.google({
     		url: 'rest/auth/google',
     		clientId : "946568828798-ob0dnlcdhe30kbgajfdp26it3mt4pb86.apps.googleusercontent.com",

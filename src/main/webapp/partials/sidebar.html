@@ -1,0 +1,12 @@
+<md-item ng-repeat="item in sidebarItemService.sidebarItems">
+ 	<a>
+ 		<md-item-content md-ink-ripple layout="row" layout-align="start center" ng-click="click(item)">
+			<div class="inset">
+				<ng-md-icon icon="{{item.icon}}" style="fill: grey"></ng-md-icon>
+			</div>
+			<div class="inset" >
+				<md-button>{{item.title}}</md-button>
+			</div>
+		</md-item-content>
+	</a>
+</md-item>

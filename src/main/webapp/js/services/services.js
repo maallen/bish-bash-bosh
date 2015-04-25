@@ -51,6 +51,27 @@ myAppModule.factory('AuthenticationService', function(){
     return auth;
 });
 
+myAppModule.factory('SidebarService', function(){
+	
+	return {
+		
+		sidebarItems: [],
+		
+		clearSidebarItems: function(){
+			this.sidebarItems = [];
+		},
+		
+		addMenuItem: function(item){
+			this.sidebarItems.push(item);
+			
+			this.sidebarItems.sort(function(a, b){
+				return (a.order > b.order) ? 1 : ((b.order > a.order) ? -1:0);
+			});
+		}
+	};
+
+});
+
 myAppModule.factory('UserService', function($http){
         return {
             logIn: function(email, password) {    		
@@ -59,6 +80,6 @@ myAppModule.factory('UserService', function($http){
  
         logOut: function() {
                 return $http.post('/logout');
-        }
+        	}
         }
 });
