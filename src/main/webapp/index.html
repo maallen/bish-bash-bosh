@@ -47,34 +47,6 @@
     <script src="js/directives/directives.js"></script>
 </head>
 <body>
-    <!--  For reference until Selenium is fixed - <div ng-controller="NavbarController" class="md-hue-2" ng-model="user">
-    code to hide navbar is below, when sellenium is working with this, remove the shorter div below
-    <div ng-if="isAuthenticated()" class="navbar-fixed">
-    <div class="navbar-fixed">
-    	<nav>
-    	<div class="nav-wrapper">
-		      <a ui-sref="landingpage" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-		      <a ui-sref="landingpage" class="brand-logo center tooltipped" data-delay="50" data-tooltip="Bish Bash Bosh"><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i><i class = "mdi-editor-format-bold"></i></a>
-		      <ul class="right hide-on-med-and-down">
-		      	<li><a ui-sref="add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
-		        <li><a ui-sref="jobsFeed" class="tooltipped" data-delay="50" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
-		        <li><a ui-sref="profile" class="tooltipped" data-delay="50" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
-				<li><a ui-sref="landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>
-				<li>
-			      	<a ng-if="isAuthenticated()" class="tooltipped" data-delay="50" data-tooltip="Sign Out" ng-click="signOut()"><i class = "mdi-action-exit-to-app"></i></a>
-				</li>	       
-		      </ul>
-	          <ul class="side-nav" id="mobile-demo">
-		        <li><a ui-sref="add" class="tooltipped" data-delay="50" data-tooltip="Create a Job"><i class = "mdi-content-add-circle-outline"></i></a></li>
-		        <li><a ui-sref="jobsFeed" class="tooltipped" data-delay="150" data-tooltip="View Jobs"><i class = "mdi-maps-pin-drop"></i></a></li>
-		        <li><a ui-sref="profile" class="tooltipped" data-delay="150" data-tooltip="View Profile"><i class = "mdi-action-account-circle"></i></a></li>
-				<li><a ui-sref="landingpage" class="tooltipped" data-delay="50" data-tooltip="Home"><i class = "mdi-action-home"></i></a></li>	       
-		      </ul>
-		      
-		</div>
-		</nav>
-	</div>
-	</div> -->
 	 <md-toolbar md-scroll-shrink aria-label="Toolbar" ng-controller="NavbarController" layout="row" layout-align="space-between center" ng-model="user">
 		<span>
 		<md-button ng-show="isAuthenticated()" class="md-icon-button md-primary" aria-label="Menu" ng-click="toggleSidebar()">
@@ -85,6 +57,7 @@
 	      	<h2 class="md-toolbar-tools"> BBB </h2>	
 	      </span>
 	      <span>
+	      <div ng-if="isAuthenticated()">
 	        <md-button ng-href="#add" aria-label="Create Job">
 	        	<md-tooltip>
 		          Create Job
@@ -109,12 +82,13 @@
 		        </md-tooltip>
 	        	<ng-md-icon icon="home" style="fill: white" size="24"></ng-md-icon>
 	        </md-button>
-	        <md-button ng-if="isAuthenticated()" ng-click="signOut()" aria-label="Sign Out">
+	        <md-button id="logOut" ng-click="signOut()" aria-label="Sign Out">
 	        	<md-tooltip>
 		          Sign Out
 		        </md-tooltip>
 	        	<ng-md-icon icon="input" style="fill: white" size="24"></ng-md-icon>
 	        	</md-button>
+	        </div>
 	    </span>
   	</md-toolbar>
     <section id="container" layout="row">

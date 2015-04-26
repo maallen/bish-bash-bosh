@@ -14,7 +14,7 @@
 								
 								<md-input-container>
 								<label>E-Mail</label> 
-								<input type="email" name="emailAddress" required ng-model="loginUser.email" minlength="4" >
+								<input id="loginEmail" type="email" name="emailAddress" required ng-model="loginUser.email" minlength="4" >
 								<div ng-messages="signupForm.emailAddress.$error">
 							      	<div ng-message="email">Your email address is invalid</div>
 							    	<div ng-messages-include="error-messages"></div>
@@ -23,7 +23,7 @@
 								
 								<md-input-container>
 								<label>Password</label> 
-								<input type="password" name="userPassword" required ng-model="loginUser.password" >
+								<input id="loginPassword" type="password" name="userPassword" required ng-model="loginUser.password" >
 								<div ng-messages="signupForm.userPassword.$error">
 							      	<div ng-message="pasword">Enter your password</div>
 							    	<div ng-messages-include="error-messages"></div>
@@ -32,7 +32,7 @@
 	
 								<section layout="row" layout-sm="column"
 									layout-align="center center">
-									<md-button type="submit" class="md-primary md-raised md-hue-2" 
+									<md-button id="loginButton" type="submit" class="md-primary md-raised md-hue-2" 
 									ng-disabled="loginForm.$invalid">Login</md-button>
 								</section>
 								<br />

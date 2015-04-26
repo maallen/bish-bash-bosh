@@ -34,10 +34,25 @@ var myAppModule = angular.module('myAppModule', ['ui.router','ngResource','ngAni
     	
     	$urlRouterProvider.otherwise("/landingpage");
     	
+    	var checkIsUserAuthenticated = function($q, $location, $auth) {
+            var deferred = $q.defer();
+
+            if (!$auth.isAuthenticated()) {
+              $location.path('/login');
+            } else {
+              deferred.resolve();
+            }
+
+            return deferred.promise;
+          };
+    	
     	$stateProvider.state('add', {
     		url: '/add',
     		templateUrl: 'partials/place_job.html',
-    		controller: myAppModule.CreateJobsController
+    		controller: myAppModule.CreateJobsController,
+            resolve: {
+                authenticated: checkIsUserAuthenticated,
+              }
     	})
     	.state('landingpage', {
     		url: '/landingpage',
@@ -47,13 +62,19 @@ var myAppModule = angular.module('myAppModule', ['ui.router','ngResource','ngAni
     	.state('jobsFeed', {
     		url: '/jobsFeed',
     		templateUrl: 'partials/jobs_feed.html',
-    		controller: myAppModule.ViewJobsController
+    		controller: myAppModule.ViewJobsController,
+            resolve: {
+                authenticated: checkIsUserAuthenticated,
+              }
     	})
     	.state('profile', {
     		url: '/profile',
     		templateUrl: 'partials/profile.html',
-    		controller: myAppModule.ProfilePageController
-    	});
+    		controller: myAppModule.ProfilePageController,
+            resolve: {
+              authenticated: checkIsUserAuthenticated,
+            }
+          });
     } ])
     .config(function($mdThemingProvider) {
     	$mdThemingProvider.theme('default')
