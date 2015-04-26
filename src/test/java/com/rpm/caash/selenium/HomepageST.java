@@ -27,6 +27,7 @@ public class HomepageST{
 	@Test
 	public void testLoginAndLOgout(){
 		driver.get(SeleniumSuite.URL_UNDER_TEST);
+		SeleniumSuite.waitForPageLoad(5);
 		Assert.assertEquals(SeleniumSuite.URL_UNDER_TEST + "#/landingpage", driver.getCurrentUrl());
 		driver.findElement(By.id("loginEmail")).sendKeys(SUCCESSFUL_EMAIL);
 		driver.findElement(By.id("loginPassword")).sendKeys(SUCCESSFUL_PASSWORD);
@@ -40,6 +41,7 @@ public class HomepageST{
 	@Test
 	public void testLoginFailure(){
 		driver.get(SeleniumSuite.URL_UNDER_TEST);
+		SeleniumSuite.waitForPageLoad(5);
 		Assert.assertEquals(SeleniumSuite.URL_UNDER_TEST + "#/landingpage", driver.getCurrentUrl());
 		driver.findElement(By.id("loginEmail")).sendKeys(FAILURE_EMAIL);
 		driver.findElement(By.id("loginPassword")).sendKeys(FAILURE_PASSWORD);
@@ -51,6 +53,7 @@ public class HomepageST{
 	@Test
 	public void testLoginSuccess(){
 		driver.get(SeleniumSuite.URL_UNDER_TEST);
+		SeleniumSuite.waitForPageLoad(5);
 		Assert.assertEquals(SeleniumSuite.URL_UNDER_TEST + "#/landingpage", driver.getCurrentUrl());
 		driver.findElement(By.id("loginEmail")).sendKeys(SUCCESSFUL_EMAIL);
 		driver.findElement(By.id("loginPassword")).sendKeys(SUCCESSFUL_PASSWORD);
