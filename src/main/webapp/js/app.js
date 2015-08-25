@@ -1,6 +1,6 @@
 var myAppModule = angular.module('myAppModule', ['ui.router','ngResource','ngAnimate','ngAria','uiGmapgoogle-maps', 'ngMaterial','satellizer', 'ngStorage','ngMessages','ngPassword', 'ngMdIcons'])
     .config( ['$httpProvider','$stateProvider','$authProvider', '$urlRouterProvider', function($httpProvider, $stateProvider,$authProvider, $urlRouterProvider) {
-
+   	
     	$authProvider.loginUrl = 'rest/auth/login';
     	$authProvider.signupUrl = 'rest/auth/signup';
 

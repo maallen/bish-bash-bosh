@@ -6,11 +6,11 @@ myAppModule.controller('ViewJobsController',function($scope, $interval, $http, $
 		center: { latitude: 53.2734, longitude: -7.7 },
 		zoom: 8 };
      		
-	load_jobs(); //load jobs
+	load_jobs();
 	
-	$interval(function(){ //load every 30 sec there after
+	$interval(function(){
 		load_jobs();
-		},30000); //30 secs
+		},30000);
 	 
 	
 	function load_jobs(){
@@ -20,9 +20,33 @@ myAppModule.controller('ViewJobsController',function($scope, $interval, $http, $
 	}
 });
 	
-myAppModule.controller('CreateJobsController',function($scope, $http, JobService){
+myAppModule.controller('CreateJobsController',function($scope, $http, $location, $mdToast, JobService){
     
     $scope.createJob = function(){
-    	JobService.createJob($scope.job);
+    	JobService.createJob($scope.job).then(function(response) {
+        	showToast("Your Job has been created successfully");
+        	$location.path('/jobsFeed');
+        });
     };
+    
+    showToast = function(content) {
+        $mdToast.show(
+          $mdToast.simple()
+            .content(content)
+            .position($scope.getToastPosition())
+            .hideDelay(5000)
+        );
+      };
+      
+      $scope.getToastPosition = function() {
+  	    return Object.keys($scope.toastPosition)
+  	      .filter(function(pos) { return $scope.toastPosition[pos]; })
+  	      .join(' ');
+  	  };
+	  $scope.toastPosition = {
+			    bottom: true,
+			    top: false,
+			    left: false,
+			    right: true,
+	  }
 });

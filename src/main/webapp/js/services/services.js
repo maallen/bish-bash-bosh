@@ -5,9 +5,7 @@ myAppModule.factory('JobService', function($http){
 		createJob: createJob
 	}
 
-	//***********getJobsList************************
     function getJobsList() {
-    //  get all of the jobs in the remote collection.
         var request = $http({
         	method:'GET',
             url: 'rest/getJobs',
@@ -15,13 +13,10 @@ myAppModule.factory('JobService', function($http){
                 action: "get"
             }
         });
-        //we can add the error scenario in here also when ready.
-        // eg. return( request.then(handleSuccess, handleError ));
         return( request.then( handleSuccess ) );
 
     }
-    
-    //***********createJob*************************
+
     function createJob(job){
     	console.log('createJob');
             return $http.post('rest/createJob', job);

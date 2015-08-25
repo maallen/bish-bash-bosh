@@ -1,37 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<div align="center" ng-controller="CreateJobsController" >
-        <div id="jobsFormDiv">
-        <div class="row">
-          <form class="col s12" ng-model="job"ng-submit="createJob()">
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="jobTitle"  type="text" class="validate" ng-model="job.title" >
-                <label for="jobTitle">Job Title</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="jobDesc" type="text" class="validate" ng-model="job.description">
-                <label for="jobDesc">Describe your Job</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="jobLocation" type="text" class="validate" ng-model="job.location">
-                <label for="jobLocation">Job Location</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="jobPrice" type="number" class="validate" ng-model="job.price">
-                <label for="jobPrice">Job Price</label>
-              </div>
-            </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Create Job
-			    <i class="mdi-content-send right"></i>
-			 </button>
-          </form>
-        </div>
-        </div>  
+<div class="job-header" align="center" ng-controller="CreateJobsController" layout="row">
+  <div flex="20">
+  </div>
+    <div flex ="60">
+	<md-content layout-padding class="autoScroll"> 
+
+	<md-toolbar class="md-accent">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Create Job</h2>
+    </div>
+  </md-toolbar>
+	<form name="createJobForm" class="col s12" ng-model="job"
+		ng-submit="createJob()">
+		<md-input-container>
+			<label for="jobTitle">Job Title</label>
+			<input id="jobTitle" type="text" name="jobName" class="validate" ng-model="job.title" minlength="8">
+			<div ng-messages="createJobForm.jobName.$error">
+				<div ng-message="minlength">Job Title must be at least 8 characters in length</div>
+			</div>
+		</md-input-container>
+		<md-input-container>
+			<input id="jobDesc" name="jobDesc" type="text" class="validate" ng-model="job.description" minlength="30">
+			<label for="jobDesc">Description</label>
+			<div ng-messages="createJobForm.jobDesc.$error">
+				<div ng-message="minlength">Job Description must be at least 30 characters in length</div>
+			</div>
+		</md-input-container>
+		<md-input-container>
+			<input id="jobLocation" name="jobLocation" type="text" class="validate" ng-model="job.location" minlength="3">
+			<label for="jobLocation">Job Location</label>
+				<div ng-messages="createJobForm.jobLocation.$error">
+				<div ng-message="minlength">Job Location must be at least 3 characters in length</div>
+			</div>
+		</md-input-container>
+		<md-input-container>
+			<input id="jobPrice" type="number" class="validate"
+				ng-model="job.price"><label for="jobPrice">Job Price</label>
+		</md-input-container>
+		<section layout="row" layout-sm="column" layout-align="center center">
+			<md-button type="submit" class="md-primary md-raised md-hue-2"
+				ng-disabled="createJobForm.$invalid">Create Job</md-button>
+		</section>
+	</form>
+	</md-content>
+  </div>
+    <div flex="20" hide-sm>
+    </div>
 </div>
+
+
+
