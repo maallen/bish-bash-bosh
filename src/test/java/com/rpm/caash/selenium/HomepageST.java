@@ -19,18 +19,16 @@ import org.openqa.selenium.WebDriver;
 public class HomepageST{
 
 	private static WebDriver driver = SeleniumSuite.driver;
-	private static String SUCCESSFUL_EMAIL = "testaccount@gmail.com";
-	private static String SUCCESSFUL_PASSWORD = "11111111";
 	private static String FAILURE_EMAIL = "fakeaccount@gmail.com";
 	private static String FAILURE_PASSWORD = "badpassword";
 	
 	@Test
-	public void testLoginAndLOgout(){
+	public void testLoginAndLogout(){
 		driver.get(SeleniumSuite.URL_UNDER_TEST);
 		SeleniumSuite.waitForPageLoad(5);
 		Assert.assertEquals(SeleniumSuite.URL_UNDER_TEST + "#/landingpage", driver.getCurrentUrl());
-		driver.findElement(By.id("loginEmail")).sendKeys(SUCCESSFUL_EMAIL);
-		driver.findElement(By.id("loginPassword")).sendKeys(SUCCESSFUL_PASSWORD);
+		driver.findElement(By.id("loginEmail")).sendKeys(SeleniumSuite.SUCCESSFUL_EMAIL);
+		driver.findElement(By.id("loginPassword")).sendKeys(SeleniumSuite.SUCCESSFUL_PASSWORD);
 		driver.findElement(By.id("loginButton")).click();
 		SeleniumSuite.waitForPageLoad(5);
 		Assert.assertEquals(SeleniumSuite.URL_UNDER_TEST + "#/add", driver.getCurrentUrl());
@@ -55,8 +53,8 @@ public class HomepageST{
 		driver.get(SeleniumSuite.URL_UNDER_TEST);
 		SeleniumSuite.waitForPageLoad(5);
 		Assert.assertEquals(SeleniumSuite.URL_UNDER_TEST + "#/landingpage", driver.getCurrentUrl());
-		driver.findElement(By.id("loginEmail")).sendKeys(SUCCESSFUL_EMAIL);
-		driver.findElement(By.id("loginPassword")).sendKeys(SUCCESSFUL_PASSWORD);
+		driver.findElement(By.id("loginEmail")).sendKeys(SeleniumSuite.SUCCESSFUL_EMAIL);
+		driver.findElement(By.id("loginPassword")).sendKeys(SeleniumSuite.SUCCESSFUL_PASSWORD);
 		driver.findElement(By.id("loginButton")).click();
 		SeleniumSuite.waitForPageLoad(5);
 		Assert.assertEquals(SeleniumSuite.URL_UNDER_TEST + "#/add", driver.getCurrentUrl());

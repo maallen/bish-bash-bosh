@@ -15,8 +15,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Suite.class)
-@SuiteClasses({ HomepageST.class, JobsFeedST.class, PlaceAddST.class })
+@SuiteClasses({ HomepageST.class, JobsFeedST.class, PlaceAddST.class, ProfileST.class })
 public class SeleniumSuite {
+
+    protected static String SUCCESSFUL_EMAIL = "testaccount@gmail.com";
+    protected static String SUCCESSFUL_PASSWORD = "11111111";
 
 	protected static WebDriver driver;
 	protected static String URL_UNDER_TEST;

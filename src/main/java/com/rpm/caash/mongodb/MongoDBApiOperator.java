@@ -13,7 +13,7 @@ import com.mongodb.MongoClientURI;
 import com.rpm.caash.mongodb.exceptions.MongoDbException;
 
 /**
- * @author maallen87 (Mark Allen)
+ * @author maallen (Mark Allen)
  * Operator Class to access and use Mongo database
  */
 
