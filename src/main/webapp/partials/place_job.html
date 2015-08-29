@@ -27,13 +27,25 @@
 				<div ng-message="minlength">Job Description must be at least 30 characters in length</div>
 			</div>
 		</md-input-container>
-		<md-input-container>
-			<input id="jobLocation" name="jobLocation" type="text" class="validate" ng-model="job.location" minlength="3">
-			<label for="jobLocation">Job Location</label>
-				<div ng-messages="createJobForm.jobLocation.$error">
-				<div ng-message="minlength">Job Location must be at least 3 characters in length</div>
-			</div>
-		</md-input-container>
+        <span layout="row">
+            <div flex="90">
+                <md-input-container>
+                    <input id="jobLocation" name="jobLocation" type="text" class="validate" ng-model="job.location" minlength="3">
+                    <label for="jobLocation">Job Location</label>
+                    <div ng-messages="createJobForm.jobLocation.$error">
+                        <div ng-message="minlength">Job Location must be at least 3 characters in length</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div flex>
+                <md-button class="md-icon-button" type="button" ng-click="getLocation()" aria-label="Retrieve Location">
+                    <md-tooltip>
+                        Get Location
+                    </md-tooltip>
+                    <ng-md-icon icon="{{locationIcon}}" style="fill: grey" options='{"duration": 375, "rotation": "none"}'></ng-md-icon>
+                </md-button>
+            </div>
+        </span>
 		<md-input-container>
 			<input id="jobPrice" type="number" class="validate"
 				ng-model="job.price"><label for="jobPrice">Job Price</label>
