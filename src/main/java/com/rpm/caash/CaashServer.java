@@ -44,9 +44,11 @@ public class CaashServer {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createJobs(final Job job){
 		final DBObject dbJob = new BasicDBObject("description", job.getDescription())
-		.append("location", job.getLocation())
-		.append("title", job.getTitle())
-		.append("price", job.getPrice());
+                .append("location", job.getLocation())
+                .append("title", job.getTitle())
+                .append("price", job.getPrice())
+				.append("latitude", job.getCoordinates().getLatitude())
+                .append("longitude", job.getCoordinates().getLongitude());
 		try {
 			mongoDBApiOperator.addDbObjectToDbCollection(dbJob, MongoDbCollection.JOBS);
 			return Response.status(Status.OK).build();

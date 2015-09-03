@@ -1,11 +1,13 @@
 package com.rpm.caash.model;
 
 public class Job {
-	
-	private String location;
+
+    private String location;
 	private String description;
 	private String title;
 	private int price;
+
+    private Coordinates coordinates;
 	
 	public String getLocation() {
 		return location;
@@ -31,7 +33,13 @@ public class Job {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
 
 }

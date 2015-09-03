@@ -1,4 +1,4 @@
-myAppModule.controller('JobsFeedMapController',function($scope, $http){
+myAppModule.controller('JobsFeedMapController',function($scope, $http, JobService){
 	$scope.map = {
 		center: {
 			latitude: 53.428665,
@@ -9,25 +9,21 @@ myAppModule.controller('JobsFeedMapController',function($scope, $http){
 	};
 
 	$scope.markers =[];
+    load_jobs();
 
-	var marker1 = {
-		id: 0,
-		latitude: 53.428665,
-		longitude: -8.3320801,
-		title: 1
-	};
-
-	var marker2 = {
-		id: 1,
-		latitude: 53.3965882,
-		longitude: -7.9021542,
-		title: 2
-	};
-
-	$scope.markers.push(marker1);
-	$scope.markers.push(marker2);
-
-
+    function load_jobs(){
+        JobService.getJobsList().then(function(dataResponse) {
+            for (i = 0; i < dataResponse.length; i++) {
+                $scope.markers.push({
+                    id: dataResponse[i]._id,
+                    latitude: dataResponse[i].latitude,
+                    longitude: dataResponse[i].longitude,
+                    title: dataResponse[i].title,
+                    clickable: true
+                });
+            }
+        });
+    }
 	// $scope.marker = {
 	// 	id: 0,
 	// 	coords: {

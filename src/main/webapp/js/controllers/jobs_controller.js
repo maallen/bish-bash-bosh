@@ -22,7 +22,9 @@ myAppModule.controller('ViewJobsController',function($scope, $interval, $http, $
 	
 myAppModule.controller('CreateJobsController',function($scope, $http, $location, $mdToast, JobService){
 
-    $scope.job = {}
+    $scope.job = {
+        coordinates: {latitude: 0, longitude: 0}
+    };
 
     $scope.locationIcon = "gps_not_fixed";
 
@@ -66,16 +68,17 @@ myAppModule.controller('CreateJobsController',function($scope, $http, $location,
     }
 
     showPosition = function(position){
-        $scope.location.latitude=position.coords.latitude;
-        $scope.location.longitude=position.coords.longitude;
+        $scope.job.coordinates.latitude=position.coords.latitude;
+        $scope.job.coordinates.longitude=position.coords.longitude;
         var geocoder = new google.maps.Geocoder();
-        var latLng = new google.maps.LatLng($scope.location.latitude, $scope.location.longitude);
+        var latLng = new google.maps.LatLng($scope.job.coordinates.latitude, $scope.job.coordinates.longitude);
 
         if(geocoder){
             geocoder.geocode({'latLng': latLng}, function(results, status){
                 if(status == google.maps.GeocoderStatus.OK){
                     $scope.job.location = results[0].formatted_address;
                     $scope.locationIcon = "gps_fixed";
+                    console.log($scope.job.coordinates);
                 }
                 else{
                     console.log('Geocoding failed');
