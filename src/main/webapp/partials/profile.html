@@ -1,24 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<div class="profile-header"  align="center" layout="row" ng-controller="ProfilePageController" ng-model="user">
-    <div flex="20">
+<md-content layout-padding>
+<div  align="center" layout="row" ng-controller="ProfilePageController" ng-model="user">
+    <div flex="70" flex-md="70" flex-sm="90">
+    <div id ="usersJobsDiv" align="left" ng-controller="ViewJobsController" class="success" id="jobsList">	
+		<md-tabs class="md-primary" md-border-bottom>
+            <md-tab id="activeJobsTab" label="Active Jobs">
+                <md-content>
+                <md-list>
+                    <md-list-item id="activeJobsList" ng-hide="jobs.length == 0" ng-repeat="job in jobs | orderBy:orderBy">
+                        <div layout="row">
+                            <div flex="60">
+                                <img ng-src="images/broken.jpg">
+                            </div>
+                            <div flex="40">
+                              <h3 class="md-flex"> Title: {{job.title}}</h3>
+                              <h3>Price: € {{job.price}}</h3>
+                              <h3>Description: {{job.description}}</h3>
+                            </div>
+                        </div>
+                      </md-list-item>
+                </md-list>
+                </md-content>
+            </md-tab>
+            <md-tab id="completedJobsTab" label="Completed Jobs">
+                <md-content>
+                <md-list>
+                    <md-item id="completedJobsList">
+                    </md-item>
+                </md-list>
+              </md-content>
+            </md-tab>
+            <md-tab id="withdrawnJobsTab" label="Withdrawn Jobs">
+                <md-content>
+                <md-list>
+                    <md-item id="withdrawnJobsList">
+                    </md-item>
+                </md-list>
+              </md-content>
+            </md-tab>
+        </md-tabs>
     </div>
-    <div flex ="60">
-    <md-toolbar class="md-accent" layout="row" layout-align="space-between center">
-        <span layout-padding><h2>Profile Information</h2></span>
-        <span layout-padding><img ng-src="{{user.pictureUrl}}" class="img-circle" width="45"/></span>
-    </md-toolbar>
-    <md-content layout-padding>
-        <md-list>
-            <md-list-item class="md-2-line">
-                <div class="md-list-item-text">
-                    <h3 id="name">Name: {{user.displayName}}</h3>
-                    <h3 id="email">Email: {{user.email}}</h3>
-                </div>
-            </md-list-item>
-        </md-list>
-    </md-content>
     </div>
-    <div flex="20" hide-sm>
+    <div flex="30" flex-md="15" flex-sm="5">
+            <md-tabs class="md-primary" md-border-bottom>
+                <md-tab label="Profile">
+                <md-content layout-padding>
+                    <span layout-padding><h2>Profile Information</h2></span>
+                    <span layout-padding><img ng-src="{{user.pictureUrl}}" class="img-circle" width="45"/></span>
+                </md-toolbar>
+                    <md-list>
+                        <md-list-item class="md-2-line">
+                            <div class="md-list-item-text">
+                                <h3 id="name">Name: {{user.displayName}}</h3>
+                                <h3 id="email">Email: {{user.email}}</h3>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+                </md-tab>
+        </md-tabs>
     </div>
 </div>
+    </md-content>
