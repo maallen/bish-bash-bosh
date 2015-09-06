@@ -78,3 +78,13 @@ myAppModule.factory('UserService', function($http){
         	}
         }
 });
+
+myAppModule.factory('LocationService', function(){
+    return {
+        getCoordinates: function(useCoordinates){
+            if (navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(useCoordinates);
+            }
+        }
+    }
+});

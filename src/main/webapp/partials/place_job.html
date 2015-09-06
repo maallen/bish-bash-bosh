@@ -51,7 +51,7 @@
 				ng-model="job.price"><label for="jobPrice">Job Price</label>
 		</md-input-container>
 		<section layout="row" layout-sm="column" layout-align="center center">
-			<md-button type="submit" class="md-primary md-raised md-hue-2"
+			<md-button type="button" ng-click="createJob()" class="md-primary md-raised md-hue-2"
 				ng-disabled="createJobForm.$invalid">Create Job</md-button>
 		</section>
 	</form>

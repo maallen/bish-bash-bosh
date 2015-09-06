@@ -26,12 +26,10 @@
     </div>
     <div id="mapView">
 	    <div id="mapCanvas" ng-controller="JobsFeedMapController">
-				<ui-gmap-google-map center='map.center' zoom='map.zoom' draggable="true">
-<!--         <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
-        </ui-gmap-marker> -->
-        <ui-gmap-markers models="markers" coords="'self'" icon="'icon'">
-        </ui-gmap-markers>
-      </ui-gmap-google-map>
+			<ui-gmap-google-map center='map.center' zoom='map.zoom' draggable="true">
+				<ui-gmap-marker ng-repeat="m in markers" coords="m.coords" idKey="m.id">
+                </ui-gmap-marker>
+      		</ui-gmap-google-map>
 		</div>
 	</div>
 </div>
