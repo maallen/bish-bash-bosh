@@ -39,14 +39,10 @@ myAppModule.controller('CreateJobsController',function($scope, $http, $location,
     initAutocomplete();
 
     function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
         $scope.autocomplete = new google.maps.places.Autocomplete(
             (document.getElementById('jobLocation')),
             {types: ['geocode']});
 
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
         $scope.autocomplete.addListener('place_changed', setCoordinates);
 
         LocationService.getCoordinates(setAutoCompleteBounds);
@@ -69,6 +65,7 @@ myAppModule.controller('CreateJobsController',function($scope, $http, $location,
         $scope.job.location = place.formatted_address;
         $scope.job.coordinates.latitude = place.geometry.location.G;
         $scope.job.coordinates.longitude = place.geometry.location.K;
+        $scope.locationIcon = "gps_fixed";
     }
 
     $scope.createJob = function(){
