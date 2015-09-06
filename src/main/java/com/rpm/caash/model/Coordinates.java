@@ -12,6 +12,20 @@ public class Coordinates implements Serializable{
     private double latitude;
     private double longitude;
 
+    public Coordinates(){
+
+    }
+
+    /**
+     * Object to store GPS coordinates
+     * @param latitude latitude of the location
+     * @param longitude longitude of the location
+     */
+    public Coordinates(double latitude, double longitude){
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public double getLongitude() {
         return longitude;
     }

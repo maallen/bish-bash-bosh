@@ -4,6 +4,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.rpm.caash.model.Coordinates;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,10 +50,13 @@ public class CaashServerTest {
 		job.setDescription("Test description");
 		job.setLocation("Athlone");
 		job.setPrice(1000);
+		job.setCoordinates(new Coordinates(0.0563, 6.4444));
 		final DBObject dbObject = new BasicDBObject("description", job.getDescription())
-		.append("location", job.getLocation())
-		.append("title", job.getTitle())
-		.append("price", job.getPrice());
+		    .append("location", job.getLocation())
+		    .append("title", job.getTitle())
+		    .append("price", job.getPrice())
+            .append("latitude", job.getCoordinates().getLatitude())
+            .append("longitude", job.getCoordinates().getLongitude());
 		caashServer.createJobs(job);
 		verify(mockMongoDBApiOperator, times(1)).addDbObjectToDbCollection(dbObject, MongoDbCollection.JOBS);
 	}
