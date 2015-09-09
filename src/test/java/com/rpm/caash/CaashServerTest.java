@@ -51,12 +51,14 @@ public class CaashServerTest {
 		job.setLocation("Athlone");
 		job.setPrice(1000);
 		job.setCoordinates(new Coordinates(0.0563, 6.4444));
+		job.setEmailId("dummyemail@gmail.com");
 		final DBObject dbObject = new BasicDBObject("description", job.getDescription())
 		    .append("location", job.getLocation())
 		    .append("title", job.getTitle())
 		    .append("price", job.getPrice())
             .append("latitude", job.getCoordinates().getLatitude())
-            .append("longitude", job.getCoordinates().getLongitude());
+            .append("longitude", job.getCoordinates().getLongitude())
+            .append("email_id", job.getEmail_id());
 		caashServer.createJobs(job);
 		verify(mockMongoDBApiOperator, times(1)).addDbObjectToDbCollection(dbObject, MongoDbCollection.JOBS);
 	}

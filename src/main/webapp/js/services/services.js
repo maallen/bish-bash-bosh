@@ -2,7 +2,8 @@ myAppModule.factory('JobService', function($http){
 		
 	return {
 		getJobsList: getJobsList,
-		createJob: createJob
+		createJob: createJob,
+		getJobListByEmailId: getJobListByEmailId
 	}
 
     function getJobsList() {
@@ -20,6 +21,17 @@ myAppModule.factory('JobService', function($http){
     function createJob(job){
     	console.log('createJob');
             return $http.post('rest/createJob', job);
+    }
+    
+    function getJobListByEmailId(email_id){
+    	var request = $http({
+        	method:'GET',
+            url: 'rest/'+email_id,
+            params: {
+                action: "get"
+            }
+        });
+        return( request.then( handleSuccess ) );
     }
 	
     // Transform the successful response, unwrapping the application data

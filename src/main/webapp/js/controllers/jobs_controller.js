@@ -23,7 +23,7 @@ myAppModule.controller('ViewJobsController',function($scope, $interval, $http, $
 	}
 });
 	
-myAppModule.controller('CreateJobsController',function($scope, $http, $location, $mdToast, JobService, LocationService){
+myAppModule.controller('CreateJobsController',function($scope, $http, $location, $mdToast, $localStorage, JobService, LocationService){
 
     $scope.job = {
         coordinates: {latitude: 0, longitude: 0}
@@ -69,6 +69,7 @@ myAppModule.controller('CreateJobsController',function($scope, $http, $location,
     }
 
     $scope.createJob = function(){
+    	$scope.job.email_id = $localStorage.user.email;
     	JobService.createJob($scope.job).then(function(response) {
         	showToast("Your Job has been created successfully");
         	$location.path('/jobsFeed');
@@ -119,4 +120,19 @@ myAppModule.controller('CreateJobsController',function($scope, $http, $location,
             });
         }
     }
+});
+
+myAppModule.controller('ViewUsersJobsController',function($scope, $localStorage, JobService) {
+    
+	$scope.jobs = [];	
+	$scope.orderBy = 'price';
+
+	var email_id = $localStorage.user.email;
+	getJobListByEmailId(email_id);
+
+	function getJobListByEmailId(email_id){
+		JobService.getJobListByEmailId(email_id).then(function(dataResponse) {		
+		$scope.jobs = dataResponse;
+		});
+	}
 });

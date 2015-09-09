@@ -1,6 +1,7 @@
 package com.rpm.caash.mongodb;
 
 import com.mongodb.DBObject;
+import com.rpm.caash.model.Coordinates;
 import com.rpm.caash.model.Job;
 import com.rpm.caash.model.User;
 import com.rpm.caash.utils.OAuthProvider;
@@ -24,11 +25,22 @@ public final class DBObjectToPojoConverter {
 	 */
 	public static Job convertToJobPOJO(final DBObject dbObject){
 		final Job job = new Job();
+		
+		convertCoOrdinates(dbObject, job);
+		
 		job.setLocation((String) dbObject.get("location"));
 		job.setDescription((String) dbObject.get("description"));
-		job.setPrice((Integer) dbObject.get("jobPrice"));
-		job.setTitle((String) dbObject.get("jobName"));
+		job.setPrice((Integer) dbObject.get("price"));
+		job.setTitle((String) dbObject.get("title"));
 		return job;
+	}
+
+	private static void convertCoOrdinates(final DBObject dbObject,
+			final Job job) {
+		final Coordinates coOrdinates = new Coordinates();
+		coOrdinates.setLatitude((double) dbObject.get("latitude"));
+		coOrdinates.setLongitude((double) dbObject.get("longitude"));
+		job.setCoordinates(coOrdinates);
 	}
 
 	/**

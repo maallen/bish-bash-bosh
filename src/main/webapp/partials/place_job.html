@@ -21,10 +21,10 @@
 			</div>
 		</md-input-container>
 		<md-input-container>
-			<input id="jobDesc" name="jobDesc" type="text" class="validate" ng-model="job.description" minlength="30">
+			<input id="jobDesc" name="jobDesc" type="text" class="validate" ng-model="job.description" minlength="10">
 			<label for="jobDesc">Description</label>
 			<div ng-messages="createJobForm.jobDesc.$error">
-				<div ng-message="minlength">Job Description must be at least 30 characters in length</div>
+				<div ng-message="minlength">Job Description must be at least 10 characters in length</div>
 			</div>
 		</md-input-container>
         <span layout="row">
